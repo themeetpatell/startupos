@@ -1,0 +1,564 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  BarChart3, 
+  TrendingUp, 
+  TrendingDown, 
+  DollarSign, 
+  Users, 
+  Target, 
+  Calendar,
+  Filter,
+  Download,
+  RefreshCw,
+  Eye,
+  Zap,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  ArrowUp,
+  ArrowDown,
+  PieChart,
+  LineChart,
+  Activity,
+  Globe,
+  Smartphone,
+  Monitor
+} from 'lucide-react';
+import { 
+  LineChart as RechartsLineChart, 
+  Line, 
+  AreaChart, 
+  Area, 
+  BarChart, 
+  Bar, 
+  PieChart as RechartsPieChart, 
+  Pie, 
+  Cell, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  ComposedChart,
+  Scatter,
+  ScatterChart
+} from 'recharts';
+import '../App.css';
+
+const AdvancedAnalytics = () => {
+  const [timeRange, setTimeRange] = useState('30d');
+  const [selectedMetric, setSelectedMetric] = useState('revenue');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Sample data for different metrics
+  const revenueData = [
+    { month: 'Jan', revenue: 12000, target: 15000, growth: 8.5 },
+    { month: 'Feb', revenue: 18000, target: 18000, growth: 12.3 },
+    { month: 'Mar', revenue: 25000, target: 22000, growth: 15.7 },
+    { month: 'Apr', revenue: 32000, target: 28000, growth: 18.2 },
+    { month: 'May', revenue: 45000, target: 35000, growth: 22.1 },
+    { month: 'Jun', revenue: 52000, target: 42000, growth: 25.4 },
+  ];
+
+  const userAcquisitionData = [
+    { week: 'W1', organic: 120, paid: 80, referral: 45, total: 245 },
+    { week: 'W2', organic: 135, paid: 95, referral: 52, total: 282 },
+    { week: 'W3', organic: 158, paid: 110, referral: 48, total: 316 },
+    { week: 'W4', organic: 180, paid: 125, referral: 65, total: 370 },
+  ];
+
+  const conversionFunnelData = [
+    { stage: 'Visitors', count: 10000, percentage: 100 },
+    { stage: 'Sign-ups', count: 1200, percentage: 12 },
+    { stage: 'Trials', count: 480, percentage: 4.8 },
+    { stage: 'Paid', count: 120, percentage: 1.2 },
+  ];
+
+  const cohortData = [
+    { cohort: 'Jan 2024', month0: 100, month1: 85, month2: 72, month3: 65, month4: 58, month5: 52 },
+    { cohort: 'Feb 2024', month0: 100, month1: 88, month2: 75, month3: 68, month4: 61, month5: null },
+    { cohort: 'Mar 2024', month0: 100, month1: 90, month2: 78, month3: 71, month4: null, month5: null },
+    { cohort: 'Apr 2024', month0: 100, month1: 92, month2: 80, month3: null, month4: null, month5: null },
+    { cohort: 'May 2024', month0: 100, month1: 94, month2: null, month3: null, month4: null, month5: null },
+    { cohort: 'Jun 2024', month0: 100, month1: null, month2: null, month3: null, month4: null, month5: null },
+  ];
+
+  const deviceData = [
+    { name: 'Desktop', value: 45, color: '#3B82F6' },
+    { name: 'Mobile', value: 35, color: '#10B981' },
+    { name: 'Tablet', value: 20, color: '#F59E0B' },
+  ];
+
+  const geographicData = [
+    { country: 'United States', users: 1250, revenue: 28000, growth: 15.2 },
+    { country: 'United Kingdom', users: 680, revenue: 15200, growth: 12.8 },
+    { country: 'Canada', users: 420, revenue: 9800, growth: 18.5 },
+    { country: 'Germany', users: 380, revenue: 8900, growth: 10.3 },
+    { country: 'Australia', users: 290, revenue: 6700, growth: 22.1 },
+  ];
+
+  const kpiMetrics = [
+    {
+      title: 'Monthly Recurring Revenue',
+      value: '$52,000',
+      change: '+23.5%',
+      trend: 'up',
+      icon: DollarSign,
+      color: 'green',
+      target: '$60,000',
+      progress: 87
+    },
+    {
+      title: 'Customer Acquisition Cost',
+      value: '$125',
+      change: '-8.2%',
+      trend: 'down',
+      icon: Target,
+      color: 'blue',
+      target: '$100',
+      progress: 80
+    },
+    {
+      title: 'Lifetime Value',
+      value: '$1,250',
+      change: '+12.8%',
+      trend: 'up',
+      icon: TrendingUp,
+      color: 'purple',
+      target: '$1,500',
+      progress: 83
+    },
+    {
+      title: 'Churn Rate',
+      value: '3.2%',
+      change: '-1.1%',
+      trend: 'down',
+      icon: Users,
+      color: 'orange',
+      target: '2.5%',
+      progress: 78
+    }
+  ];
+
+  const insights = [
+    {
+      id: 1,
+      type: 'opportunity',
+      title: 'Revenue Acceleration',
+      description: 'Your MRR growth rate is 23% above industry average. Consider increasing marketing spend to capitalize on this momentum.',
+      impact: 'High',
+      action: 'Increase marketing budget by 30%',
+      priority: 'high'
+    },
+    {
+      id: 2,
+      type: 'warning',
+      title: 'Customer Acquisition Efficiency',
+      description: 'CAC payback period has increased to 8 months. Review marketing channel performance and optimize spend allocation.',
+      impact: 'Medium',
+      action: 'Audit marketing channels',
+      priority: 'medium'
+    },
+    {
+      id: 3,
+      type: 'success',
+      title: 'Retention Improvement',
+      description: 'Customer retention has improved by 12% this quarter. Your product improvements are showing positive results.',
+      impact: 'High',
+      action: 'Document successful strategies',
+      priority: 'low'
+    }
+  ];
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => setIsRefreshing(false), 2000);
+  };
+
+  const getInsightColor = (type) => {
+    switch (type) {
+      case 'opportunity': return 'text-blue-600 bg-blue-50 border-blue-200';
+      case 'warning': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      case 'success': return 'text-green-600 bg-green-50 border-green-200';
+      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+    }
+  };
+
+  const getInsightIcon = (type) => {
+    switch (type) {
+      case 'opportunity': return <TrendingUp size={16} />;
+      case 'warning': return <AlertTriangle size={16} />;
+      case 'success': return <CheckCircle size={16} />;
+      default: return <Activity size={16} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-10 h-10 startupos-gradient rounded-xl flex items-center justify-center">
+                  <BarChart3 className="text-white" size={20} />
+                </div>
+                <h1 className="text-3xl font-bold startupos-gradient-text">Analytics & Intelligence</h1>
+              </div>
+              <p className="text-gray-600">
+                Deep insights into your startup's performance and growth opportunities
+              </p>
+            </div>
+            <div className="flex items-center space-x-3">
+              <select
+                value={timeRange}
+                onChange={(e) => setTimeRange(e.target.value)}
+                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="7d">Last 7 days</option>
+                <option value="30d">Last 30 days</option>
+                <option value="90d">Last 90 days</option>
+                <option value="1y">Last year</option>
+              </select>
+              <motion.button
+                onClick={handleRefresh}
+                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <RefreshCw size={16} className={isRefreshing ? 'animate-spin' : ''} />
+                <span>Refresh</span>
+              </motion.button>
+              <motion.button
+                className="flex items-center space-x-2 px-4 py-2 startupos-gradient text-white rounded-lg hover:shadow-lg transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Download size={16} />
+                <span>Export</span>
+              </motion.button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {kpiMetrics.map((kpi, index) => {
+            const Icon = kpi.icon;
+            return (
+              <motion.div
+                key={kpi.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover-lift"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                    kpi.color === 'green' ? 'bg-green-50 text-green-600' :
+                    kpi.color === 'blue' ? 'bg-blue-50 text-blue-600' :
+                    kpi.color === 'purple' ? 'bg-purple-50 text-purple-600' :
+                    'bg-orange-50 text-orange-600'
+                  }`}>
+                    <Icon size={24} />
+                  </div>
+                  <div className={`flex items-center space-x-1 text-sm font-medium ${
+                    kpi.trend === 'up' ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    {kpi.trend === 'up' ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
+                    <span>{kpi.change}</span>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-1">{kpi.value}</h3>
+                  <p className="text-gray-600 text-sm mb-3">{kpi.title}</p>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-500">Target: {kpi.target}</span>
+                    <span className="text-gray-500">{kpi.progress}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div 
+                      className={`h-2 rounded-full ${
+                        kpi.color === 'green' ? 'bg-green-500' :
+                        kpi.color === 'blue' ? 'bg-blue-500' :
+                        kpi.color === 'purple' ? 'bg-purple-500' :
+                        'bg-orange-500'
+                      }`}
+                      style={{ width: `${kpi.progress}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          {/* Revenue Analytics */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-semibold text-gray-900">Revenue Analytics</h3>
+              <div className="flex items-center space-x-2">
+                <button className="text-sm text-blue-600 hover:underline">View Details</button>
+              </div>
+            </div>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={revenueData}>
+                  <defs>
+                    <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                  <XAxis dataKey="month" stroke="#6b7280" />
+                  <YAxis stroke="#6b7280" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'white', 
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                    }}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="revenue" 
+                    stroke="#3B82F6" 
+                    strokeWidth={3}
+                    fill="url(#revenueGradient)" 
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="target" 
+                    stroke="#10B981" 
+                    strokeWidth={2}
+                    strokeDasharray="5 5"
+                  />
+                  <Bar dataKey="growth" fill="#8B5CF6" opacity={0.6} />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+          </motion.div>
+
+          {/* AI Insights */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+          >
+            <div className="flex items-center space-x-2 mb-6">
+              <Zap size={20} className="text-blue-600" />
+              <h3 className="text-lg font-semibold text-gray-900">AI Insights</h3>
+            </div>
+            <div className="space-y-4">
+              {insights.map((insight) => (
+                <motion.div
+                  key={insight.id}
+                  className={`p-4 rounded-lg border ${getInsightColor(insight.type)}`}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className="mt-0.5">
+                      {getInsightIcon(insight.type)}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-medium text-sm mb-1">{insight.title}</h4>
+                      <p className="text-xs opacity-90 mb-2">{insight.description}</p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-medium">Impact: {insight.impact}</span>
+                        <button className="text-xs hover:underline">Take Action</button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          {/* User Acquisition */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">User Acquisition Channels</h3>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={userAcquisitionData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                  <XAxis dataKey="week" stroke="#6b7280" />
+                  <YAxis stroke="#6b7280" />
+                  <Tooltip />
+                  <Bar dataKey="organic" stackId="a" fill="#3B82F6" />
+                  <Bar dataKey="paid" stackId="a" fill="#10B981" />
+                  <Bar dataKey="referral" stackId="a" fill="#F59E0B" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="flex items-center justify-center space-x-6 mt-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                <span className="text-sm text-gray-600">Organic</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-gray-600">Paid</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <span className="text-sm text-gray-600">Referral</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Device Analytics */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">Device Usage</h3>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <RechartsPieChart>
+                  <Pie
+                    data={deviceData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={100}
+                    dataKey="value"
+                    label={({ name, value }) => `${name} ${value}%`}
+                  >
+                    {deviceData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </RechartsPieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="grid grid-cols-3 gap-4 mt-4">
+              {deviceData.map((device, index) => (
+                <div key={device.name} className="text-center">
+                  <div className="flex items-center justify-center mb-2">
+                    {device.name === 'Desktop' && <Monitor size={20} style={{ color: device.color }} />}
+                    {device.name === 'Mobile' && <Smartphone size={20} style={{ color: device.color }} />}
+                    {device.name === 'Tablet' && <Smartphone size={20} style={{ color: device.color }} />}
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">{device.value}%</p>
+                  <p className="text-xs text-gray-600">{device.name}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Geographic Analytics */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8"
+        >
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-gray-900">Geographic Performance</h3>
+            <div className="flex items-center space-x-2">
+              <Globe size={16} className="text-gray-400" />
+              <span className="text-sm text-gray-600">Top 5 Countries</span>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 font-medium text-gray-900">Country</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-900">Users</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-900">Revenue</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-900">Growth</th>
+                </tr>
+              </thead>
+              <tbody>
+                {geographicData.map((country, index) => (
+                  <motion.tr
+                    key={country.country}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="border-b border-gray-100 hover:bg-gray-50"
+                  >
+                    <td className="py-4 px-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-6 bg-gray-200 rounded"></div>
+                        <span className="font-medium text-gray-900">{country.country}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-gray-600">{country.users.toLocaleString()}</td>
+                    <td className="py-4 px-4 text-gray-600">${country.revenue.toLocaleString()}</td>
+                    <td className="py-4 px-4">
+                      <div className="flex items-center space-x-1">
+                        <ArrowUp size={14} className="text-green-600" />
+                        <span className="text-green-600 font-medium">{country.growth}%</span>
+                      </div>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+
+        {/* Conversion Funnel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+        >
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">Conversion Funnel</h3>
+          <div className="space-y-4">
+            {conversionFunnelData.map((stage, index) => (
+              <motion.div
+                key={stage.stage}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-gray-900">{stage.stage}</span>
+                  <div className="flex items-center space-x-4">
+                    <span className="text-gray-600">{stage.count.toLocaleString()}</span>
+                    <span className="text-gray-500">{stage.percentage}%</span>
+                  </div>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div 
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full transition-all duration-1000"
+                    style={{ width: `${stage.percentage}%` }}
+                  ></div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+export default AdvancedAnalytics;
+
