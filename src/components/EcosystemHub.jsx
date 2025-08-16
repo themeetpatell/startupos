@@ -40,10 +40,13 @@ const EcosystemHub = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const tabs = [
+    { id: 'startups', label: 'Startups', icon: Rocket, count: 3200 },
+    { id: 'founders', label: 'Founders', icon: Users, count: 1800 },
     { id: 'investors', label: 'Investors', icon: DollarSign, count: 1250 },
+    { id: 'cxos', label: 'CXOs', icon: Briefcase, count: 950 },
     { id: 'partners', label: 'Partners', icon: Handshake, count: 850 },
-    { id: 'services', label: 'Services', icon: Building, count: 2100 },
-    { id: 'integrations', label: 'Integrations', icon: Zap, count: 450 }
+    { id: 'integrations', label: 'Integrations', icon: Zap, count: 450 },
+    { id: 'services', label: 'Services', icon: Building, count: 2100 }
   ];
 
   const investors = [
@@ -216,7 +219,7 @@ const EcosystemHub = () => {
       type: 'Team Collaboration',
       logo: '💬',
       description: 'Connect your startup operations with team communication',
-      features: ['Workflow notifications', 'Team updates', 'AI insights'],
+              features: ['Team updates', 'AI insights'],
       status: 'Available',
       users: 45000,
       rating: 4.8

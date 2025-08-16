@@ -5,7 +5,6 @@ import {
   X, 
   Home, 
   Brain, 
-  Workflow, 
   Users, 
   BarChart3, 
   Globe, 
@@ -14,7 +13,10 @@ import {
   Search,
   User,
   ChevronDown,
-  Building
+  Building,
+  Target,
+  Map,
+  Trophy
 } from 'lucide-react';
 import '../App.css';
 
@@ -34,17 +36,17 @@ const Navigation = ({ currentView, setCurrentView, userMode = 'startup', user, o
 
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'ai-copilot', label: 'AI Copilot', icon: Brain },
-    { id: 'workflows', label: 'Workflows', icon: Workflow },
-    { id: 'ma', label: 'M&A', icon: Users },
+    { id: 'ai-cobuilder', label: 'AI Co-Builder', icon: Brain },
+    { id: 'community', label: 'Community', icon: Users },
+    { id: 'ma', label: 'M&A', icon: Building },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-    { id: 'ecosystem', label: 'Ecosystem', icon: Globe },
+    { id: 'ecosystem', label: 'Ecosystem', icon: Globe }
   ];
 
   const notifications = [
     { id: 1, title: 'AI Copilot Suggestion', message: 'New funding strategy recommendation available', time: '2m ago' },
     { id: 2, title: 'Expert Match Found', message: 'Perfect CTO candidate for your startup', time: '1h ago' },
-    { id: 3, title: 'Workflow Complete', message: 'Customer onboarding process finished', time: '3h ago' },
+
   ];
 
   return (

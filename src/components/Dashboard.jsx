@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
+  Home, 
   TrendingUp, 
-  DollarSign, 
   Users, 
+  DollarSign, 
   Target, 
-  Calendar,
-  Clock,
-  AlertCircle,
-  CheckCircle,
-  ArrowUp,
-  ArrowDown,
-  Brain,
-  Workflow,
-  BarChart3,
+  CheckCircle, 
+  Clock, 
+  BarChart3, 
+  Activity, 
   Zap,
+  Brain,
+  Building,
+  Globe,
   Star,
-  MessageSquare,
-  FileText,
-  Globe
+  Award,
+  TrendingDown,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import '../App.css';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState('30d');
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -87,6 +89,14 @@ const Dashboard = () => {
       trend: 'down',
       icon: TrendingUp,
       color: 'orange'
+    },
+    {
+      title: 'Community Members',
+      value: '125K',
+      change: '+12%',
+      trend: 'up',
+      icon: Users,
+      color: 'indigo'
     }
   ];
 
@@ -102,13 +112,14 @@ const Dashboard = () => {
     },
     {
       id: 2,
-      type: 'workflow',
-      title: 'Workflow Completed',
-      description: 'Customer onboarding process finished successfully',
+      type: 'community',
+      title: 'Community Milestone',
+      description: 'Reached 125K members in StartupOS Community',
       time: '15 minutes ago',
-      icon: CheckCircle,
+      icon: Users,
       color: 'green'
     },
+
     {
       id: 3,
       type: 'expert',
@@ -124,7 +135,7 @@ const Dashboard = () => {
       title: 'Metric Alert',
       description: 'Customer acquisition cost increased by 15%',
       time: '2 hours ago',
-      icon: AlertCircle,
+      icon: TrendingUp,
       color: 'orange'
     }
   ];
@@ -165,10 +176,10 @@ const Dashboard = () => {
   ];
 
   const quickActions = [
-    { id: 'ai_chat', title: 'Ask AI Copilot', icon: Brain, color: 'blue' },
-    { id: 'create_workflow', title: 'Create Workflow', icon: Workflow, color: 'purple' },
-    { id: 'view_analytics', title: 'View Analytics', icon: BarChart3, color: 'green' },
-    { id: 'find_expert', title: 'Find Expert', icon: Users, color: 'orange' },
+    { id: 'ai_chat', title: 'Ask AI Copilot', icon: Brain, color: 'blue', action: 'ai-cobuilder' },
+    { id: 'join_community', title: 'Join Community', icon: Users, color: 'purple', action: 'community' },
+    { id: 'view_analytics', title: 'View Analytics', icon: BarChart3, color: 'green', action: 'analytics' },
+    { id: 'find_expert', title: 'Find Expert', icon: Users, color: 'orange', action: 'ecosystem' }
   ];
 
   const getPriorityColor = (priority) => {
@@ -188,6 +199,17 @@ const Dashboard = () => {
       orange: 'text-orange-600 bg-orange-50',
     };
     return colors[color] || 'text-gray-600 bg-gray-50';
+  };
+
+  const handleQuickAction = (action) => {
+    // Navigate to the appropriate view
+    if (action) {
+      // For now, we'll use a simple approach since we're in a single-page app
+      // In a real app, this would navigate to different routes
+      window.location.href = `#${action}`;
+      // Trigger a custom event to change the view
+      window.dispatchEvent(new CustomEvent('changeView', { detail: action }));
+    }
   };
 
   return (
@@ -332,6 +354,7 @@ const Dashboard = () => {
                     className={`w-full flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-${action.color}-300 hover:bg-${action.color}-50 transition-all group`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => handleQuickAction(action.action)}
                   >
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                       action.color === 'blue' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-100' :
@@ -502,12 +525,13 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Workflows</span>
+                <span className="text-sm text-gray-600">Community</span>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span className="text-sm text-green-600">Active</span>
                 </div>
               </div>
+
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">Expert Network</span>
                 <div className="flex items-center space-x-2">
@@ -526,6 +550,45 @@ const Dashboard = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Community Preview */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-8 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-2xl p-8 text-white"
+      >
+        <div className="text-center">
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+              <Users size={32} />
+            </div>
+            <h2 className="text-3xl font-bold">Join Our Open Community</h2>
+          </div>
+          <p className="text-xl text-blue-100 mb-6 max-w-2xl mx-auto">
+            Experience the future of digital communities. Open for everyone, 
+            but unlock the full potential when you join StartupOS.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleQuickAction('community')}
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-all"
+            >
+              Explore Community
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleQuickAction('community')}
+              className="border border-white/30 text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-all"
+            >
+              Learn More
+            </motion.button>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 };

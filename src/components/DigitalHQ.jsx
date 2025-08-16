@@ -73,7 +73,7 @@ const DigitalHQ = () => {
   const recentProjects = [
     {
       id: 1,
-      name: 'AI Workflow Engine',
+              name: 'AI Automation Engine',
       status: 'in-progress',
       progress: 75,
       team: ['👩‍💼', '👨‍💻', '👩‍🎨'],

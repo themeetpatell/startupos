@@ -92,7 +92,7 @@ const PeopleManagement = () => {
       phone: '+1 (555) 123-4567',
       bio: 'Former Google PM with 10+ years in AI/ML. Stanford CS graduate passionate about building the future of work.',
       skills: ['Product Management', 'AI/ML', 'Strategy', 'Leadership'],
-      projects: ['AI Workflow Engine', 'Mobile App Launch'],
+              projects: ['AI Automation Engine', 'Mobile App Launch'],
       permissions: ['admin', 'all_access'],
       social: {
         linkedin: 'https://linkedin.com/in/sarahchen',
@@ -119,7 +119,7 @@ const PeopleManagement = () => {
       phone: '+1 (555) 234-5678',
       bio: 'Ex-Tesla engineer specializing in AI infrastructure and scalable systems. MIT graduate with expertise in distributed computing.',
       skills: ['System Architecture', 'AI/ML', 'DevOps', 'Team Leadership'],
-      projects: ['AI Workflow Engine', 'Infrastructure Scaling'],
+              projects: ['AI Automation Engine', 'Infrastructure Scaling'],
       permissions: ['admin', 'engineering_lead'],
       social: {
         linkedin: 'https://linkedin.com/in/marcusrodriguez',
@@ -171,7 +171,7 @@ const PeopleManagement = () => {
       phone: '+1 (555) 456-7890',
       bio: 'Senior engineer from Meta with deep expertise in distributed systems and machine learning infrastructure.',
       skills: ['Backend Development', 'Machine Learning', 'System Design', 'Mentoring'],
-      projects: ['AI Workflow Engine', 'API Development'],
+              projects: ['AI Automation Engine', 'API Development'],
       permissions: ['engineering_lead', 'deployment_access'],
       social: {
         linkedin: 'https://linkedin.com/in/davidkim',

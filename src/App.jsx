@@ -5,15 +5,16 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { GamificationProvider } from './contexts/GamificationContext';
 import Navigation from './components/Navigation';
 import Dashboard from './components/Dashboard';
-import AICopilot from './components/AICopilot';
-import WorkflowSystem from './components/WorkflowSystem';
-import MAndA from './components/MAndA';
+import AICoBuilder from './components/AICoBuilder';
+import OpenCommunity from './components/OpenCommunity';
+
+import MAndA from './components/M&A/M&A';
 import AdvancedAnalytics from './components/AdvancedAnalytics';
 import EcosystemHub from './components/EcosystemHub';
 import StartupProfile from './components/StartupProfile';
 import DigitalHQ from './components/DigitalHQ';
 import PeopleManagement from './components/PeopleManagement';
-import WorkflowDetails from './components/WorkflowDetails';
+
 import UserProfile from './components/UserProfile';
 import StartupRoadmap from './components/StartupRoadmap';
 import GamificationDashboard from './components/GamificationDashboard';
@@ -91,10 +92,11 @@ const AppContent = () => {
     switch (currentView) {
       case 'dashboard':
         return <Dashboard />;
-      case 'ai-copilot':
-        return <AICopilot />;
-      case 'workflows':
-        return <WorkflowDetails />;
+      case 'ai-cobuilder':
+        return <AICoBuilder />;
+      case 'community':
+        return <OpenCommunity />;
+
       case 'ma':
         return <MAndA />;
       case 'analytics':
@@ -183,6 +185,8 @@ function App() {
               </GamificationProvider>
             </ProtectedRoute>
           } />
+          
+
           
           {/* Catch all route */}
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -61,8 +61,8 @@ const StartupProfile = () => {
 
   const companyData = {
     name: 'TechFlow Solutions',
-    tagline: 'Revolutionizing workflow automation for enterprises',
-    description: 'TechFlow Solutions is a leading enterprise workflow automation platform that helps companies streamline their operations, reduce manual work, and increase productivity. Our AI-powered platform has been adopted by over 500 enterprise customers worldwide.',
+            tagline: 'Revolutionizing enterprise automation for enterprises',
+    description: 'TechFlow Solutions is a leading enterprise automation platform that helps companies streamline their operations, reduce manual work, and increase productivity. Our AI-powered platform has been adopted by over 500 enterprise customers worldwide.',
     industry: 'SaaS / Enterprise Software',
     founded: '2020',
     location: 'San Francisco, CA',
@@ -362,7 +362,7 @@ const StartupProfile = () => {
             <span>Mission</span>
           </h3>
           <p className="text-gray-600 leading-relaxed">
-            To democratize workflow automation for enterprises of all sizes, enabling teams to focus on what matters most while our AI handles the rest.
+            To democratize enterprise automation for enterprises of all sizes, enabling teams to focus on what matters most while our AI handles the rest.
           </p>
         </div>
       </div>

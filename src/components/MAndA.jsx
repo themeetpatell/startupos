@@ -47,7 +47,7 @@ const MAndA = () => {
       id: 1,
       name: 'TechFlow Solutions',
       industry: 'SaaS',
-      description: 'Enterprise workflow automation platform with 500+ enterprise customers',
+              description: 'Enterprise automation platform with 500+ enterprise customers',
       revenue: '$12.5M',
       employees: 85,
       stage: 'Series B',

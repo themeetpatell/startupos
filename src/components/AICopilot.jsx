@@ -125,7 +125,7 @@ const AICopilot = () => {
         suggestions: ["Develop competitive analysis", "Create market entry strategy", "Design customer acquisition plan", "Build brand positioning"]
       },
       default: {
-        content: "I understand you're looking for guidance. As your AI Copilot, I can help you with:\n\n• **Strategic Planning**: Business model, market analysis, competitive positioning\n• **Financial Management**: Fundraising, budgeting, financial modeling\n• **Operations**: Hiring, processes, workflow optimization\n• **Growth**: Marketing strategies, customer acquisition, scaling\n\nWhat specific area would you like to focus on?",
+        content: "I understand you're looking for guidance. As your AI Copilot, I can help you with:\n\n• **Strategic Planning**: Business model, market analysis, competitive positioning\n• **Financial Management**: Fundraising, budgeting, financial modeling\n• **Operations**: Hiring, processes, process optimization\n• **Growth**: Marketing strategies, customer acquisition, scaling\n\nWhat specific area would you like to focus on?",
         suggestions: ["Strategic planning help", "Financial guidance", "Operations optimization", "Growth strategies"]
       }
     };

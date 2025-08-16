@@ -1,16 +1,29 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
-  ArrowRight, 
   Zap, 
   Users, 
-  Brain, 
-  Workflow, 
-  BarChart3 
+  Target, 
+  TrendingUp, 
+  Shield, 
+  Globe, 
+  Lock, 
+  Crown,
+  ArrowRight,
+  CheckCircle,
+  Star,
+  Rocket,
+  Brain,
+  BarChart3,
+  Building,
+  Code,
+  Palette
 } from 'lucide-react';
+import '../App.css';
 
 const Landing = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Navigation */}
@@ -112,9 +125,9 @@ const Landing = () => {
               className="text-center p-6"
             >
               <div className="w-16 h-16 startupos-gradient rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Workflow className="text-white" size={24} />
+                <Zap className="text-white" size={24} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Workflow Automation</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Process Automation</h3>
               <p className="text-gray-600">
                 Streamline operations with powerful automation tools
               </p>
@@ -179,6 +192,65 @@ const Landing = () => {
                 Built for teams to work together seamlessly
               </p>
             </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Community Showcase */}
+      <div className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-center space-x-3 mb-6">
+              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                <Users size={40} />
+              </div>
+              <h3 className="text-4xl font-bold">Join Our Open Community</h3>
+            </div>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Experience the future of digital communities. Our open community is accessible to everyone, 
+              but members get exclusive access to premium features, expert networks, and advanced tools.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Globe size={24} />
+                </div>
+                <h4 className="text-lg font-semibold mb-2">Open Access</h4>
+                <p className="text-blue-100">Browse discussions, read insights, and learn from our community</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Lock size={24} />
+                </div>
+                <h4 className="text-lg font-semibold mb-2">Member Benefits</h4>
+                <p className="text-blue-100">Create posts, connect with experts, and access premium resources</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Crown size={24} />
+                </div>
+                <h4 className="text-lg font-semibold mb-2">Premium Features</h4>
+                <p className="text-blue-100">Advanced analytics, AI tools, and exclusive networking events</p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/signup')}
+                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-all"
+              >
+                Explore Community
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/signup')}
+                className="border border-white/30 text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-all"
+              >
+                Learn More
+              </motion.button>
+            </div>
           </div>
         </div>
       </div>
