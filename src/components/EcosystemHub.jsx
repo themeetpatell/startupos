@@ -352,32 +352,48 @@ const EcosystemHub = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-xl shadow-sm border border-gray-200 p-2 mb-8"
+          className="bg-white rounded-2xl shadow-lg border border-gray-200/50 p-4 mb-8 overflow-x-auto ecosystem-tabs"
         >
-          <div className="flex space-x-2">
+          <div className="flex space-x-3 min-w-max">
             {tabs.map((tab) => {
               const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
               return (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all ${
-                    activeTab === tab.id
-                      ? 'bg-blue-50 text-blue-600 border border-blue-200'
-                      : 'text-gray-600 hover:bg-gray-50'
+                  className={`group relative flex items-center space-x-3 px-6 py-4 rounded-xl font-semibold transition-all duration-300 ecosystem-tab ${
+                    isActive
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25 active'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50/80'
                   }`}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Icon size={18} />
-                  <span>{tab.label}</span>
-                  <span className={`px-2 py-0.5 text-xs rounded-full ${
-                    activeTab === tab.id
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'bg-gray-100 text-gray-600'
+                  <Icon 
+                    size={20} 
+                    className={`transition-all duration-300 ${
+                      isActive ? 'text-white' : 'text-gray-500 group-hover:text-blue-600'
+                    }`}
+                  />
+                  <span className="whitespace-nowrap">{tab.label}</span>
+                  <span className={`px-3 py-1 text-xs font-bold rounded-full transition-all duration-300 ${
+                    isActive
+                      ? 'bg-white/20 text-white border border-white/30'
+                      : 'bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-600'
                   }`}>
-                    {tab.count}
+                    {tab.count.toLocaleString()}
                   </span>
+                  
+                  {/* Active indicator */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
                 </motion.button>
               );
             })}

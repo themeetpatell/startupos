@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { 
   ArrowRight, Play, Star, CheckCircle, Users, Rocket, 
   TrendingUp, Zap, Shield, Globe, Award, ChevronRight,
   ChevronLeft, Quote, ArrowUpRight, Sparkles
 } from 'lucide-react';
 
-const Landing = () => {
+const Home = () => {
   const [currentStory, setCurrentStory] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
@@ -279,7 +278,7 @@ const Landing = () => {
             style={{ y, opacity, scale }}
             className="text-center mb-20"
           >
-            <motion.h1
+            <motion.h1 
               className="text-7xl md:text-9xl font-black mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent leading-tight"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -292,7 +291,7 @@ const Landing = () => {
               for Startups
             </motion.h1>
             
-            <motion.p
+            <motion.p 
               className="text-2xl md:text-3xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -302,7 +301,7 @@ const Landing = () => {
               execution systems, and expert networks.
             </motion.p>
 
-            <motion.div
+            <motion.div 
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -313,9 +312,9 @@ const Landing = () => {
                 <ArrowRight className="inline-block ml-3 group-hover:translate-x-2 transition-transform duration-300" size={24} />
               </button>
               
-              <Link to="/login" className="px-12 py-6 bg-slate-800/90 backdrop-blur-sm rounded-2xl text-slate-200 text-xl font-bold border border-slate-600/50 hover:border-blue-400 transition-all duration-300 inline-block">
+              <button className="px-12 py-6 bg-slate-800/90 backdrop-blur-sm rounded-2xl text-slate-200 text-xl font-bold border border-slate-600/50 hover:border-blue-400 transition-all duration-300">
                 Sign In
-              </Link>
+              </button>
             </motion.div>
           </motion.div>
 
@@ -335,7 +334,7 @@ const Landing = () => {
               >
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-blue-500/30 group-hover:to-purple-500/30 transition-all duration-300">
                   <stat.icon size={32} className="text-blue-400" />
-          </div>
+                </div>
                 <div className="text-3xl md:text-4xl font-bold text-white mb-2">{stat.number}</div>
                 <div className="text-slate-300">{stat.label}</div>
               </motion.div>
@@ -357,10 +356,10 @@ const Landing = () => {
       {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
-            <motion.div
+          <motion.div 
             className="text-center mb-20"
             initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
@@ -370,16 +369,16 @@ const Landing = () => {
             </h2>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Powerful tools and systems designed specifically for startup growth and success
-              </p>
-            </motion.div>
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-            <motion.div
+              <motion.div
                 key={index}
                 className="group cursor-pointer"
                 initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -5 }}
@@ -388,7 +387,7 @@ const Landing = () => {
                 <div className="bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50 group-hover:border-blue-400 transition-all duration-300 h-full">
                   <div className={`w-16 h-16 bg-gradient-to-r from-${feature.color}-500/20 to-${feature.color}-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:from-${feature.color}-500/30 group-hover:to-${feature.color}-600/30 transition-all duration-300`}>
                     <feature.icon size={32} className={`text-${feature.color}-400`} />
-              </div>
+                  </div>
                   
                   <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
                     {feature.title}
@@ -405,7 +404,7 @@ const Landing = () => {
                         <span className="text-slate-300 text-sm">{benefit}</span>
                       </div>
                     ))}
-              </div>
+                  </div>
                   
                   <div className="mt-6 flex items-center justify-between">
                     <div className="text-sm text-slate-400 bg-slate-700/50 px-3 py-1 rounded-full">
@@ -413,8 +412,8 @@ const Landing = () => {
                     </div>
                     <ArrowUpRight size={20} className="text-slate-400 group-hover:text-blue-400 transition-colors duration-300" />
                   </div>
-              </div>
-            </motion.div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -423,10 +422,10 @@ const Landing = () => {
       {/* Testimonials Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
-            <motion.div
+          <motion.div 
             className="text-center mb-20"
             initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
@@ -436,16 +435,16 @@ const Landing = () => {
             </h2>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Join thousands of successful entrepreneurs who've transformed their startups with StartupOS
-              </p>
-            </motion.div>
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-            <motion.div
+              <motion.div
                 key={index}
                 className="group cursor-pointer"
                 initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -5 }}
@@ -454,13 +453,13 @@ const Landing = () => {
                   <div className="flex items-center mb-6">
                     <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.color} rounded-2xl flex items-center justify-center text-white font-bold text-lg mr-4`}>
                       {testimonial.avatar}
-              </div>
+                    </div>
                     <div>
                       <div className="font-bold text-white">{testimonial.name}</div>
                       <div className="text-sm text-slate-300">{testimonial.role} @ {testimonial.company}</div>
-        </div>
-      </div>
-
+                    </div>
+                  </div>
+                  
                   <blockquote className="text-slate-200 mb-6 leading-relaxed italic">
                     "{testimonial.quote}"
                   </blockquote>
@@ -470,9 +469,9 @@ const Landing = () => {
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} size={20} className="text-yellow-400 fill-current" />
                       ))}
-              </div>
+                    </div>
                     <Quote size={20} className="text-slate-400" />
-            </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -531,4 +530,4 @@ const Landing = () => {
   );
 };
 
-export default Landing; 
+export default Home;

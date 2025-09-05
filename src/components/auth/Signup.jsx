@@ -63,6 +63,7 @@ const Signup = () => {
 
     try {
       await signup(formData);
+      // Automatically show onboarding after successful signup
       setShowOnboarding(true);
     } catch (error) {
       setError(error.message || 'Signup failed');
@@ -87,6 +88,7 @@ const Signup = () => {
   const handleOnboardingComplete = (startupData) => {
     // Here you would typically save the startup data to your backend
     console.log('Onboarding completed with data:', startupData);
+    // Navigate to the main app after onboarding completion
     navigate('/app');
   };
 
@@ -387,7 +389,11 @@ const Signup = () => {
       
       {/* Onboarding Modal */}
       {showOnboarding && (
-        <Onboarding onComplete={handleOnboardingComplete} />
+        <Onboarding 
+          onComplete={handleOnboardingComplete}
+          startupName={formData.companyName}
+          userData={formData}
+        />
       )}
     </div>
   );

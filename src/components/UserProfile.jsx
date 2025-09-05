@@ -39,6 +39,10 @@ const UserProfile = () => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [viewMode, setViewMode] = useState('startupos');
   const [showAIInsights, setShowAIInsights] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [createType, setCreateType] = useState('task');
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
 
 

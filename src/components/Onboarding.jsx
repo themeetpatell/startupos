@@ -29,10 +29,9 @@ import {
   Square
 } from 'lucide-react';
 
-const Onboarding = ({ onComplete }) => {
+const Onboarding = ({ onComplete, startupName, userData }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [startupData, setStartupData] = useState({
-    name: '',
     industry: '',
     stage: '',
     teamSize: '',
@@ -50,42 +49,48 @@ const Onboarding = ({ onComplete }) => {
       title: 'Welcome to StartupOS',
       subtitle: 'Let\'s set up your startup for success',
       description: 'We\'ll help you create a personalized roadmap to reduce failure rates and accelerate growth.',
-      icon: Rocket
+      icon: Rocket,
+      required: false
     },
     {
       id: 'startup-info',
       title: 'Tell us about your startup',
       subtitle: 'Basic information to personalize your experience',
       description: 'This helps us tailor resources and recommendations specifically for your startup.',
-      icon: Building
+      icon: Building,
+      required: true
     },
     {
       id: 'problem-solution',
       title: 'Problem & Solution',
       subtitle: 'Define your core value proposition',
       description: 'Clearly articulating your problem and solution is crucial for success.',
-      icon: Lightbulb
+      icon: Lightbulb,
+      required: false
     },
     {
       id: 'okrs',
       title: 'Set Your OKRs',
       subtitle: 'Define your Objectives and Key Results',
       description: 'OKRs help you stay focused and measure progress effectively.',
-      icon: Target
+      icon: Target,
+      required: false
     },
     {
       id: 'goals',
       title: 'Your Goals',
       subtitle: 'What do you want to achieve?',
       description: 'Set clear, measurable goals for your startup journey.',
-      icon: TrendingUp
+      icon: TrendingUp,
+      required: false
     },
     {
       id: 'roadmap',
       title: 'Your Personalized Roadmap',
       subtitle: 'Your journey to success',
       description: 'Based on your inputs, we\'ve created a personalized roadmap.',
-      icon: Award
+      icon: Award,
+      required: false
     }
   ];
 
@@ -222,21 +227,31 @@ const Onboarding = ({ onComplete }) => {
               <StepIcon className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900">{step.title}</h2>
-            <p className="text-xl text-gray-600">{step.subtitle}</p>
+            <p className="text-xl text-gray-600">
+              Welcome, <span className="text-blue-600 font-semibold">{userData?.firstName}</span>! 
+              Let's set up <span className="text-purple-600 font-semibold">{startupName}</span> for success
+            </p>
             <p className="text-gray-500 max-w-2xl mx-auto">{step.description}</p>
-            <div className="flex justify-center space-x-4">
-              <div className="text-center">
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-6 max-w-md mx-auto">
+              <div className="text-center p-4 bg-blue-50 rounded-xl">
                 <div className="text-2xl font-bold text-blue-600">90%</div>
                 <div className="text-sm text-gray-500">Success Rate</div>
               </div>
-              <div className="text-center">
+              <div className="text-center p-4 bg-green-50 rounded-xl">
                 <div className="text-2xl font-bold text-green-600">50%</div>
                 <div className="text-sm text-gray-500">Faster Growth</div>
               </div>
-              <div className="text-center">
+              <div className="text-center p-4 bg-purple-50 rounded-xl">
                 <div className="text-2xl font-bold text-purple-600">24/7</div>
                 <div className="text-sm text-gray-500">Support</div>
               </div>
+            </div>
+            
+            {/* Progress Preview */}
+            <div className="text-sm text-gray-500">
+              <span className="font-medium">Quick setup:</span> Only 5 more steps to get started
             </div>
           </div>
         );
@@ -249,16 +264,6 @@ const Onboarding = ({ onComplete }) => {
               <p className="text-gray-600">{step.subtitle}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Startup Name</label>
-                <input
-                  type="text"
-                  value={startupData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your startup name"
-                />
-              </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Industry</label>
                 <select
@@ -526,7 +531,7 @@ const Onboarding = ({ onComplete }) => {
   const canProceed = () => {
     switch (steps[currentStep].id) {
       case 'startup-info':
-        return startupData.name && startupData.industry && startupData.stage;
+        return startupData.industry && startupData.stage;
       case 'problem-solution':
         return startupData.problem && startupData.solution;
       case 'okrs':
