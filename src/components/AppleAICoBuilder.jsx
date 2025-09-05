@@ -5,18 +5,7 @@ import {
   Brain, Zap, Shield, Target, Clock, DollarSign,
   MessageCircle, Play, Pause, MoreHorizontal
 } from 'lucide-react';
-import { 
-  AppleCard, 
-  AppleButton, 
-  AppleBadge, 
-  AppleInput,
-  AppleModal,
-  ApplePageHeader,
-  AppleTabs,
-  AppleList,
-  AppleListItem,
-  AppleEmptyState
-} from './AppleDesignSystem';
+// Using enterprise design system classes directly
 
 const AppleAICoBuilder = () => {
   const [activeTab, setActiveTab] = useState('marketplace');
@@ -203,7 +192,7 @@ const AppleAICoBuilder = () => {
       whileHover={{ y: -5 }}
       className="group"
     >
-      <AppleCard className="p-6 h-full group-hover:apple-card-elevated">
+              <div className="enterprise-card p-6 h-full group-hover:enterprise-card-elevated">
         <div className="flex items-start space-x-4 mb-4">
           <img
             src={employee.avatar}
@@ -211,19 +200,19 @@ const AppleAICoBuilder = () => {
             className="w-12 h-12 rounded-full"
           />
           <div className="flex-1 min-w-0">
-            <h3 className="apple-text-headline text-gray-900 font-medium">
+            <h3 className="enterprise-text-headline text-gray-900 font-medium">
               {employee.name}
             </h3>
-            <p className="apple-text-callout text-gray-600">
+            <p className="enterprise-text-callout text-gray-600">
               {employee.role}
             </p>
             <div className="flex items-center mt-1 space-x-2">
-              <AppleBadge variant="gray" size="small">
+              <span className="enterprise-badge enterprise-badge-gray">
                 {employee.department}
-              </AppleBadge>
+              </span>
               <div className="flex items-center space-x-1">
                 <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                <span className="apple-text-caption-1 text-gray-600">
+                <span className="enterprise-text-caption-1 text-gray-600">
                   {employee.rating}
                 </span>
               </div>
@@ -231,38 +220,38 @@ const AppleAICoBuilder = () => {
           </div>
         </div>
         
-        <p className="apple-text-body text-gray-600 mb-4 line-clamp-2">
+        <p className="enterprise-text-body text-gray-600 mb-4 line-clamp-2">
           {employee.description}
         </p>
         
         <div className="flex flex-wrap gap-2 mb-4">
           {employee.skills.slice(0, 3).map((skill, index) => (
-            <AppleBadge key={index} variant="primary" size="small">
+            <span className="enterprise-badge enterprise-badge-primary" key={index}>
               {skill}
-            </AppleBadge>
+            </span>
           ))}
           {employee.skills.length > 3 && (
-            <AppleBadge variant="gray" size="small">
+            <span className="enterprise-badge enterprise-badge-gray">
               +{employee.skills.length - 3} more
-            </AppleBadge>
+            </span>
           )}
         </div>
         
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
             <div className="text-center">
-              <div className="apple-text-callout text-gray-900 font-medium">
+              <div className="enterprise-text-callout text-gray-900 font-medium">
                 {employee.tasksCompleted}
               </div>
-              <div className="apple-text-caption-2 text-gray-500">
+              <div className="enterprise-text-caption-2 text-gray-500">
                 tasks
               </div>
             </div>
             <div className="text-center">
-              <div className="apple-text-callout text-gray-900 font-medium">
+              <div className="enterprise-text-callout text-gray-900 font-medium">
                 ${employee.hourlyRate}/hr
               </div>
-              <div className="apple-text-caption-2 text-gray-500">
+              <div className="enterprise-text-caption-2 text-gray-500">
                 rate
               </div>
             </div>
@@ -270,25 +259,22 @@ const AppleAICoBuilder = () => {
         </div>
         
         <div className="flex space-x-2">
-          <AppleButton
-            size="small"
-            className="flex-1"
+          <button 
+            className="enterprise-button-primary enterprise-button-sm"
             onClick={() => handleHireEmployee(employee)}
-            icon={<Plus size={16} />}
           >
+            <Plus size={16} />
             Hire
-          </AppleButton>
-          <AppleButton
-            variant="secondary"
-            size="small"
-            className="flex-1"
+          </button>
+          <button 
+            className="enterprise-button-secondary enterprise-button-sm flex-1"
             onClick={() => handleUseEmployee(employee)}
-            icon={<MessageCircle size={16} />}
           >
+            <MessageCircle size={16} />
             Use Now
-          </AppleButton>
+          </button>
         </div>
-      </AppleCard>
+      </div>
     </motion.div>
   );
 
@@ -296,19 +282,20 @@ const AppleAICoBuilder = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <ApplePageHeader
-          title="AI Co-Builder"
-          subtitle="Discover, hire, and manage AI employees for every startup function"
-          action={
-            <AppleButton size="medium" icon={<Plus size={20} />}>
+        <div className="enterprise-page-header">
+          <h1 className="enterprise-page-header-title">AI Co-Builder</h1>
+          <p className="enterprise-page-header-subtitle">Discover, hire, and manage AI employees for every startup function</p>
+          <div className="mt-4">
+            <button className="enterprise-button-primary enterprise-button-md">
+              <Plus size={20} />
               Create AI Employee
-            </AppleButton>
-          }
-        />
+            </button>
+          </div>
+        </div>
 
         {/* Tabs */}
         <div className="mb-8">
-          <AppleTabs 
+          <div className="enterprise-tabs" 
             tabs={tabs} 
             activeTab={activeTab} 
             onTabChange={setActiveTab}
@@ -316,23 +303,23 @@ const AppleAICoBuilder = () => {
         </div>
 
         {/* Search and Filters */}
-        <AppleCard className="p-6 mb-8">
+                  <div className="enterprise-card p-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <AppleInput
+                <input 
+                  className="enterprise-input pl-10 w-full md:w-64"
                   type="text"
                   placeholder="Search AI employees..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 w-full md:w-64"
                 />
               </div>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="apple-input px-3 py-2"
+                className="enterprise-input px-3 py-2"
               >
                 {categories.map(category => (
                   <option key={category.id} value={category.id}>
@@ -342,12 +329,12 @@ const AppleAICoBuilder = () => {
               </select>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="apple-text-callout text-gray-600">
+              <span className="enterprise-text-callout text-gray-600">
                 {filteredEmployees.length} AI employees found
               </span>
             </div>
           </div>
-        </AppleCard>
+        </div>
 
         {/* Content */}
         <AnimatePresence mode="wait">
@@ -369,9 +356,9 @@ const AppleAICoBuilder = () => {
                   title="No AI employees found"
                   description="Try adjusting your search criteria or browse different categories."
                   action={
-                    <AppleButton onClick={() => setSearchQuery('')}>
+                    <button className="enterprise-button-primary" onClick={() => setSearchQuery('')}>
                       Clear Search
-                    </AppleButton>
+                    </button>
                   }
                 />
               )}
@@ -397,40 +384,39 @@ const AppleAICoBuilder = () => {
                           className="w-12 h-12 rounded-full"
                         />
                         <div className="flex-1 min-w-0">
-                          <h3 className="apple-text-headline text-gray-900 font-medium">
+                          <h3 className="enterprise-text-headline text-gray-900 font-medium">
                             {employee.name}
                           </h3>
-                          <p className="apple-text-callout text-gray-600">
+                          <p className="enterprise-text-callout text-gray-600">
                             {employee.role} • {employee.department}
                           </p>
                           <div className="flex items-center mt-2 space-x-4">
-                            <AppleBadge 
-                              variant={employee.isActive ? 'success' : 'gray'} 
-                              size="small"
-                            >
+                            <span className={`enterprise-badge ${
+                              employee.isActive ? 'enterprise-badge-success' : 'enterprise-badge-gray'
+                            }`}>
                               {employee.isActive ? 'Active' : 'Idle'}
-                            </AppleBadge>
-                            <span className="apple-text-caption-1 text-gray-500">
+                                                          </span>
+                            <span className="enterprise-text-caption-1 text-gray-500">
                               {employee.tasksCompleted} tasks completed
                             </span>
                             <div className="flex items-center space-x-1">
                               <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                              <span className="apple-text-caption-1 text-gray-600">
+                              <span className="enterprise-text-caption-1 text-gray-600">
                                 {employee.rating}
                               </span>
                             </div>
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <AppleButton
+                          <button className="enterprise-button-primary"
                             size="small"
                             variant="secondary"
                             onClick={() => handleUseEmployee(employee)}
                             icon={<MessageCircle size={16} />}
                           >
                             Chat
-                          </AppleButton>
-                          <AppleButton
+                          </button>
+                          <button className="enterprise-button-primary"
                             size="small"
                             variant="tertiary"
                             icon={<MoreHorizontal size={16} />}
@@ -446,9 +432,9 @@ const AppleAICoBuilder = () => {
                   title="No AI employees hired yet"
                   description="Browse the marketplace to find and hire AI employees for your startup."
                   action={
-                    <AppleButton onClick={() => setActiveTab('marketplace')}>
+                    <button className="enterprise-button-primary" onClick={() => setActiveTab('marketplace')}>
                       Browse Marketplace
-                    </AppleButton>
+                    </button>
                   }
                 />
               )}
@@ -468,9 +454,9 @@ const AppleAICoBuilder = () => {
                 title="Community Coming Soon"
                 description="Connect with other founders, share experiences, and learn from the community."
                 action={
-                  <AppleButton disabled>
+                  <button className="enterprise-button-primary" disabled>
                     Coming Soon
-                  </AppleButton>
+                  </button>
                 }
               />
             </motion.div>
@@ -493,15 +479,15 @@ const AppleAICoBuilder = () => {
                   className="w-16 h-16 rounded-full"
                 />
                 <div>
-                  <h3 className="apple-text-title-3 text-gray-900">
+                  <h3 className="enterprise-text-title-3 text-gray-900">
                     {selectedEmployee.name}
                   </h3>
-                  <p className="apple-text-callout text-gray-600">
+                  <p className="enterprise-text-callout text-gray-600">
                     {selectedEmployee.role} • {selectedEmployee.department}
                   </p>
                   <div className="flex items-center mt-1 space-x-2">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="apple-text-caption-1 text-gray-600">
+                    <span className="enterprise-text-caption-1 text-gray-600">
                       {selectedEmployee.rating} • {selectedEmployee.tasksCompleted} tasks completed
                     </span>
                   </div>
@@ -509,12 +495,12 @@ const AppleAICoBuilder = () => {
               </div>
               
               <div>
-                <h4 className="apple-text-headline text-gray-900 mb-2">Capabilities</h4>
+                <h4 className="enterprise-text-headline text-gray-900 mb-2">Capabilities</h4>
                 <ul className="space-y-1">
                   {selectedEmployee.capabilities.map((capability, index) => (
                     <li key={index} className="flex items-center space-x-2">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span className="apple-text-body text-gray-600">{capability}</span>
+                      <span className="enterprise-text-body text-gray-600">{capability}</span>
                     </li>
                   ))}
                 </ul>
@@ -522,16 +508,16 @@ const AppleAICoBuilder = () => {
               
               <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div>
-                  <div className="apple-text-callout text-gray-900 font-medium">
+                  <div className="enterprise-text-callout text-gray-900 font-medium">
                     ${selectedEmployee.hourlyRate}/hour
                   </div>
-                  <div className="apple-text-caption-1 text-gray-600">
+                  <div className="enterprise-text-caption-1 text-gray-600">
                     Billed monthly
                   </div>
                 </div>
-                <AppleButton onClick={() => setShowHireModal(false)}>
+                <button className="enterprise-button-primary" onClick={() => setShowHireModal(false)}>
                   Confirm Hire
-                </AppleButton>
+                </button>
               </div>
             </div>
           )}
@@ -559,7 +545,7 @@ const AppleAICoBuilder = () => {
                           : 'bg-gray-100 text-gray-900'
                       }`}
                     >
-                      <p className="apple-text-body">{message.content}</p>
+                      <p className="enterprise-text-body">{message.content}</p>
                     </div>
                   </div>
                 ))}
@@ -568,7 +554,7 @@ const AppleAICoBuilder = () => {
                     <div className="bg-gray-100 text-gray-900 px-4 py-2 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <div className="apple-spinner w-4 h-4" />
-                        <span className="apple-text-body">Thinking...</span>
+                        <span className="enterprise-text-body">Thinking...</span>
                       </div>
                     </div>
                   </div>
@@ -576,20 +562,20 @@ const AppleAICoBuilder = () => {
               </div>
               
               <div className="flex space-x-2">
-                <AppleInput
+                <input 
+                  className="enterprise-input flex-1"
                   placeholder="Type your message..."
                   value={currentMessage}
                   onChange={(e) => setCurrentMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  className="flex-1"
                 />
-                <AppleButton
+                <button className="enterprise-button-primary"
                   onClick={handleSendMessage}
                   disabled={!currentMessage.trim() || isProcessing}
                   icon={<MessageCircle size={16} />}
                 >
                   Send
-                </AppleButton>
+                </button>
               </div>
             </div>
           )}

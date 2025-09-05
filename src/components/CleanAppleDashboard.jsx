@@ -5,16 +5,7 @@ import {
   ArrowUpRight, ArrowDownRight, Star, Clock, Target,
   CheckCircle, AlertCircle, Plus, MoreHorizontal
 } from 'lucide-react';
-import { 
-  AppleCard, 
-  AppleButton, 
-  AppleBadge, 
-  AppleStatsCard,
-  ApplePageHeader,
-  AppleList,
-  AppleListItem,
-  AppleTabs
-} from './AppleDesignSystem';
+// Using enterprise design system classes directly
 
 const CleanAppleDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
