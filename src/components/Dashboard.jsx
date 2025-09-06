@@ -1,597 +1,503 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { 
-  Home, 
-  TrendingUp, 
-  Users, 
-  DollarSign, 
-  Target, 
-  CheckCircle, 
-  Clock, 
-  BarChart3, 
-  Activity, 
-  Zap,
-  Brain,
-  Building,
-  Globe,
-  Star,
-  Award,
-  TrendingDown,
-  ArrowUp,
-  ArrowDown
+  TrendingUp, Users, Brain, BarChart3, Zap, Shield, 
+  ArrowUpRight, ArrowDownRight, Star, Clock, Target,
+  CheckCircle, AlertCircle, Plus, MoreHorizontal, DollarSign, Award
 } from 'lucide-react';
-import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import '../App.css';
+// Using enterprise design system classes directly
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const [timeRange, setTimeRange] = useState('30d');
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [activeTab, setActiveTab] = useState('overview');
+  const [timeRange, setTimeRange] = useState('7d');
 
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Sample data
-  const revenueData = [
-    { month: 'Jan', revenue: 12000, target: 15000 },
-    { month: 'Feb', revenue: 18000, target: 18000 },
-    { month: 'Mar', revenue: 25000, target: 22000 },
-    { month: 'Apr', revenue: 32000, target: 28000 },
-    { month: 'May', revenue: 45000, target: 35000 },
-    { month: 'Jun', revenue: 52000, target: 42000 },
-  ];
-
-  const userGrowthData = [
-    { week: 'W1', users: 1200 },
-    { week: 'W2', users: 1350 },
-    { week: 'W3', users: 1580 },
-    { week: 'W4', users: 1820 },
-  ];
-
-  const metricsData = [
-    { name: 'Active Users', value: 85, color: '#3B82F6' },
-    { name: 'Conversion', value: 12, color: '#10B981' },
-    { name: 'Churn Rate', value: 3, color: '#EF4444' },
-  ];
-
-  const kpis = [
+  const stats = [
     {
-      title: 'Monthly Revenue',
-      value: '$52,000',
-      change: '+23%',
-      trend: 'up',
-      icon: DollarSign,
-      color: 'green'
+      title: "Total Revenue",
+      value: "$124,500",
+      change: "+12.5%",
+      changeType: "positive",
+      icon: TrendingUp
     },
     {
-      title: 'Active Users',
-      value: '1,820',
-      change: '+15%',
-      trend: 'up',
-      icon: Users,
-      color: 'blue'
+      title: "Active Users",
+      value: "2,847",
+      change: "+8.2%",
+      changeType: "positive",
+      icon: Users
     },
     {
-      title: 'Conversion Rate',
-      value: '12.5%',
-      change: '+2.1%',
-      trend: 'up',
-      icon: Target,
-      color: 'purple'
+      title: "AI Employees",
+      value: "23",
+      change: "+3 new",
+      changeType: "positive",
+      icon: Brain
     },
     {
-      title: 'Burn Rate',
-      value: '$28,000',
-      change: '-5%',
-      trend: 'down',
-      icon: TrendingUp,
-      color: 'orange'
-    },
-    {
-      title: 'Community Members',
-      value: '125K',
-      change: '+12%',
-      trend: 'up',
-      icon: Users,
-      color: 'indigo'
+      title: "Tasks Completed",
+      value: "1,247",
+      change: "+15.3%",
+      changeType: "positive",
+      icon: CheckCircle
     }
   ];
 
   const recentActivities = [
     {
       id: 1,
-      type: 'ai_suggestion',
-      title: 'AI Copilot Recommendation',
-      description: 'New funding strategy suggestion available',
+      type: 'ai_task',
+      title: 'Marketing campaign completed',
+      description: 'Alex AI finished the Q1 social media strategy',
       time: '2 minutes ago',
-      icon: Brain,
-      color: 'blue'
+      status: 'completed',
+      icon: Brain
     },
     {
       id: 2,
-      type: 'community',
-      title: 'Community Milestone',
-      description: 'Reached 125K members in StartupOS Community',
+      type: 'user_signup',
+      title: 'New user registered',
+      description: 'Sarah Chen joined your startup network',
       time: '15 minutes ago',
-      icon: Users,
-      color: 'green'
+      status: 'new',
+      icon: Users
     },
-
     {
       id: 3,
-      type: 'expert',
-      title: 'Expert Match Found',
-      description: 'Perfect CTO candidate identified for your startup',
+      type: 'analytics',
+      title: 'Weekly report ready',
+      description: 'Your performance analytics are available',
       time: '1 hour ago',
-      icon: Users,
-      color: 'purple'
+      status: 'info',
+      icon: BarChart3
     },
     {
       id: 4,
       type: 'alert',
-      title: 'Metric Alert',
-      description: 'Customer acquisition cost increased by 15%',
+      title: 'Budget alert',
+      description: 'You\'re approaching 80% of your monthly budget',
       time: '2 hours ago',
-      icon: TrendingUp,
-      color: 'orange'
+      status: 'warning',
+      icon: AlertCircle
     }
   ];
 
-  const upcomingTasks = [
+  const aiEmployees = [
     {
       id: 1,
-      title: 'Investor Meeting Prep',
-      description: 'Prepare pitch deck for Series A meeting',
-      dueDate: 'Today, 3:00 PM',
-      priority: 'high',
-      completed: false
+      name: 'Alex AI',
+      role: 'Marketing Specialist',
+      status: 'active',
+      tasksCompleted: 45,
+      rating: 4.9,
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'
     },
     {
       id: 2,
-      title: 'Product Roadmap Review',
-      description: 'Quarterly product planning session',
-      dueDate: 'Tomorrow, 10:00 AM',
-      priority: 'medium',
-      completed: false
+      name: 'Sarah AI',
+      role: 'Data Analyst',
+      status: 'active',
+      tasksCompleted: 32,
+      rating: 4.8,
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face'
     },
     {
       id: 3,
-      title: 'Team Performance Review',
-      description: 'Monthly team evaluation and feedback',
-      dueDate: 'Friday, 2:00 PM',
-      priority: 'medium',
-      completed: true
-    },
-    {
-      id: 4,
-      title: 'Market Research Analysis',
-      description: 'Analyze competitor landscape and positioning',
-      dueDate: 'Next Monday',
-      priority: 'low',
-      completed: false
+      name: 'Mike AI',
+      role: 'Customer Support',
+      status: 'idle',
+      tasksCompleted: 28,
+      rating: 4.7,
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
     }
   ];
 
   const quickActions = [
-    { id: 'ai_chat', title: 'Ask AI Copilot', icon: Brain, color: 'blue', action: 'ai-cobuilder' },
-    { id: 'join_community', title: 'Join Community', icon: Users, color: 'purple', action: 'community' },
-    { id: 'view_analytics', title: 'View Analytics', icon: BarChart3, color: 'green', action: 'analytics' },
-    { id: 'find_expert', title: 'Find Expert', icon: Users, color: 'orange', action: 'ecosystem' }
+    {
+      title: 'Hire AI Employee',
+      description: 'Add a new AI team member',
+      icon: Plus,
+      color: 'blue',
+      action: () => console.log('Hire AI Employee')
+    },
+    {
+      title: 'View Analytics',
+      description: 'Check performance metrics',
+      icon: BarChart3,
+      color: 'green',
+      action: () => console.log('View Analytics')
+    },
+    {
+      title: 'Create Task',
+      description: 'Assign work to AI employees',
+      icon: Target,
+      color: 'purple',
+      action: () => console.log('Create Task')
+    },
+    {
+      title: 'Network',
+      description: 'Connect with experts',
+      icon: Users,
+      color: 'orange',
+      action: () => console.log('Network')
+    }
   ];
 
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'high': return 'text-red-600 bg-red-50 border-red-200';
-      case 'medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'low': return 'text-blue-600 bg-blue-50 border-blue-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'ai-employees', label: 'AI Employees' },
+    { id: 'analytics', label: 'Analytics' },
+    { id: 'ecosystem', label: 'Ecosystem' }
+  ];
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'completed': return 'success';
+      case 'new': return 'primary';
+      case 'info': return 'primary';
+      case 'warning': return 'warning';
+      case 'active': return 'success';
+      case 'idle': return 'gray';
+      default: return 'gray';
     }
   };
 
-  const getActivityColor = (color) => {
-    const colors = {
-      blue: 'text-blue-600 bg-blue-50',
-      green: 'text-green-600 bg-green-50',
-      purple: 'text-purple-600 bg-purple-50',
-      orange: 'text-orange-600 bg-orange-50',
-    };
-    return colors[color] || 'text-gray-600 bg-gray-50';
-  };
-
-  const handleQuickAction = (action) => {
-    // Navigate to the appropriate view
-    if (action) {
-      // For now, we'll use a simple approach since we're in a single-page app
-      // In a real app, this would navigate to different routes
-      window.location.href = `#${action}`;
-      // Trigger a custom event to change the view
-      window.dispatchEvent(new CustomEvent('changeView', { detail: action }));
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case 'completed': return CheckCircle;
+      case 'new': return Plus;
+      case 'info': return BarChart3;
+      case 'warning': return AlertCircle;
+      case 'active': return CheckCircle;
+      case 'idle': return Clock;
+      default: return Clock;
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-gray-600 mt-1">
-                Welcome back! Here's what's happening with your startup today.
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-500">Current Time</p>
-              <p className="text-lg font-semibold text-gray-900">
-                {currentTime.toLocaleTimeString()}
-              </p>
-              <p className="text-sm text-gray-600">
-                {currentTime.toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {kpis.map((kpi, index) => {
-            const Icon = kpi.icon;
-            return (
-              <motion.div
-                key={kpi.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover-lift"
-              >
-                <div className="flex items-center justify-between">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                    kpi.color === 'green' ? 'bg-green-50 text-green-600' :
-                    kpi.color === 'blue' ? 'bg-blue-50 text-blue-600' :
-                    kpi.color === 'purple' ? 'bg-purple-50 text-purple-600' :
-                    'bg-orange-50 text-orange-600'
-                  }`}>
-                    <Icon size={24} />
-                  </div>
-                  <div className={`flex items-center space-x-1 text-sm font-medium ${
-                    kpi.trend === 'up' ? 'text-green-600' : 'text-red-600'
-                  }`}>
-                    {kpi.trend === 'up' ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
-                    <span>{kpi.change}</span>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <h3 className="text-2xl font-bold text-gray-900">{kpi.value}</h3>
-                  <p className="text-gray-600 text-sm mt-1">{kpi.title}</p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {/* Revenue Chart */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6"
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-gray-900">Revenue Growth</h3>
-              <div className="flex items-center space-x-2">
-                <select
-                  value={timeRange}
-                  onChange={(e) => setTimeRange(e.target.value)}
-                  className="text-sm border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="7d">7 days</option>
-                  <option value="30d">30 days</option>
-                  <option value="90d">90 days</option>
-                  <option value="1y">1 year</option>
-                </select>
-              </div>
-            </div>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={revenueData}>
-                  <defs>
-                    <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="month" stroke="#6b7280" />
-                  <YAxis stroke="#6b7280" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'white', 
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="revenue" 
-                    stroke="#3B82F6" 
-                    strokeWidth={2}
-                    fill="url(#revenueGradient)" 
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="target" 
-                    stroke="#10B981" 
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
-
-          {/* Quick Actions */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
-          >
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Quick Actions</h3>
-            <div className="space-y-3">
-              {quickActions.map((action) => {
-                const Icon = action.icon;
-                return (
-                  <motion.button
-                    key={action.id}
-                    className={`w-full flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-${action.color}-300 hover:bg-${action.color}-50 transition-all group`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleQuickAction(action.action)}
-                  >
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                      action.color === 'blue' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-100' :
-                      action.color === 'purple' ? 'bg-purple-50 text-purple-600 group-hover:bg-purple-100' :
-                      action.color === 'green' ? 'bg-green-50 text-green-600 group-hover:bg-green-100' :
-                      'bg-orange-50 text-orange-600 group-hover:bg-orange-100'
-                    }`}>
-                      <Icon size={20} />
-                    </div>
-                    <span className="font-medium text-gray-900 group-hover:text-gray-700">
-                      {action.title}
-                    </span>
-                  </motion.button>
-                );
-              })}
-            </div>
-
-            {/* AI Insights Widget */}
-            <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-              <div className="flex items-center space-x-2 mb-2">
-                <Zap size={16} className="text-blue-600" />
-                <span className="text-sm font-medium text-blue-900">AI Insight</span>
-              </div>
-              <p className="text-sm text-blue-800">
-                Your revenue growth is 23% above target. Consider increasing marketing spend to capitalize on this momentum.
-              </p>
-              <button className="text-xs text-blue-600 font-medium mt-2 hover:underline">
-                View detailed analysis →
-              </button>
-            </div>
-          </motion.div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Recent Activities */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
-          >
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Recent Activities</h3>
-            <div className="space-y-4">
-              {recentActivities.map((activity) => {
-                const Icon = activity.icon;
-                return (
-                  <motion.div
-                    key={activity.id}
-                    className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                    whileHover={{ x: 5 }}
-                  >
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${getActivityColor(activity.color)}`}>
-                      <Icon size={18} />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-900">{activity.title}</h4>
-                      <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
-                      <span className="text-xs text-gray-500 mt-2 block">{activity.time}</span>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          {/* Upcoming Tasks */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
-          >
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Upcoming Tasks</h3>
-            <div className="space-y-4">
-              {upcomingTasks.map((task) => (
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'overview':
+        return (
+          <>
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+              {stats.map((stat, index) => (
                 <motion.div
-                  key={task.id}
-                  className={`p-4 rounded-lg border transition-all ${
-                    task.completed ? 'bg-green-50 border-green-200' : 'bg-white border-gray-200 hover:border-gray-300'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2">
-                        <h4 className={`font-medium ${task.completed ? 'text-green-800 line-through' : 'text-gray-900'}`}>
-                          {task.title}
-                        </h4>
-                        <span className={`px-2 py-1 text-xs font-medium rounded-full border ${getPriorityColor(task.priority)}`}>
-                          {task.priority}
-                        </span>
-                      </div>
-                      <p className={`text-sm mt-1 ${task.completed ? 'text-green-600' : 'text-gray-600'}`}>
-                        {task.description}
-                      </p>
-                      <div className="flex items-center space-x-2 mt-2">
-                        <Clock size={14} className="text-gray-400" />
-                        <span className="text-xs text-gray-500">{task.dueDate}</span>
-                      </div>
+                  <div className="enterprise-stats-card">
+                    <div className="enterprise-stats-card-header">
+                      <h3 className="enterprise-stats-card-title">{stat.title}</h3>
+                      <stat.icon className="w-6 h-6 text-slate-600" />
                     </div>
-                    <div className="ml-3">
-                      {task.completed ? (
-                        <CheckCircle size={20} className="text-green-600" />
-                      ) : (
-                        <div className="w-5 h-5 border-2 border-gray-300 rounded-full"></div>
-                      )}
+                    <h2 className="enterprise-stats-card-value">{stat.value}</h2>
+                    <div className={`enterprise-stats-card-change ${stat.changeType === 'positive' ? 'positive' : 'negative'}`}>
+                      {stat.changeType === 'positive' ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
+                      {stat.change}
                     </div>
                   </div>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-        </div>
 
-        {/* Bottom Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
-          {/* User Growth */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">User Growth</h3>
-            <div className="h-32">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={userGrowthData}>
-                  <Bar dataKey="users" fill="#3B82F6" radius={[4, 4, 0, 0]} />
-                  <XAxis dataKey="week" axisLine={false} tickLine={false} />
-                  <Tooltip />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
+              {/* Recent Activity */}
+              <div className="xl:col-span-2">
+                <div className="enterprise-card p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="enterprise-text-title-3 text-gray-900">Recent Activity</h3>
+                    <button className="enterprise-button-tertiary enterprise-button-sm">
+                      View All
+                    </button>
+                  </div>
+                  
+                  <div className="enterprise-list">
+                    {recentActivities.map((activity) => {
+                      const StatusIcon = getStatusIcon(activity.status);
+                      return (
+                        <div className="enterprise-list-item" key={activity.id}>
+                          <div className="flex items-start space-x-4">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                              activity.status === 'completed' ? 'bg-green-100' :
+                              activity.status === 'new' ? 'bg-blue-100' :
+                              activity.status === 'info' ? 'bg-blue-100' :
+                              activity.status === 'warning' ? 'bg-yellow-100' :
+                              'bg-gray-100'
+                            }`}>
+                              <StatusIcon className={`w-5 h-5 ${
+                                activity.status === 'completed' ? 'text-green-600' :
+                                activity.status === 'new' ? 'text-blue-600' :
+                                activity.status === 'info' ? 'text-blue-600' :
+                                activity.status === 'warning' ? 'text-yellow-600' :
+                                'text-gray-600'
+                              }`} />
+                            </div>
+                            
+                            <div className="flex-1 min-w-0">
+                              <h4 className="enterprise-text-callout text-gray-900 font-medium">
+                                {activity.title}
+                              </h4>
+                              <p className="enterprise-text-caption-1 text-gray-600 mt-1">
+                                {activity.description}
+                              </p>
+                              <div className="flex items-center mt-2 space-x-2">
+                                <span className={`enterprise-badge ${
+                                  getStatusColor(activity.status) === 'success' ? 'enterprise-badge-success' :
+                                  getStatusColor(activity.status) === 'primary' ? 'enterprise-badge-primary' :
+                                  getStatusColor(activity.status) === 'warning' ? 'enterprise-badge-warning' :
+                                  'enterprise-badge-gray'
+                                }`}>
+                                  {activity.status}
+                                </span>
+                                <span className="enterprise-text-caption-2 text-gray-500">
+                                  {activity.time}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
 
-          {/* Metrics Breakdown */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Metrics</h3>
-            <div className="h-32">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={metricsData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={30}
-                    outerRadius={50}
-                    dataKey="value"
-                  >
-                    {metricsData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+              {/* AI Employees */}
+              <div>
+                <div className="enterprise-card p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="enterprise-text-title-3 text-gray-900">AI Employees</h3>
+                    <button className="enterprise-button-tertiary enterprise-button-sm">
+                      Manage
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {aiEmployees.map((employee) => (
+                      <div key={employee.id} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <img
+                          src={employee.avatar}
+                          alt={employee.name}
+                          className="w-10 h-10 rounded-full"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="enterprise-text-callout text-gray-900 font-medium">
+                            {employee.name}
+                          </h4>
+                          <p className="enterprise-text-caption-1 text-gray-600">
+                            {employee.role}
+                          </p>
+                          <div className="flex items-center mt-1 space-x-2">
+                            <span className="enterprise-badge enterprise-badge-primary" 
+                              variant={getStatusColor(employee.status)} 
+                              size="small"
+                            >
+                              {employee.status}
+                            </span>
+                            <span className="enterprise-text-caption-2 text-gray-500">
+                              {employee.tasksCompleted} tasks
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="enterprise-text-caption-1 text-gray-600">
+                            {employee.rating}
+                          </span>
+                        </div>
+                      </div>
                     ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Platform Status */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Platform Status</h3>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">AI Copilot</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm text-green-600">Online</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Community</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm text-green-600">Active</span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Expert Network</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm text-green-600">Available</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Analytics</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                  <span className="text-sm text-yellow-600">Updating</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Community Preview */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="mt-8 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-2xl p-8 text-white"
-      >
-        <div className="text-center">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-              <Users size={32} />
+          </>
+        );
+      
+      case 'ai-employees':
+        return (
+          <div className="enterprise-card p-6">
+            <h3 className="enterprise-text-title-3 text-gray-900 mb-6">AI Employee Management</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {aiEmployees.map((employee) => (
+                <div key={employee.id} className="border border-slate-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <img
+                      src={employee.avatar}
+                      alt={employee.name}
+                      className="w-12 h-12 rounded-full"
+                    />
+                    <div>
+                      <h4 className="enterprise-text-body font-semibold text-gray-900">
+                        {employee.name}
+                      </h4>
+                      <p className="enterprise-text-body-sm text-gray-600">
+                        {employee.role}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Status:</span>
+                      <span className={`px-2 py-1 rounded-full text-xs ${
+                        employee.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                      }`}>
+                        {employee.status}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Tasks:</span>
+                      <span className="font-medium">{employee.tasksCompleted}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Rating:</span>
+                      <div className="flex items-center space-x-1">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="font-medium">{employee.rating}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <h2 className="text-3xl font-bold">Join Our Open Community</h2>
           </div>
-          <p className="text-xl text-blue-100 mb-6 max-w-2xl mx-auto">
-            Experience the future of digital communities. Open for everyone, 
-            but unlock the full potential when you join StartupOS.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleQuickAction('community')}
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-all"
+        );
+      
+      case 'analytics':
+        return (
+          <div className="enterprise-card p-6">
+            <h3 className="enterprise-text-title-3 text-gray-900 mb-6">Analytics Dashboard</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-blue-50 rounded-lg p-6">
+                <h4 className="enterprise-text-body font-semibold text-blue-900 mb-2">Performance Metrics</h4>
+                <p className="enterprise-text-body-sm text-blue-700">Track your startup's key performance indicators and growth metrics.</p>
+              </div>
+              <div className="bg-green-50 rounded-lg p-6">
+                <h4 className="enterprise-text-body font-semibold text-green-900 mb-2">Revenue Analytics</h4>
+                <p className="enterprise-text-body-sm text-green-700">Monitor revenue trends, customer acquisition costs, and lifetime value.</p>
+              </div>
+              <div className="bg-purple-50 rounded-lg p-6">
+                <h4 className="enterprise-text-body font-semibold text-purple-900 mb-2">User Engagement</h4>
+                <p className="enterprise-text-body-sm text-purple-700">Analyze user behavior, feature adoption, and retention rates.</p>
+              </div>
+              <div className="bg-orange-50 rounded-lg p-6">
+                <h4 className="enterprise-text-body font-semibold text-orange-900 mb-2">Market Analysis</h4>
+                <p className="enterprise-text-body-sm text-orange-700">Compare your performance against industry benchmarks and competitors.</p>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'ecosystem':
+        return (
+          <div className="enterprise-card p-6">
+            <h3 className="enterprise-text-title-3 text-gray-900 mb-6">Ecosystem Overview</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center p-6 border border-slate-200 rounded-lg">
+                <Users className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <h4 className="enterprise-text-body font-semibold text-gray-900 mb-2">Startups</h4>
+                <p className="enterprise-text-body-sm text-gray-600">3,200+ companies in our network</p>
+              </div>
+              <div className="text-center p-6 border border-slate-200 rounded-lg">
+                <DollarSign className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <h4 className="enterprise-text-body font-semibold text-gray-900 mb-2">Investors</h4>
+                <p className="enterprise-text-body-sm text-gray-600">1,250+ funding partners</p>
+              </div>
+              <div className="text-center p-6 border border-slate-200 rounded-lg">
+                <Award className="w-12 h-12 text-purple-600 mx-auto mb-4" />
+                <h4 className="enterprise-text-body font-semibold text-gray-900 mb-2">Mentors</h4>
+                <p className="enterprise-text-body-sm text-gray-600">234+ expert advisors</p>
+              </div>
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="enterprise-page-header">
+          <h1 className="enterprise-page-header-title">Dashboard</h1>
+          <p className="enterprise-page-header-subtitle">Welcome back! Here's what's happening with your startup.</p>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-4">
+            <select 
+              value={timeRange} 
+              onChange={(e) => setTimeRange(e.target.value)}
+              className="enterprise-input px-4 py-2 text-sm min-w-[140px]"
             >
-              Explore Community
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleQuickAction('community')}
-              className="border border-white/30 text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-all"
-            >
-              Learn More
-            </motion.button>
+              <option value="7d">Last 7 days</option>
+              <option value="30d">Last 30 days</option>
+              <option value="90d">Last 90 days</option>
+            </select>
+            <button className="enterprise-button-primary enterprise-button-sm flex items-center gap-2 hover:scale-105 transition-transform">
+              <Plus size={16} />
+              Quick Action
+            </button>
           </div>
         </div>
-      </motion.div>
+
+        {/* Tabs */}
+        <div className="mb-8">
+          <div className="enterprise-tabs overflow-x-auto">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`enterprise-tab whitespace-nowrap ${activeTab === tab.id ? 'active' : ''}`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        {renderTabContent()}
+
+        {/* Quick Actions */}
+        <div className="mt-8">
+                        <div className="enterprise-card p-6">
+            <h3 className="enterprise-text-title-3 text-gray-900 mb-6">Quick Actions</h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {quickActions.map((action, index) => (
+                <motion.button
+                  key={index}
+                  onClick={action.action}
+                  className="p-6 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all text-left group bg-white hover:bg-slate-50"
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className={`w-12 h-12 rounded-xl ${
+                    action.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                    action.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
+                    action.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
+                    'bg-gradient-to-br from-orange-500 to-orange-600'
+                  } flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
+                    <action.icon className="w-6 h-6 text-white" />
+                  </div>
+                  
+                  <h4 className="enterprise-text-body font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    {action.title}
+                  </h4>
+                  <p className="enterprise-text-body-sm text-slate-600 leading-relaxed">
+                    {action.description}
+                  </p>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
-

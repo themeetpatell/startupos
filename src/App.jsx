@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -6,28 +6,28 @@ import { GamificationProvider } from './contexts/GamificationContext';
 import { AppStateProvider } from './contexts/AppStateContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './components/Toast';
-import { AppleLoadingSpinner } from './components/AppleDesignSystem';
 import Navigation from './components/Navigation';
-import Dashboard from './components/CleanAppleDashboard';
-import AICoBuilder from './components/AppleAICoBuilder';
-import OpenCommunity from './components/OpenCommunity';
 
-import MAndA from './components/M&A/M&A';
-import AdvancedAnalytics from './components/AdvancedAnalytics';
-import EcosystemHub from './components/EcosystemHub';
-import StartupProfile from './components/StartupProfile';
-import DigitalHQ from './components/DigitalHQ';
-import PeopleManagement from './components/PeopleManagement';
-import Network from './components/Network';
-
-import Profile from './components/Profile';
-import UserProfile from './components/UserProfile';
-import StartupRoadmap from './components/StartupRoadmap';
-import GamificationDashboard from './components/GamificationDashboard';
-import Login from './components/auth/Login';
-import Signup from './components/auth/Signup';
-import ForgotPassword from './components/auth/ForgotPassword';
-import Landing from './components/EnterpriseLanding';
+// Lazy load components for better performance
+const Dashboard = lazy(() => import('./components/Dashboard'));
+const AICoBuilder = lazy(() => import('./components/AICoBuilder'));
+const OpenCommunity = lazy(() => import('./components/OpenCommunity'));
+const MAndA = lazy(() => import('./components/M&A/M&A'));
+const AdvancedAnalytics = lazy(() => import('./components/AdvancedAnalytics'));
+const EcosystemHub = lazy(() => import('./components/EcosystemHub'));
+const StartupProfile = lazy(() => import('./components/StartupProfile'));
+const DigitalHQ = lazy(() => import('./components/DigitalHQ'));
+const PeopleManagement = lazy(() => import('./components/PeopleManagement'));
+const StartupHub = lazy(() => import('./components/StartupHub'));
+const StartupOnboarding = lazy(() => import('./components/StartupOnboarding'));
+const Profile = lazy(() => import('./components/Profile'));
+const UserProfile = lazy(() => import('./components/UserProfile'));
+const StartupRoadmap = lazy(() => import('./components/StartupRoadmap'));
+const GamificationDashboard = lazy(() => import('./components/GamificationDashboard'));
+const Login = lazy(() => import('./components/auth/Login'));
+const Signup = lazy(() => import('./components/auth/Signup'));
+const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
+// Landing page removed - going directly to dashboard
 import './App.css';
 
 // Loading screen component
@@ -38,7 +38,7 @@ const LoadingScreen = () => (
       animate={{ opacity: 1, scale: 1 }}
       className="text-center"
     >
-      <AppleLoadingSpinner size="xl" text="Initializing your startup operating system..." />
+      <div className="enterprise-spinner w-12 h-12 mb-4"></div>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -47,6 +47,7 @@ const LoadingScreen = () => (
       >
         StartupOS
       </motion.h1>
+      <p className="text-white text-lg">Initializing your startup operating system...</p>
     </motion.div>
   </div>
 );
@@ -72,12 +73,19 @@ const AppContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userMode, setUserMode] = useState('startup');
   const [error, setError] = useState(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [onboardingComplete, setOnboardingComplete] = useState(false);
   const { user, logout } = useAuth();
 
   useEffect(() => {
     // Simulate loading time with error handling
     const timer = setTimeout(() => {
       setIsLoading(false);
+      // Check if user needs onboarding (simulate first-time user)
+      const hasCompletedOnboarding = localStorage.getItem('onboardingComplete');
+      if (!hasCompletedOnboarding) {
+        setShowOnboarding(true);
+      }
     }, 1500); // Reduced from 2000ms for better UX
 
     return () => clearTimeout(timer);
@@ -96,35 +104,41 @@ const AppContent = () => {
 
   const renderCurrentView = () => {
     try {
+      const renderComponent = (Component) => (
+        <Suspense fallback={<LoadingScreen />}>
+          <Component />
+        </Suspense>
+      );
+
       switch (currentView) {
         case 'dashboard':
-          return <Dashboard />;
+          return renderComponent(Dashboard);
         case 'ai-cobuilder':
-          return <AICoBuilder />;
+          return renderComponent(AICoBuilder);
         case 'community':
-          return <OpenCommunity />;
+          return renderComponent(OpenCommunity);
         case 'ma':
-          return <MAndA />;
+          return renderComponent(MAndA);
         case 'analytics':
-          return <AdvancedAnalytics />;
+          return renderComponent(AdvancedAnalytics);
         case 'ecosystem':
-          return <EcosystemHub />;
+          return renderComponent(EcosystemHub);
         case 'startup-profile':
-          return <StartupProfile />;
+          return renderComponent(StartupProfile);
         case 'digital-hq':
-          return <DigitalHQ />;
+          return renderComponent(DigitalHQ);
         case 'people':
-          return <PeopleManagement />;
-        case 'network':
-          return <Network />;
+          return renderComponent(PeopleManagement);
+        case 'startup-hub':
+          return renderComponent(StartupHub);
         case 'profile':
-          return <UserProfile />;
+          return renderComponent(UserProfile);
         case 'roadmap':
-          return <StartupRoadmap />;
+          return renderComponent(StartupRoadmap);
         case 'gamification':
-          return <GamificationDashboard />;
+          return renderComponent(GamificationDashboard);
         default:
-          return <Dashboard />;
+          return renderComponent(Dashboard);
       }
     } catch (error) {
       console.error('Error rendering view:', error);
@@ -149,8 +163,20 @@ const AppContent = () => {
     }
   };
 
+  const handleOnboardingComplete = (data) => {
+    console.log('Onboarding completed with data:', data);
+    localStorage.setItem('onboardingComplete', 'true');
+    setOnboardingComplete(true);
+    setShowOnboarding(false);
+    setCurrentView('dashboard');
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
+  }
+
+  if (showOnboarding) {
+    return <StartupOnboarding onComplete={handleOnboardingComplete} />;
   }
 
   return (
@@ -214,12 +240,30 @@ function App() {
             <Router>
               <Routes>
                 {/* Public Routes */}
-                <Route path="/" element={<Landing />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/login" element={
+                  <Suspense fallback={<LoadingScreen />}>
+                    <Login />
+                  </Suspense>
+                } />
+                <Route path="/signup" element={
+                  <Suspense fallback={<LoadingScreen />}>
+                    <Signup />
+                  </Suspense>
+                } />
+                <Route path="/forgot-password" element={
+                  <Suspense fallback={<LoadingScreen />}>
+                    <ForgotPassword />
+                  </Suspense>
+                } />
                 
-                {/* Protected Routes */}
+                {/* Protected Routes - Dashboard as default */}
+                <Route path="/" element={
+                  <ProtectedRoute>
+                    <GamificationProvider>
+                      <AppContent />
+                    </GamificationProvider>
+                  </ProtectedRoute>
+                } />
                 <Route path="/app" element={
                   <ProtectedRoute>
                     <GamificationProvider>

@@ -342,6 +342,149 @@ const UserProfile = () => {
     }
   });
 
+  const [networkConnections, setNetworkConnections] = useState([
+    {
+      id: 1,
+      name: 'Sarah Chen',
+      role: 'CEO at TechFlow',
+      avatar: '👩‍💼',
+      connectionType: 'Founder',
+      mutualConnections: 12,
+      lastInteraction: '2 days ago',
+      status: 'active',
+      location: 'San Francisco, CA',
+      industry: 'SaaS',
+      skills: ['Product Management', 'Growth Strategy', 'AI/ML']
+    },
+    {
+      id: 2,
+      name: 'Marcus Rodriguez',
+      role: 'CTO at DataFlow',
+      avatar: '👨‍💻',
+      connectionType: 'Technical',
+      mutualConnections: 8,
+      lastInteraction: '1 week ago',
+      status: 'active',
+      location: 'Austin, TX',
+      industry: 'Data Analytics',
+      skills: ['Backend Development', 'AI/ML', 'System Architecture']
+    },
+    {
+      id: 3,
+      name: 'Emily Watson',
+      role: 'VP Marketing at GrowthCo',
+      avatar: '👩‍🎨',
+      connectionType: 'Marketing',
+      mutualConnections: 15,
+      lastInteraction: '3 days ago',
+      status: 'active',
+      location: 'New York, NY',
+      industry: 'Marketing Tech',
+      skills: ['Growth Marketing', 'Brand Strategy', 'Content Marketing']
+    }
+  ]);
+
+  const [achievements, setAchievements] = useState([
+    {
+      id: 1,
+      title: 'StartupOS Pioneer',
+      description: 'First 100 users to join the platform',
+      icon: '🚀',
+      category: 'Platform',
+      rarity: 'legendary',
+      earnedDate: '2023-01-15',
+      points: 1000,
+      progress: 100
+    },
+    {
+      id: 2,
+      title: 'AI Tool Creator',
+      description: 'Created 10+ AI-powered tools',
+      icon: '🤖',
+      category: 'AI',
+      rarity: 'epic',
+      earnedDate: '2023-03-20',
+      points: 750,
+      progress: 100
+    },
+    {
+      id: 3,
+      title: 'Ecosystem Connector',
+      description: 'Connected 100+ startups',
+      icon: '🌐',
+      category: 'Network',
+      rarity: 'rare',
+      earnedDate: '2023-06-10',
+      points: 500,
+      progress: 100
+    },
+    {
+      id: 4,
+      title: 'M&A Expert',
+      description: 'Completed 3 successful acquisitions',
+      icon: '💼',
+      category: 'M&A',
+      rarity: 'epic',
+      earnedDate: '2023-08-15',
+      points: 800,
+      progress: 100
+    },
+    {
+      id: 5,
+      title: 'Team Builder',
+      description: 'Built teams of 50+ members',
+      icon: '👥',
+      category: 'Leadership',
+      rarity: 'rare',
+      earnedDate: '2023-09-30',
+      points: 600,
+      progress: 100
+    },
+    {
+      id: 6,
+      title: 'Growth Hacker',
+      description: 'Achieved 500% growth in 6 months',
+      icon: '📈',
+      category: 'Growth',
+      rarity: 'legendary',
+      earnedDate: '2023-11-20',
+      points: 1200,
+      progress: 100
+    }
+  ]);
+
+  const [profileAnalytics, setProfileAnalytics] = useState({
+    views: {
+      total: 1250,
+      thisMonth: 89,
+      thisWeek: 23,
+      today: 5
+    },
+    connections: {
+      total: 450,
+      newThisMonth: 12,
+      pending: 8,
+      accepted: 4
+    },
+    engagement: {
+      profileViews: 89,
+      messageReplies: 23,
+      postLikes: 156,
+      commentReplies: 34
+    },
+    growth: {
+      profileScore: 94.2,
+      networkScore: 87.5,
+      influenceScore: 91.8,
+      activityScore: 89.3
+    },
+    trends: {
+      profileViews: [45, 52, 38, 67, 89, 78, 91],
+      connections: [12, 15, 8, 22, 18, 25, 19],
+      engagement: [34, 41, 28, 56, 48, 62, 58]
+    }
+  });
+
   const handleProfileUpdate = (field, value) => {
     setUserProfile(prev => ({
       ...prev,
@@ -1068,10 +1211,10 @@ const UserProfile = () => {
       case 'ecosystem': return renderEcosystemImpact();
       case 'ai-tools': return renderAITools();
 
-      case 'network': return <div className="text-center py-12">Network visualization coming soon...</div>;
-      case 'achievements': return <div className="text-center py-12">Achievements gallery coming soon...</div>;
-      case 'analytics': return <div className="text-center py-12">Profile analytics coming soon...</div>;
-      case 'settings': return <div className="text-center py-12">Settings panel coming soon...</div>;
+      case 'network': return renderNetwork();
+      case 'achievements': return renderAchievements();
+      case 'analytics': return renderAnalytics();
+      case 'settings': return renderSettings();
       default: return renderOverview();
     }
   };

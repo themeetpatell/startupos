@@ -33,6 +33,8 @@ import {
   Bookmark,
   Settings,
   MoreVertical,
+  Grid,
+  List,
   Star as StarIcon,
   Award as AwardIcon,
   Users as UsersIcon,

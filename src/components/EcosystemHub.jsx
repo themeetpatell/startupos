@@ -44,6 +44,7 @@ const EcosystemHub = () => {
     { id: 'founders', label: 'Founders', icon: Users, count: 1800 },
     { id: 'investors', label: 'Investors', icon: DollarSign, count: 1250 },
     { id: 'cxos', label: 'CXOs', icon: Briefcase, count: 950 },
+    { id: 'mentors', label: 'Mentors', icon: Award, count: 234 },
     { id: 'partners', label: 'Partners', icon: Handshake, count: 850 },
     { id: 'integrations', label: 'Integrations', icon: Zap, count: 450 },
     { id: 'services', label: 'Services', icon: Building, count: 2100 }
@@ -211,6 +212,189 @@ const EcosystemHub = () => {
     }
   ];
 
+  const startups = [
+    {
+      id: 1,
+      name: 'TechFlow AI',
+      description: 'AI-powered workflow automation for enterprise teams',
+      logo: '🤖',
+      stage: 'Series A',
+      funding: '$12M',
+      location: 'San Francisco, CA',
+      founded: '2021',
+      employees: '25-50',
+      industry: 'AI/ML',
+      tags: ['AI', 'Enterprise', 'Automation'],
+      founders: ['Sarah Chen', 'Marcus Rodriguez'],
+      investors: ['Andreessen Horowitz', 'Sequoia Capital'],
+      website: 'https://techflow.ai',
+      social: { twitter: '@techflowai', linkedin: 'techflow-ai' },
+      description_long: 'TechFlow AI is revolutionizing enterprise workflow management through intelligent automation. Our platform helps teams streamline processes, reduce manual work, and increase productivity by 40%.',
+      metrics: {
+        revenue: '$2.1M ARR',
+        growth: '+180% YoY',
+        customers: '150+',
+        satisfaction: '4.8/5'
+      },
+      recent_news: [
+        'Raised $12M Series A led by a16z',
+        'Launched new AI workflow templates',
+        'Expanded to European markets'
+      ]
+    },
+    {
+      id: 2,
+      name: 'GreenTech Solutions',
+      description: 'Sustainable energy management for smart cities',
+      logo: '🌱',
+      stage: 'Seed',
+      funding: '$3.2M',
+      location: 'Austin, TX',
+      founded: '2022',
+      employees: '10-25',
+      industry: 'CleanTech',
+      tags: ['Sustainability', 'Energy', 'Smart Cities'],
+      founders: ['Emily Watson', 'David Kim'],
+      investors: ['Kleiner Perkins', 'Climate Capital'],
+      website: 'https://greentech-solutions.com',
+      social: { twitter: '@greentechsol', linkedin: 'greentech-solutions' },
+      description_long: 'GreenTech Solutions provides comprehensive energy management platforms for smart cities, helping municipalities reduce carbon footprint and optimize energy consumption.',
+      metrics: {
+        revenue: '$850K ARR',
+        growth: '+320% YoY',
+        customers: '45+',
+        satisfaction: '4.9/5'
+      },
+      recent_news: [
+        'Closed $3.2M seed round',
+        'Partnered with 5 major cities',
+        'Won CleanTech Innovation Award'
+      ]
+    },
+    {
+      id: 3,
+      name: 'HealthConnect',
+      description: 'Telemedicine platform connecting patients with specialists',
+      logo: '🏥',
+      stage: 'Series B',
+      funding: '$28M',
+      location: 'New York, NY',
+      founded: '2020',
+      employees: '50-100',
+      industry: 'HealthTech',
+      tags: ['Healthcare', 'Telemedicine', 'AI'],
+      founders: ['Dr. Lisa Park', 'James Wilson'],
+      investors: ['General Catalyst', 'GV', 'Bessemer Ventures'],
+      website: 'https://healthconnect.com',
+      social: { twitter: '@healthconnect', linkedin: 'healthconnect' },
+      description_long: 'HealthConnect is transforming healthcare delivery through AI-powered telemedicine, making specialist care accessible to patients everywhere.',
+      metrics: {
+        revenue: '$8.5M ARR',
+        growth: '+150% YoY',
+        customers: '500+',
+        satisfaction: '4.7/5'
+      },
+      recent_news: [
+        'Raised $28M Series B',
+        'Launched AI diagnostic tools',
+        'Expanded to 15 states'
+      ]
+    }
+  ];
+
+  const founders = [
+    {
+      id: 1,
+      name: 'Sarah Chen',
+      title: 'CEO & Co-founder',
+      company: 'TechFlow AI',
+      avatar: '👩‍💻',
+      location: 'San Francisco, CA',
+      experience: '15 years',
+      previous_companies: ['Google', 'Stripe', 'Airbnb'],
+      expertise: ['AI/ML', 'Product Strategy', 'Team Building'],
+      education: 'Stanford CS, MBA',
+      social: { twitter: '@sarahchen', linkedin: 'sarah-chen-ai' },
+      bio: 'Serial entrepreneur with 15 years in tech. Previously led AI teams at Google and built products used by millions at Stripe.',
+      achievements: ['Forbes 30 Under 30', 'Built 3 successful exits', 'Mentored 50+ founders'],
+      availability: 'Available for mentoring',
+      interests: ['AI', 'Climate Tech', 'Diversity in Tech']
+    },
+    {
+      id: 2,
+      name: 'Marcus Rodriguez',
+      title: 'CTO & Co-founder',
+      company: 'TechFlow AI',
+      avatar: '👨‍💼',
+      location: 'San Francisco, CA',
+      experience: '12 years',
+      previous_companies: ['Meta', 'Netflix', 'Uber'],
+      expertise: ['Engineering', 'Scalability', 'AI Systems'],
+      education: 'MIT CS, MS AI',
+      social: { twitter: '@marcusrod', linkedin: 'marcus-rodriguez-cto' },
+      bio: 'Engineering leader who has scaled systems to serve billions of users. Expert in building robust, scalable AI infrastructure.',
+      achievements: ['Built systems at 3 unicorns', 'Open source contributor', 'Technical advisor to 10+ startups'],
+      availability: 'Available for technical consulting',
+      interests: ['Open Source', 'AI Ethics', 'Developer Tools']
+    },
+    {
+      id: 3,
+      name: 'Emily Watson',
+      title: 'CEO & Founder',
+      company: 'GreenTech Solutions',
+      avatar: '👩‍💼',
+      location: 'Austin, TX',
+      experience: '8 years',
+      previous_companies: ['Tesla', 'SolarCity', 'Clean Energy Labs'],
+      expertise: ['CleanTech', 'Sustainability', 'Government Relations'],
+      education: 'UC Berkeley Environmental Engineering',
+      social: { twitter: '@emilywatson', linkedin: 'emily-watson-cleantech' },
+      bio: 'Environmental engineer turned entrepreneur. Passionate about using technology to solve climate challenges.',
+      achievements: ['Climate Tech Pioneer', 'Policy advisor', 'Built 2 successful exits'],
+      availability: 'Available for climate tech mentoring',
+      interests: ['Climate Action', 'Policy', 'Sustainable Cities']
+    }
+  ];
+
+  const mentors = [
+    {
+      id: 1,
+      name: 'Dr. Lisa Park',
+      title: 'Healthcare Innovation Advisor',
+      company: 'Former Johnson & Johnson',
+      avatar: '👩‍⚕️',
+      location: 'Boston, MA',
+      experience: '20 years',
+      expertise: ['Healthcare', 'Regulatory', 'Product Development'],
+      availability: 'Available',
+      hourly_rate: '$300',
+      rating: 4.9,
+      reviews: 45,
+      bio: 'Former VP of Innovation at J&J with deep expertise in healthcare product development and regulatory affairs.',
+      specializations: ['FDA Approval', 'Clinical Trials', 'Healthcare Partnerships'],
+      languages: ['English', 'Korean'],
+      timezone: 'EST'
+    },
+    {
+      id: 2,
+      name: 'James Wilson',
+      title: 'Growth Strategy Mentor',
+      company: 'Former HubSpot',
+      avatar: '👨‍💼',
+      location: 'Cambridge, MA',
+      experience: '12 years',
+      expertise: ['Growth Marketing', 'Sales Strategy', 'Team Building'],
+      availability: 'Available',
+      hourly_rate: '$250',
+      rating: 4.8,
+      reviews: 38,
+      bio: 'Former VP of Growth at HubSpot who scaled the company from startup to IPO. Expert in B2B growth strategies.',
+      specializations: ['Inbound Marketing', 'Sales Funnels', 'Customer Success'],
+      languages: ['English'],
+      timezone: 'EST'
+    }
+  ];
+
   const integrations = [
     {
       id: 1,
@@ -219,7 +403,7 @@ const EcosystemHub = () => {
       type: 'Team Collaboration',
       logo: '💬',
       description: 'Connect your startup operations with team communication',
-              features: ['Team updates', 'AI insights'],
+      features: ['Team updates', 'AI insights'],
       status: 'Available',
       users: 45000,
       rating: 4.8
@@ -252,7 +436,10 @@ const EcosystemHub = () => {
 
   const getCurrentData = () => {
     switch (activeTab) {
+      case 'startups': return startups;
+      case 'founders': return founders;
       case 'investors': return investors;
+      case 'mentors': return mentors;
       case 'partners': return partners;
       case 'services': return services;
       case 'integrations': return integrations;
@@ -262,10 +449,13 @@ const EcosystemHub = () => {
 
   const filteredData = getCurrentData().filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase()));
+                         (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                         (item.bio && item.bio.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || 
                            (item.category && item.category === selectedCategory) ||
-                           (item.type && item.type === selectedCategory);
+                           (item.type && item.type === selectedCategory) ||
+                           (item.industry && item.industry === selectedCategory) ||
+                           (item.title && item.title.toLowerCase().includes(selectedCategory.toLowerCase()));
     return matchesSearch && matchesCategory;
   });
 
@@ -424,11 +614,35 @@ const EcosystemHub = () => {
                 className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Categories</option>
+                {activeTab === 'startups' && (
+                  <>
+                    <option value="AI/ML">AI/ML</option>
+                    <option value="CleanTech">CleanTech</option>
+                    <option value="HealthTech">HealthTech</option>
+                    <option value="FinTech">FinTech</option>
+                  </>
+                )}
+                {activeTab === 'founders' && (
+                  <>
+                    <option value="CEO">CEO</option>
+                    <option value="CTO">CTO</option>
+                    <option value="COO">COO</option>
+                    <option value="CFO">CFO</option>
+                  </>
+                )}
                 {activeTab === 'investors' && (
                   <>
                     <option value="VC Fund">VC Fund</option>
                     <option value="Angel">Angel Investor</option>
                     <option value="Corporate">Corporate VC</option>
+                  </>
+                )}
+                {activeTab === 'mentors' && (
+                  <>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Growth">Growth</option>
+                    <option value="Technical">Technical</option>
+                    <option value="Business">Business</option>
                   </>
                 )}
                 {activeTab === 'partners' && (
@@ -513,6 +727,79 @@ const EcosystemHub = () => {
                 <p className="text-gray-600 text-sm mt-4 line-clamp-2">{item.description}</p>
 
                 {/* Specific content based on tab */}
+                {activeTab === 'startups' && (
+                  <div className="mt-4 space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Stage:</span>
+                      <span className="font-medium">{item.stage}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Funding:</span>
+                      <span className="font-medium">{item.funding}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Founded:</span>
+                      <span className="font-medium">{item.founded}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {item.tags.slice(0, 3).map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          className="px-2 py-1 bg-blue-50 text-blue-600 text-xs font-medium rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'founders' && (
+                  <div className="mt-4 space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Experience:</span>
+                      <span className="font-medium">{item.experience}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Education:</span>
+                      <span className="font-medium">{item.education}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {item.expertise.slice(0, 3).map((skill, skillIndex) => (
+                        <span
+                          key={skillIndex}
+                          className="px-2 py-1 bg-green-50 text-green-600 text-xs font-medium rounded-full"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'mentors' && (
+                  <div className="mt-4 space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Rate:</span>
+                      <span className="font-medium">{item.hourly_rate}/hr</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Experience:</span>
+                      <span className="font-medium">{item.experience}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {item.expertise.slice(0, 3).map((skill, skillIndex) => (
+                        <span
+                          key={skillIndex}
+                          className="px-2 py-1 bg-orange-50 text-orange-600 text-xs font-medium rounded-full"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {activeTab === 'investors' && (
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center justify-between text-sm">

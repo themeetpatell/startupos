@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import Onboarding from '../Onboarding';
+import StartupOnboarding from '../StartupOnboarding';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -389,7 +389,7 @@ const Signup = () => {
       
       {/* Onboarding Modal */}
       {showOnboarding && (
-        <Onboarding 
+        <StartupOnboarding 
           onComplete={handleOnboardingComplete}
           startupName={formData.companyName}
           userData={formData}

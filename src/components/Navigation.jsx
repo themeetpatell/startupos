@@ -38,9 +38,9 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home, color: 'emerald' },
     { id: 'ai-cobuilder', label: 'AI Co-Builder', icon: Brain, color: 'purple', badge: 'New' },
-    { id: 'community', label: 'Community', icon: Users, color: 'blue' },
-    { id: 'network', label: 'Network', icon: UsersIcon, color: 'teal' },
-    { id: 'ma', label: 'M&A', icon: Building, color: 'orange' },
+    { id: 'startup-hub', label: 'StartupHub', icon: Building, color: 'blue' },
+    { id: 'community', label: 'Community', icon: Users, color: 'teal' },
+    { id: 'ma', label: 'M&A', icon: CreditCard, color: 'orange' },
     { id: 'analytics', label: 'Analytics', icon: BarChart3, color: 'red' },
     { id: 'ecosystem', label: 'Ecosystem', icon: Globe, color: 'indigo' }
   ];
