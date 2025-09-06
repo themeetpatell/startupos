@@ -15,7 +15,6 @@ const OpenCommunity = lazy(() => import('./components/OpenCommunity'));
 const MAndA = lazy(() => import('./components/M&A/M&A'));
 const AdvancedAnalytics = lazy(() => import('./components/AdvancedAnalytics'));
 const EcosystemHub = lazy(() => import('./components/EcosystemHub'));
-const StartupProfile = lazy(() => import('./components/StartupProfile'));
 const DigitalHQ = lazy(() => import('./components/DigitalHQ'));
 const PeopleManagement = lazy(() => import('./components/PeopleManagement'));
 const StartupHub = lazy(() => import('./components/StartupHub'));
@@ -123,8 +122,6 @@ const AppContent = () => {
           return renderComponent(AdvancedAnalytics);
         case 'ecosystem':
           return renderComponent(EcosystemHub);
-        case 'startup-profile':
-          return renderComponent(StartupProfile);
         case 'digital-hq':
           return renderComponent(DigitalHQ);
         case 'people':

@@ -292,21 +292,6 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                              </div>
                            </button>
 
-                           <button
-                             onClick={() => {
-                               setCurrentView('startup-profile');
-                               setShowProfile(false);
-                             }}
-                             className="w-full flex items-center space-x-3 px-3 py-3 text-left hover:bg-green-50 rounded-2xl transition-colors"
-                           >
-                             <div className="w-10 h-10 bg-green-100 rounded-2xl flex items-center justify-center">
-                               <Building size={20} className="text-green-600" />
-                             </div>
-                             <div>
-                               <div className="font-medium text-gray-800">Startup Hub</div>
-                               <div className="text-sm text-gray-500">Your startup dashboard</div>
-                             </div>
-                           </button>
 
                            <button
                              onClick={() => {
