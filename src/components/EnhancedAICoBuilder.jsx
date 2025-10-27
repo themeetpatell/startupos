@@ -1215,28 +1215,18 @@ const EnhancedAICoBuilder = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Co-Builder</h1>
-              <p className="text-gray-600">Hire and manage AI employees for your startup</p>
-            </div>
-            <button
-              onClick={() => setShowBuilderModal(true)}
-              className="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <Plus className="w-5 h-5" />
-              <span>Create AI Employee</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        {/* Header with Tabs */}
+        <div className="mb-6">
           <div className="bg-white rounded-xl border border-gray-200 p-2 shadow-sm">
             <nav className="flex space-x-2">
+              <button
+                onClick={() => setShowBuilderModal(true)}
+                className="flex items-center space-x-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors mr-2"
+              >
+                <Plus className="w-5 h-5" />
+                <span>Create AI Employee</span>
+              </button>
               {[
                 { id: 'marketplace', label: 'Marketplace', count: marketplaceEmployees.length, icon: Globe },
                 { id: 'my-team', label: 'My Team', count: myTeamEmployees.length, icon: Users },

@@ -794,8 +794,6 @@ const WorkHub = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">WorkHub</h1>
-          <p className="text-sm sm:text-base text-gray-600">Your central command center for team collaboration and project management</p>
         </div>
 
         {/* Search Bar */}

@@ -24,49 +24,39 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    // Simulate API call
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email && password) {
-          const userData = {
-            id: '1',
-            email,
-            name: 'John Doe',
-            role: 'founder',
-            company: 'StartupOS Demo',
-            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-          };
-          setUser(userData);
-          localStorage.setItem('startupos_user', JSON.stringify(userData));
-          resolve(userData);
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 1000);
-    });
+    if (email && password) {
+      const userData = {
+        id: '1',
+        email,
+        name: 'John Doe',
+        role: 'founder',
+        company: 'StartupOS Demo',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+      };
+      setUser(userData);
+      localStorage.setItem('startupos_user', JSON.stringify(userData));
+      return userData;
+    } else {
+      throw new Error('Invalid credentials');
+    }
   };
 
   const signup = async (userData) => {
-    // Simulate API call
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (userData.email && userData.password) {
-          const newUser = {
-            id: '1',
-            email: userData.email,
-            name: `${userData.firstName} ${userData.lastName}`,
-            role: userData.role,
-            company: userData.companyName || 'My Startup',
-            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-          };
-          setUser(newUser);
-          localStorage.setItem('startupos_user', JSON.stringify(newUser));
-          resolve(newUser);
-        } else {
-          reject(new Error('Invalid user data'));
-        }
-      }, 1000);
-    });
+    if (userData.email && userData.password) {
+      const newUser = {
+        id: '1',
+        email: userData.email,
+        name: `${userData.firstName} ${userData.lastName}`,
+        role: userData.role,
+        company: userData.companyName || 'My Startup',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+      };
+      setUser(newUser);
+      localStorage.setItem('startupos_user', JSON.stringify(newUser));
+      return newUser;
+    } else {
+      throw new Error('Invalid user data');
+    }
   };
 
   const logout = () => {

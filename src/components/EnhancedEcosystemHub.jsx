@@ -1061,13 +1061,7 @@ const EnhancedEcosystemHub = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Ecosystem Hub</h1>
-          <p className="text-gray-600">Connect with startups, founders, investors, and experts in the ecosystem</p>
-        </div>
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Tab-specific Search and Filters */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">

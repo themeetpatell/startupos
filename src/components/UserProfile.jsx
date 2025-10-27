@@ -1465,7 +1465,6 @@ const UserProfile = () => {
           ...baseTabs.slice(0, 1),
           { id: 'career', label: 'Career History', icon: Briefcase, color: 'green', count: profile.workHistory?.length || 0 },
           { id: 'startup', label: 'Startup Portfolio', icon: Building, color: 'green', count: profile.startups?.length || 0 },
-          { id: 'ecosystem', label: 'Ecosystem Impact', icon: Globe, color: 'purple', count: profile.stats?.startupsConnected || 0 },
           { id: 'ai-tools', label: 'AI Tools Created', icon: Brain, color: 'orange', count: profile.stats?.aiToolsBuilt || 0 },
           ...baseTabs.slice(1)
         ];
@@ -2554,49 +2553,6 @@ const UserProfile = () => {
     </div>
   );
 
-  const renderEcosystemImpact = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
-      >
-        <h3 className="text-xl font-bold text-gray-900 mb-6">Ecosystem Impact</h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <h4 className="font-semibold text-gray-900">Network Reach</h4>
-            <div className="space-y-3">
-              {Object.entries(userProfile.connections || {}).map(([key, value]) => (
-                <div key={key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="capitalize text-gray-700">{key}</span>
-                  <span className="font-bold text-blue-600">{value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <h4 className="font-semibold text-gray-900">Industry Influence</h4>
-            <div className="space-y-3">
-              {userProfile.industries?.map((industry, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-gray-700">{industry}</span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-blue-600 h-2 rounded-full" 
-                      style={{ width: `${Math.random() * 40 + 60}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-
   const renderAITools = () => (
     <div className="space-y-6">
       <motion.div
@@ -3333,7 +3289,6 @@ const UserProfile = () => {
       case 'board': return renderBoardPositions();
       case 'projects': return renderProjects();
       case 'job-search': return renderJobSearch();
-      case 'ecosystem': return renderEcosystemImpact();
       case 'ai-tools': return renderAITools();
       case 'credentials': return renderCredentials();
       case 'media': return renderMediaMentions();
@@ -3346,25 +3301,8 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <div className="flex items-center space-x-3 mb-2">
-            <div className="w-12 h-12 startupos-gradient rounded-xl flex items-center justify-center">
-              <User className="text-white" size={24} />
-            </div>
-            <h1 className="text-4xl font-bold startupos-gradient-text">StartupOS Profile</h1>
-          </div>
-          <p className="text-gray-600 text-lg">
-            Your comprehensive startup ecosystem profile - 100x better than LinkedIn
-          </p>
-        </motion.div>
-
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar Navigation */}
           <motion.div

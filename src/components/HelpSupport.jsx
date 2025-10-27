@@ -39,7 +39,6 @@ const HelpSupport = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [showContactForm, setShowContactForm] = useState(false);
-  const [ticketPriority, setTicketPriority] = useState('medium');
 
   const [faqs, setFaqs] = useState([
     {
@@ -135,48 +134,11 @@ const HelpSupport = () => {
     }
   ]);
 
-  const [tickets, setTickets] = useState([
-    {
-      id: 'TKT-001',
-      subject: 'Unable to access WorkHub dashboard',
-      status: 'open',
-      priority: 'high',
-      category: 'Technical',
-      created: '2024-01-20',
-      lastUpdated: '2024-01-20',
-      assignee: 'Support Team',
-      description: 'I\'m getting a 404 error when trying to access the WorkHub section. This started happening after the latest update.'
-    },
-    {
-      id: 'TKT-002',
-      subject: 'Billing question about plan upgrade',
-      status: 'in-progress',
-      priority: 'medium',
-      category: 'Billing',
-      created: '2024-01-19',
-      lastUpdated: '2024-01-20',
-      assignee: 'Billing Team',
-      description: 'I want to upgrade to the Enterprise plan but have questions about the pricing and features included.'
-    },
-    {
-      id: 'TKT-003',
-      subject: 'Feature request: Custom project templates',
-      status: 'closed',
-      priority: 'low',
-      category: 'Feature Request',
-      created: '2024-01-15',
-      lastUpdated: '2024-01-18',
-      assignee: 'Product Team',
-      description: 'It would be great to have the ability to create custom project templates that can be reused across different projects.'
-    }
-  ]);
-
   const categories = ['all', 'Getting Started', 'Billing', 'Technical', 'Account', 'Project Management', 'Team Management', 'Analytics'];
 
   const tabs = [
     { id: 'help', label: 'Help Center', icon: HelpCircle },
     { id: 'articles', label: 'Knowledge Base', icon: BookOpen },
-    { id: 'tickets', label: 'Support Tickets', icon: MessageCircle },
     { id: 'contact', label: 'Contact Us', icon: Phone }
   ];
 
@@ -389,80 +351,6 @@ const HelpSupport = () => {
     </div>
   );
 
-  const renderTickets = () => (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Support Tickets</h2>
-        <button
-          onClick={() => setShowContactForm(true)}
-          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <Plus className="w-5 h-5" />
-          <span>New Ticket</span>
-        </button>
-      </div>
-
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-900">Ticket</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-900">Subject</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-900">Status</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-900">Priority</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-900">Created</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-900">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {tickets.map((ticket) => (
-                <tr key={ticket.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-gray-900">{ticket.id}</td>
-                  <td className="px-6 py-4">
-                    <div className="font-medium text-gray-900">{ticket.subject}</div>
-                    <div className="text-sm text-gray-500">{ticket.category}</div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                      ticket.status === 'open' ? 'bg-red-100 text-red-800' :
-                      ticket.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
-                    }`}>
-                      {ticket.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                      ticket.priority === 'high' ? 'bg-red-100 text-red-800' :
-                      ticket.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
-                    }`}>
-                      {ticket.priority}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-900">
-                    {new Date(ticket.created).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center space-x-2">
-                      <button className="text-blue-600 hover:text-blue-700">
-                        <Eye className="w-4 h-4" />
-                      </button>
-                      <button className="text-gray-600 hover:text-gray-700">
-                        <Edit className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-
   const renderContact = () => (
     <div className="space-y-8">
       <div className="text-center">
@@ -518,28 +406,13 @@ const HelpSupport = () => {
       <div className="bg-white rounded-2xl border border-gray-200 p-8">
         <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
         <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-              <input
-                type="text"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Brief description of your issue"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Priority</label>
-              <select
-                value={ticketPriority}
-                onChange={(e) => setTicketPriority(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
-              </select>
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+            <input
+              type="text"
+              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Brief description of your issue"
+            />
           </div>
           
           <div>
@@ -569,7 +442,6 @@ const HelpSupport = () => {
     switch (activeTab) {
       case 'help': return renderHelp();
       case 'articles': return renderArticles();
-      case 'tickets': return renderTickets();
       case 'contact': return renderContact();
       default: return renderHelp();
     }
@@ -577,13 +449,7 @@ const HelpSupport = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Help & Support</h1>
-          <p className="text-gray-600">Find answers, get help, and connect with our support team</p>
-        </div>
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Tabs */}
         <div className="flex space-x-1 bg-white rounded-2xl border border-gray-200 p-2 mb-8">
           {tabs.map((tab) => {

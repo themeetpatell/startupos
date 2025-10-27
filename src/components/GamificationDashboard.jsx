@@ -704,35 +704,11 @@ const GamificationDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 p-6">
+        {/* Combined Header with Tabs */}
+        <div className="bg-white border-b border-gray-200 px-4 py-2">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Gamification Dashboard</h1>
-              <p className="text-gray-600 mt-1">Track your progress, earn achievements, and unlock rewards</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setShowNotifications(!showNotifications)}
-                className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
-              >
-                <Bell size={20} />
-                {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                    {notifications.length}
-                  </span>
-                )}
-              </button>
-              <button className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
-                <Settings size={20} />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="bg-white border-b border-gray-200 px-6">
-          <div className="flex space-x-1">
+            {/* Tabs on left */}
+            <div className="flex space-x-1">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -751,6 +727,24 @@ const GamificationDashboard = () => {
                 </button>
               );
             })}
+            </div>
+            {/* Icons on right */}
+            <div className="flex items-center space-x-2 ml-4">
+              <button
+                onClick={() => setShowNotifications(!showNotifications)}
+                className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+              >
+                <Bell size={20} />
+                {notifications.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                    {notifications.length}
+                  </span>
+                )}
+              </button>
+              <button className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
+                <Settings size={20} />
+              </button>
+            </div>
           </div>
         </div>
 

@@ -51,11 +51,9 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
   // Profile dropdown items
   const profileDropdownItems = [
     { id: 'profile', label: 'My Profile', icon: User, color: 'blue', description: 'Manage your account' },
-    { id: 'community', label: 'Community', icon: Users, color: 'teal', description: 'Network & Connect' },
     { id: 'analytics', label: 'Analytics', icon: BarChart3, color: 'red', description: 'Data & Insights' },
     { id: 'roadmap', label: 'My Roadmap', icon: Map, color: 'orange', description: 'Track your progress' },
-    { id: 'gamification', label: 'Gamification', icon: Trophy, color: 'yellow', description: 'Achievements & Rewards' },
-    { id: 'credit-store', label: 'Credit Store', icon: Star, color: 'purple', description: 'Earn & Claim Credits' }
+    { id: 'gamification', label: 'Gamification', icon: Trophy, color: 'yellow', description: 'Achievements & Rewards' }
   ];
 
   // Account dropdown items
@@ -126,7 +124,6 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
               </div>
               <div className="hidden sm:block">
                 <span className="text-xl font-bold text-gray-900">StartupOS</span>
-                <span className="text-xs text-gray-500 ml-2 font-medium">Platform</span>
               </div>
             </motion.div>
 

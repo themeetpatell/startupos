@@ -19,31 +19,11 @@ import {
   ArrowUp,
   ArrowDown,
   PieChart,
-  LineChart,
   Activity,
   Globe,
   Smartphone,
   Monitor
 } from 'lucide-react';
-import { 
-  LineChart as RechartsLineChart, 
-  Line, 
-  AreaChart, 
-  Area, 
-  BarChart, 
-  Bar, 
-  PieChart as RechartsPieChart, 
-  Pie, 
-  Cell, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  ComposedChart,
-  Scatter,
-  ScatterChart
-} from 'recharts';
 import '../App.css';
 
 const AdvancedAnalytics = () => {
@@ -195,25 +175,16 @@ const AdvancedAnalytics = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-6 flex justify-end"
         >
           <div className="flex items-center justify-between">
             <div>
-              <div className="flex items-center space-x-3 mb-2">
-                <div className="w-10 h-10 startupos-gradient rounded-xl flex items-center justify-center">
-                  <BarChart3 className="text-white" size={20} />
-                </div>
-                <h1 className="text-3xl font-bold startupos-gradient-text">Analytics & Intelligence</h1>
-              </div>
-              <p className="text-gray-600">
-                Deep insights into your startup's performance and growth opportunities
-              </p>
             </div>
             <div className="flex items-center space-x-3">
               <select
@@ -312,43 +283,11 @@ const AdvancedAnalytics = () => {
                 <button className="text-sm text-blue-600 hover:underline">View Details</button>
               </div>
             </div>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={revenueData}>
-                  <defs>
-                    <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="month" stroke="#6b7280" />
-                  <YAxis stroke="#6b7280" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'white', 
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="revenue" 
-                    stroke="#3B82F6" 
-                    strokeWidth={3}
-                    fill="url(#revenueGradient)" 
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="target" 
-                    stroke="#10B981" 
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                  />
-                  <Bar dataKey="growth" fill="#8B5CF6" opacity={0.6} />
-                </ComposedChart>
-              </ResponsiveContainer>
+            <div className="h-80 flex items-center justify-center bg-gray-50 rounded-lg">
+              <div className="text-center">
+                <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                <p className="text-gray-500">Revenue chart would be here</p>
+              </div>
             </div>
           </motion.div>
 
@@ -396,18 +335,11 @@ const AdvancedAnalytics = () => {
             className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
           >
             <h3 className="text-lg font-semibold text-gray-900 mb-6">User Acquisition Channels</h3>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={userAcquisitionData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="week" stroke="#6b7280" />
-                  <YAxis stroke="#6b7280" />
-                  <Tooltip />
-                  <Bar dataKey="organic" stackId="a" fill="#3B82F6" />
-                  <Bar dataKey="paid" stackId="a" fill="#10B981" />
-                  <Bar dataKey="referral" stackId="a" fill="#F59E0B" />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+              <div className="text-center">
+                <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                <p className="text-gray-500">User acquisition chart would be here</p>
+              </div>
             </div>
             <div className="flex items-center justify-center space-x-6 mt-4">
               <div className="flex items-center space-x-2">
@@ -433,25 +365,11 @@ const AdvancedAnalytics = () => {
             className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
           >
             <h3 className="text-lg font-semibold text-gray-900 mb-6">Device Usage</h3>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <RechartsPieChart>
-                  <Pie
-                    data={deviceData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={100}
-                    dataKey="value"
-                    label={({ name, value }) => `${name} ${value}%`}
-                  >
-                    {deviceData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </RechartsPieChart>
-              </ResponsiveContainer>
+            <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+              <div className="text-center">
+                <PieChart className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                <p className="text-gray-500">Device usage chart would be here</p>
+              </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mt-4">
               {deviceData.map((device, index) => (

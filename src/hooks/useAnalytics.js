@@ -1,19 +1,10 @@
 import { useCallback, useEffect } from 'react';
 
-// Simple analytics tracking hook
 export const useAnalytics = () => {
   const trackEvent = useCallback((eventName, properties = {}) => {
-    // In production, this would send to your analytics service
-    console.log('Analytics Event:', eventName, properties);
-    
-    // Store in localStorage for demo purposes
-    const events = JSON.parse(localStorage.getItem('analytics_events') || '[]');
-    events.push({
-      event: eventName,
-      properties,
-      timestamp: new Date().toISOString()
-    });
-    localStorage.setItem('analytics_events', JSON.stringify(events));
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Analytics Event:', eventName, properties);
+    }
   }, []);
 
   const trackPageView = useCallback((pageName) => {

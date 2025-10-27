@@ -95,90 +95,6 @@ const IntegratedDashboard = () => {
     }
   }), []);
 
-  // Quick Actions & Recent Activities
-  const quickActions = useMemo(() => [
-    {
-      id: 1,
-      title: 'Create New Project',
-      description: 'Start a new project in WorkHub',
-      icon: Plus,
-      color: 'blue',
-      action: () => console.log('Create Project')
-    },
-    {
-      id: 2,
-      title: 'Hire AI Employee',
-      description: 'Add a new AI team member',
-      icon: Brain,
-      color: 'purple',
-      action: () => console.log('Hire AI')
-    },
-    {
-      id: 3,
-      title: 'Schedule Meeting',
-      description: 'Book a team meeting',
-      icon: Calendar,
-      color: 'green',
-      action: () => console.log('Schedule Meeting')
-    },
-    {
-      id: 4,
-      title: 'Generate Report',
-      description: 'Create analytics report',
-      icon: FileText,
-      color: 'orange',
-      action: () => console.log('Generate Report')
-    }
-  ], []);
-
-  const recentActivities = useMemo(() => [
-    {
-      id: 1,
-      type: 'okr_update',
-      title: 'OKR Progress Updated',
-      description: 'Sarah Chen updated MRR progress to 83%',
-      time: '2 minutes ago',
-      status: 'success',
-      icon: Target
-    },
-    {
-      id: 2,
-      type: 'ai_task',
-      title: 'AI Task Completed',
-      description: 'Alex AI finished Q1 marketing strategy',
-      time: '15 minutes ago',
-      status: 'completed',
-      icon: Brain
-    },
-    {
-      id: 3,
-      type: 'user_signup',
-      title: 'New User Registered',
-      description: 'Sarah Chen joined your startup network',
-      time: '1 hour ago',
-      status: 'new',
-      icon: Users
-    },
-    {
-      id: 4,
-      type: 'alert',
-      title: 'Budget Alert',
-      description: 'Approaching 80% of monthly budget',
-      time: '2 hours ago',
-      status: 'warning',
-      icon: AlertTriangle
-    },
-    {
-      id: 5,
-      type: 'milestone',
-      title: 'Milestone Reached',
-      description: 'Product engagement goal 85% achieved',
-      time: '3 hours ago',
-      status: 'success',
-      icon: Award
-    }
-  ], []);
-
   // Insights & Next tasks suggested
   const insights = useMemo(() => [
     {
@@ -283,27 +199,18 @@ const IntegratedDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-              <p className="text-gray-600">Welcome back! Here's what's happening with your startup.</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <select
-                value={timeRange}
-                onChange={(e) => setTimeRange(e.target.value)}
-                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="7d">Last 7 days</option>
-                <option value="30d">Last 30 days</option>
-                <option value="90d">Last 90 days</option>
-                <option value="1y">Last year</option>
-              </select>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="mb-6 flex justify-end">
+          <select
+            value={timeRange}
+            onChange={(e) => setTimeRange(e.target.value)}
+            className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="7d">Last 7 days</option>
+            <option value="30d">Last 30 days</option>
+            <option value="90d">Last 90 days</option>
+            <option value="1y">Last year</option>
+          </select>
         </div>
 
         {/* 1. OKR Progress & KPIs tracking */}
@@ -484,85 +391,7 @@ const IntegratedDashboard = () => {
           </div>
         </div>
 
-        {/* 3. Quick Actions & Recent Activities */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions & Recent Activities</h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Quick Actions */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {quickActions.map((action, index) => (
-                  <motion.button
-                    key={action.id}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={action.action}
-                    className="flex flex-col items-center space-y-3 p-4 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className={`p-3 rounded-xl ${
-                      action.color === 'blue' ? 'bg-blue-100' :
-                      action.color === 'purple' ? 'bg-purple-100' :
-                      action.color === 'green' ? 'bg-green-100' :
-                      'bg-orange-100'
-                    }`}>
-                      <action.icon className={`w-6 h-6 ${
-                        action.color === 'blue' ? 'text-blue-600' :
-                        action.color === 'purple' ? 'text-purple-600' :
-                        action.color === 'green' ? 'text-green-600' :
-                        'text-orange-600'
-                      }`} />
-                    </div>
-                    <div className="text-center">
-                      <div className="font-medium text-gray-900 text-sm">{action.title}</div>
-                      <div className="text-xs text-gray-500">{action.description}</div>
-                    </div>
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-
-            {/* Recent Activities */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activities</h3>
-              <div className="space-y-4">
-                {recentActivities.map((activity, index) => (
-                  <motion.div
-                    key={activity.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <div className={`p-2 rounded-lg ${
-                      activity.status === 'success' ? 'bg-green-100' :
-                      activity.status === 'completed' ? 'bg-green-100' :
-                      activity.status === 'new' ? 'bg-blue-100' :
-                      activity.status === 'warning' ? 'bg-yellow-100' :
-                      'bg-gray-100'
-                    }`}>
-                      <activity.icon className={`w-4 h-4 ${
-                        activity.status === 'success' ? 'text-green-600' :
-                        activity.status === 'completed' ? 'text-green-600' :
-                        activity.status === 'new' ? 'text-blue-600' :
-                        activity.status === 'warning' ? 'text-yellow-600' :
-                        'text-gray-600'
-                      }`} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-sm">{activity.title}</p>
-                      <p className="text-gray-600 text-sm">{activity.description}</p>
-                      <p className="text-gray-500 text-xs mt-1">{activity.time}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 4. Insights & Next tasks suggested, immediate attention required */}
+        {/* 3. Insights & Next tasks suggested, immediate attention required */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Insights & Recommendations</h2>
           
