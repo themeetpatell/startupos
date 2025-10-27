@@ -27,7 +27,6 @@ import {
   ArrowRight,
   ArrowLeft,
   X,
-  Heart,
   Share2,
   Download,
   Bookmark,
@@ -78,9 +77,10 @@ const Advisors = () => {
   });
   const [selectedAdvisor, setSelectedAdvisor] = useState(null);
   const [showAdvisorModal, setShowAdvisorModal] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [sortBy, setSortBy] = useState('rating');
   const [viewMode, setViewMode] = useState('grid');
+  const [shareMessage, setShareMessage] = useState('');
 
   const specialties = [
     'SaaS', 'FinTech', 'Healthcare', 'E-commerce', 'Cybersecurity', 
@@ -316,13 +316,6 @@ const Advisors = () => {
     }
   });
 
-  const toggleFavorite = (advisorId) => {
-    setFavorites(prev => 
-      prev.includes(advisorId) 
-        ? prev.filter(id => id !== advisorId)
-        : [...prev, advisorId]
-    );
-  };
 
   const renderAdvisorCard = (advisor) => (
     <motion.div
@@ -359,19 +352,6 @@ const Advisors = () => {
             </div>
           </div>
         </div>
-        <motion.button
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleFavorite(advisor.id);
-          }}
-          className={`p-2 rounded-full transition-colors ${
-            favorites.includes(advisor.id) ? 'text-red-500 bg-red-50' : 'text-gray-400 hover:text-red-500'
-          }`}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Heart size={16} className={favorites.includes(advisor.id) ? 'fill-current' : ''} />
-        </motion.button>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4">
@@ -409,7 +389,7 @@ const Advisors = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
         <div className="flex items-center space-x-2 text-sm text-gray-500">
           <Clock size={14} />
           <span>Response: {advisor.responseTime}</span>
@@ -418,24 +398,26 @@ const Advisors = () => {
           <motion.button
             onClick={(e) => {
               e.stopPropagation();
-              // Contact advisor
+              // Hire advisor
+              console.log(`Hiring ${advisor.name}`);
             }}
-            className="p-1 text-blue-600 hover:text-blue-700"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            className="px-6 py-3 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <MessageSquare size={16} />
+            Hire
           </motion.button>
           <motion.button
             onClick={(e) => {
               e.stopPropagation();
-              // View profile
+              // Love advisor
+              console.log(`Loving ${advisor.name}`);
             }}
-            className="p-1 text-green-600 hover:text-green-700"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            className="px-6 py-3 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <Eye size={16} />
+            Love
           </motion.button>
         </div>
       </div>
@@ -598,40 +580,82 @@ const Advisors = () => {
               </div>
 
               {/* Actions */}
-              <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-                <div className="flex items-center space-x-3">
-                  <motion.button
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <MessageSquare size={16} />
-                    <span>Contact Advisor</span>
-                  </motion.button>
-                  <motion.button
-                    className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Calendar size={16} />
-                    <span>Schedule Meeting</span>
-                  </motion.button>
+              <div className="pt-6 border-t border-gray-200">
+                {/* Primary CTAs */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <motion.button
+                      className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2 font-medium text-lg"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        // Handle Consult Now action
+                        console.log(`Consulting with ${selectedAdvisor.name}`);
+                        // You can add modal or redirect logic here
+                      }}
+                    >
+                      <MessageSquare size={20} />
+                      <span>Consult Now</span>
+                    </motion.button>
+                    <motion.button
+                      className="px-8 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2 font-medium text-lg"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        // Handle Love action
+                        console.log(`Loving ${selectedAdvisor.name}`);
+                        // You can add like/favorite logic here
+                      }}
+                    >
+                      <HeartIcon size={20} />
+                      <span>Love</span>
+                    </motion.button>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <motion.button
+                      className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Download size={16} />
+                    </motion.button>
+                    <motion.button
+                      className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Share2 size={16} />
+                    </motion.button>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <motion.button
-                    className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Download size={16} />
-                  </motion.button>
-                  <motion.button
-                    className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Share2 size={16} />
-                  </motion.button>
+
+                {/* Share Internally CTA */}
+                <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 border border-purple-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <Users className="w-5 h-5 text-purple-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Share with Team Members</h4>
+                        <p className="text-sm text-gray-600">Send this advisor's profile to your team for discussion</p>
+                      </div>
+                    </div>
+                    <motion.button
+                      className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2 font-medium"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        // Handle share internally action
+                        console.log(`Sharing ${selectedAdvisor.name} internally`);
+                        // You can add team sharing logic here
+                        setShowShareModal(true);
+                      }}
+                    >
+                      <MessageSquare size={18} />
+                      <span>Share Internally</span>
+                    </motion.button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -726,6 +750,143 @@ const Advisors = () => {
 
       {/* Advisor Detail Modal */}
       {renderAdvisorModal()}
+
+      {/* Share Modal */}
+      <AnimatePresence>
+        {showShareModal && selectedAdvisor && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            onClick={() => setShowShareModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-xl shadow-xl max-w-2xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Users className="w-5 h-5 text-purple-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">Share Advisor with Team</h3>
+                      <p className="text-sm text-gray-600">Send {selectedAdvisor.name}'s profile to your team members</p>
+                    </div>
+                  </div>
+                  <motion.button
+                    onClick={() => setShowShareModal(false)}
+                    className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <X size={20} />
+                  </motion.button>
+                </div>
+              </div>
+
+              <div className="p-6 space-y-6">
+                {/* Advisor Summary */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center space-x-4">
+                    <img 
+                      src={selectedAdvisor.avatar} 
+                      alt={selectedAdvisor.name}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{selectedAdvisor.name}</h4>
+                      <p className="text-sm text-gray-600">{selectedAdvisor.title} at {selectedAdvisor.company}</p>
+                      <div className="flex items-center space-x-4 mt-1 text-sm text-gray-500">
+                        <span>⭐ {selectedAdvisor.rating} rating</span>
+                        <span>💼 {selectedAdvisor.deals} deals</span>
+                        <span>💰 {selectedAdvisor.value}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Team Selection */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-3">Select Team Members</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { name: 'John Smith', role: 'CEO', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face' },
+                      { name: 'Sarah Johnson', role: 'CFO', avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face' },
+                      { name: 'Mike Chen', role: 'CTO', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face' },
+                      { name: 'Emily Davis', role: 'Legal Counsel', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face' }
+                    ].map((member, index) => (
+                      <label key={index} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" className="rounded border-gray-300 text-purple-600 focus:ring-purple-500" defaultChecked />
+                        <img src={member.avatar} alt={member.name} className="w-8 h-8 rounded-full object-cover" />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{member.name}</p>
+                          <p className="text-xs text-gray-500">{member.role}</p>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                  <textarea
+                    value={shareMessage}
+                    onChange={(e) => setShareMessage(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    rows={4}
+                    placeholder={`Hi team,
+
+I found an interesting M&A advisor that might be relevant for our current projects:
+
+${selectedAdvisor.name} - ${selectedAdvisor.title} at ${selectedAdvisor.company}
+- Experience: ${selectedAdvisor.experience}
+- Deals Closed: ${selectedAdvisor.deals}
+- Total Value: ${selectedAdvisor.value}
+- Specialties: ${selectedAdvisor.specialties.join(', ')}
+- Rating: ${selectedAdvisor.rating}/5
+
+Thoughts on reaching out?
+
+Best regards`}
+                  />
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <motion.button
+                    onClick={() => setShowShareModal(false)}
+                    className="px-6 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Cancel
+                  </motion.button>
+                  <motion.button
+                    onClick={() => {
+                      console.log('Sharing advisor with team:', { advisor: selectedAdvisor.name, message: shareMessage });
+                      setShowShareModal(false);
+                      setShareMessage('');
+                    }}
+                    className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <MessageSquare size={16} />
+                    <span>Send to Team</span>
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

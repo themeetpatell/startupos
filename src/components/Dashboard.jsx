@@ -39,6 +39,20 @@ const Dashboard = () => {
       change: "+15.3%",
       changeType: "positive",
       icon: CheckCircle
+    },
+    {
+      title: "Active Projects",
+      value: "12",
+      change: "+2 new",
+      changeType: "positive",
+      icon: Target
+    },
+    {
+      title: "Project Budget",
+      value: "$2.4M",
+      change: "+5.2%",
+      changeType: "positive",
+      icon: DollarSign
     }
   ];
 
@@ -141,6 +155,7 @@ const Dashboard = () => {
       action: () => console.log('Network')
     }
   ];
+
 
   const tabs = [
     { id: 'overview', label: 'Overview' },
@@ -494,6 +509,7 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </div>

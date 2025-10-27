@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# Block access to sensitive areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /node_modules/
+
+# Allow important pages
+Allow: /app
+Allow: /dashboard
+Allow: /login
+Allow: /signup
+Allow: /features/
+Allow: /help
+Allow: /support
+Allow: /blog
+Allow: /resources
+
+# Sitemap location
+Sitemap: https://startupos.com/sitemap.xml
+
+# Crawl delay (optional - be respectful)
+Crawl-delay: 1
+
+# Host directive
+Host: https://startupos.com

@@ -15,8 +15,11 @@ const initialState = {
   // User State
   user: {
     profile: null,
+    userType: 'founder', // founder, employee, investor, unemployed
     preferences: {},
     onboardingComplete: false,
+    onboardingData: null,
+    personalizedConfig: null,
     lastActive: null
   },
   
@@ -60,8 +63,11 @@ const ActionTypes = {
   
   // User Actions
   SET_USER_PROFILE: 'SET_USER_PROFILE',
+  SET_USER_TYPE: 'SET_USER_TYPE',
   UPDATE_USER_PREFERENCES: 'UPDATE_USER_PREFERENCES',
   SET_ONBOARDING_COMPLETE: 'SET_ONBOARDING_COMPLETE',
+  SET_ONBOARDING_DATA: 'SET_ONBOARDING_DATA',
+  SET_PERSONALIZED_CONFIG: 'SET_PERSONALIZED_CONFIG',
   UPDATE_LAST_ACTIVE: 'UPDATE_LAST_ACTIVE',
   
   // Data Actions
@@ -170,6 +176,12 @@ const appReducer = (state, action) => {
         user: { ...state.user, profile: action.payload }
       };
       
+    case ActionTypes.SET_USER_TYPE:
+      return {
+        ...state,
+        user: { ...state.user, userType: action.payload }
+      };
+      
     case ActionTypes.UPDATE_USER_PREFERENCES:
       return {
         ...state,
@@ -183,6 +195,18 @@ const appReducer = (state, action) => {
       return {
         ...state,
         user: { ...state.user, onboardingComplete: action.payload }
+      };
+      
+    case ActionTypes.SET_ONBOARDING_DATA:
+      return {
+        ...state,
+        user: { ...state.user, onboardingData: action.payload }
+      };
+      
+    case ActionTypes.SET_PERSONALIZED_CONFIG:
+      return {
+        ...state,
+        user: { ...state.user, personalizedConfig: action.payload }
       };
       
     case ActionTypes.UPDATE_LAST_ACTIVE:
@@ -423,12 +447,24 @@ export const AppStateProvider = ({ children }) => {
       dispatch({ type: ActionTypes.SET_USER_PROFILE, payload: profile });
     }, []),
     
+    setUserType: useCallback((userType) => {
+      dispatch({ type: ActionTypes.SET_USER_TYPE, payload: userType });
+    }, []),
+    
     updateUserPreferences: useCallback((preferences) => {
       dispatch({ type: ActionTypes.UPDATE_USER_PREFERENCES, payload: preferences });
     }, []),
     
     setOnboardingComplete: useCallback((complete) => {
       dispatch({ type: ActionTypes.SET_ONBOARDING_COMPLETE, payload: complete });
+    }, []),
+    
+    setOnboardingData: useCallback((data) => {
+      dispatch({ type: ActionTypes.SET_ONBOARDING_DATA, payload: data });
+    }, []),
+    
+    setPersonalizedConfig: useCallback((config) => {
+      dispatch({ type: ActionTypes.SET_PERSONALIZED_CONFIG, payload: config });
     }, []),
     
     updateLastActive: useCallback(() => {

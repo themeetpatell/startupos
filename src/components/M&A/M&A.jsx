@@ -64,10 +64,12 @@ import {
   Clock as ClockIcon,
   Award as AwardIcon
 } from 'lucide-react';
-import TargetDiscovery from './TargetDiscovery';
-import DealPipeline from './DealPipeline';
+import TargetDiscovery from './EnhancedTargetDiscovery';
+import DealPipeline from './EnhancedDealPipeline';
+import DueDiligence from './EnhancedDueDiligence';
 import ReadinessAssessment from './ReadinessAssessment';
 import Advisors from './Advisors';
+import InvestmentOpportunities from './InvestmentOpportunities';
 
 const MAndA = () => {
   const [activeTab, setActiveTab] = useState('discovery');
@@ -92,12 +94,28 @@ const MAndA = () => {
       color: 'green'
     },
     { 
+      id: 'investment', 
+      label: 'Investment Opportunities', 
+      icon: DollarSign, 
+      count: 128,
+      description: 'Discover and evaluate investment opportunities',
+      color: 'emerald'
+    },
+    { 
       id: 'readiness', 
       label: 'Readiness Assessment', 
       icon: Shield, 
       count: 12,
       description: 'Evaluate your company\'s M&A readiness',
       color: 'purple'
+    },
+    { 
+      id: 'due-diligence', 
+      label: 'Due Diligence', 
+      icon: FileText, 
+      count: 45,
+      description: 'Comprehensive due diligence processes and tools',
+      color: 'indigo'
     },
     { 
       id: 'advisors', 
@@ -119,6 +137,8 @@ const MAndA = () => {
   const stats = {
     discovery: { targets: 2847, contacted: 156, qualified: 73 },
     pipeline: { active: 28, closing: 8, closed: 12 },
+    'due-diligence': { active: 15, completed: 8, pending: 7 },
+    investment: { opportunities: 128, evaluated: 45, invested: 12 },
     readiness: { score: 78, categories: 6, items: 67 },
     advisors: { total: 156, available: 89, contacted: 23 }
   };
@@ -129,8 +149,12 @@ const MAndA = () => {
         return <TargetDiscovery />;
       case 'pipeline':
         return <DealPipeline />;
+      case 'investment':
+        return <InvestmentOpportunities />;
       case 'readiness':
         return <ReadinessAssessment />;
+      case 'due-diligence':
+        return <DueDiligence />;
       case 'advisors':
         return <Advisors />;
       default:
@@ -190,6 +214,8 @@ const MAndA = () => {
                   <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
                     getActiveTabData()?.color === 'blue' ? 'bg-blue-100' :
                     getActiveTabData()?.color === 'green' ? 'bg-green-100' :
+                    getActiveTabData()?.color === 'indigo' ? 'bg-indigo-100' :
+                    getActiveTabData()?.color === 'emerald' ? 'bg-emerald-100' :
                     getActiveTabData()?.color === 'purple' ? 'bg-purple-100' :
                     getActiveTabData()?.color === 'orange' ? 'bg-orange-100' : 'bg-gray-100'
                   }`}>
@@ -198,6 +224,8 @@ const MAndA = () => {
                       return Icon ? <Icon className={`${
                         getActiveTabData()?.color === 'blue' ? 'text-blue-600' :
                         getActiveTabData()?.color === 'green' ? 'text-green-600' :
+                        getActiveTabData()?.color === 'indigo' ? 'text-indigo-600' :
+                        getActiveTabData()?.color === 'emerald' ? 'text-emerald-600' :
                         getActiveTabData()?.color === 'purple' ? 'text-purple-600' :
                         getActiveTabData()?.color === 'orange' ? 'text-orange-600' : 'text-gray-600'
                       }`} size={24} /> : null;
@@ -264,6 +292,38 @@ const MAndA = () => {
                   </div>
                 </>
               )}
+              {activeTab === 'due-diligence' && (
+                <>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-indigo-600">{getActiveTabStats()?.active}</div>
+                    <div className="text-sm text-gray-600">Active</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">{getActiveTabStats()?.completed}</div>
+                    <div className="text-sm text-gray-600">Completed</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-orange-600">{getActiveTabStats()?.pending}</div>
+                    <div className="text-sm text-gray-600">Pending</div>
+                  </div>
+                </>
+              )}
+              {activeTab === 'investment' && (
+                <>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-emerald-600">{getActiveTabStats()?.opportunities}</div>
+                    <div className="text-sm text-gray-600">Opportunities</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">{getActiveTabStats()?.evaluated}</div>
+                    <div className="text-sm text-gray-600">Evaluated</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">{getActiveTabStats()?.invested}</div>
+                    <div className="text-sm text-gray-600">Invested</div>
+                  </div>
+                </>
+              )}
               {activeTab === 'advisors' && (
                 <>
                   <div className="text-center">
@@ -304,6 +364,8 @@ const MAndA = () => {
                         ? `${
                             tab.color === 'blue' ? 'bg-blue-50 text-blue-600 border border-blue-200' :
                             tab.color === 'green' ? 'bg-green-50 text-green-600 border border-green-200' :
+                            tab.color === 'indigo' ? 'bg-indigo-50 text-indigo-600 border border-indigo-200' :
+                            tab.color === 'emerald' ? 'bg-emerald-50 text-emerald-600 border border-emerald-200' :
                             tab.color === 'purple' ? 'bg-purple-50 text-purple-600 border border-purple-200' :
                             tab.color === 'orange' ? 'bg-orange-50 text-orange-600 border border-orange-200' :
                             'bg-gray-50 text-gray-600 border border-gray-200'

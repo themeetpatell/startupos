@@ -13,11 +13,20 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    headers: {
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'X-XSS-Protection': '1; mode=block',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+    }
+  },
   build: {
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Vendor chunks
+          // Core vendor chunks (load first)
           if (id.includes('node_modules')) {
             if (id.includes('react') || id.includes('react-dom')) {
               return 'react-vendor';
@@ -34,15 +43,26 @@ export default defineConfig({
             if (id.includes('recharts')) {
               return 'chart-vendor';
             }
+            if (id.includes('react-helmet-async')) {
+              return 'seo-vendor';
+            }
+            if (id.includes('web-vitals')) {
+              return 'analytics-vendor';
+            }
             return 'vendor';
           }
           
-          // Feature chunks
-          if (id.includes('src/components/auth/')) {
-            return 'auth';
-          }
+          // Critical path chunks (load immediately)
           if (id.includes('src/components/Dashboard') || id.includes('src/components/Navigation')) {
             return 'dashboard';
+          }
+          if (id.includes('src/App.jsx') || id.includes('src/main.jsx')) {
+            return 'app-core';
+          }
+          
+          // Feature chunks (lazy load)
+          if (id.includes('src/components/auth/')) {
+            return 'auth';
           }
           if (id.includes('src/components/AICoBuilder')) {
             return 'ai-tools';
@@ -56,7 +76,7 @@ export default defineConfig({
           if (id.includes('src/components/AdvancedAnalytics')) {
             return 'analytics';
           }
-          if (id.includes('src/components/StartupHub') || id.includes('src/components/StartupProfile') || id.includes('src/components/StartupOnboarding') || id.includes('src/components/StartupRoadmap')) {
+          if (id.includes('src/components/StartupHub') || id.includes('src/components/StartupOnboarding') || id.includes('src/components/StartupRoadmap')) {
             return 'startup-tools';
           }
           if (id.includes('src/components/DigitalHQ') || id.includes('src/components/PeopleManagement')) {
@@ -71,17 +91,42 @@ export default defineConfig({
           if (id.includes('src/components/GamificationDashboard')) {
             return 'gamification';
           }
+          
+          // Utility chunks
+          if (id.includes('src/utils/') || id.includes('src/hooks/')) {
+            return 'utils';
+          }
+          if (id.includes('src/contexts/')) {
+            return 'contexts';
+          }
         }
       }
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500, // Reduced from 1000
     target: 'esnext',
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
+        passes: 2
+      },
+      mangle: {
+        safari10: true
       }
-    }
+    },
+    sourcemap: false, // Disable sourcemaps in production
+    reportCompressedSize: false // Disable size reporting for faster builds
+  },
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'framer-motion',
+      'lucide-react'
+    ],
+    exclude: ['recharts'] // Exclude heavy charting library
   }
 })

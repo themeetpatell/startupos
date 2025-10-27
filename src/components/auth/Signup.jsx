@@ -25,7 +25,7 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
     companyName: '',
-    role: 'founder'
+    role: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -291,7 +291,7 @@ const Signup = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Role
+                    Role *
                   </label>
                   <div className="relative">
                     <select
@@ -299,18 +299,19 @@ const Signup = () => {
                       value={formData.role}
                       onChange={handleChange}
                       className="w-full py-3 px-4 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none bg-white"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                        backgroundPosition: 'right 12px center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '16px'
+                      }}
+                      required
                     >
+                      <option value="">Select your role</option>
                       <option value="founder">Founder</option>
-                      <option value="co-founder">Co-Founder</option>
-                      <option value="employee">Employee</option>
                       <option value="investor">Investor</option>
-                      <option value="advisor">Advisor</option>
+                      <option value="builder">Builder</option>
                     </select>
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
                   </div>
                 </div>
 

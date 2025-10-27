@@ -1,24 +1,32 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useMemo, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { GamificationProvider } from './contexts/GamificationContext';
-import { AppStateProvider } from './contexts/AppStateContext';
+import { AppStateProvider, useAppState } from './contexts/AppStateContext';
+import { OnboardingProvider } from './contexts/OnboardingContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './components/Toast';
 import Navigation from './components/Navigation';
+import SEOHead from './components/SEOHead';
+import PerformanceOptimizer from './components/PerformanceOptimizer';
+import { useAnalytics, usePerformanceMonitor } from './hooks/useAnalytics';
+import { generatePageTitle, generatePageDescription, generatePageKeywords, trackPagePerformance } from './utils/seoUtils';
+import { initializePersonalizedPlatform } from './utils/onboardingPersonalization';
 
 // Lazy load components for better performance
-const Dashboard = lazy(() => import('./components/Dashboard'));
-const AICoBuilder = lazy(() => import('./components/AICoBuilder'));
+const Dashboard = lazy(() => import('./components/IntegratedDashboard'));
+const AICoBuilder = lazy(() => import('./components/EnhancedAICoBuilder'));
 const OpenCommunity = lazy(() => import('./components/OpenCommunity'));
 const MAndA = lazy(() => import('./components/M&A/M&A'));
 const AdvancedAnalytics = lazy(() => import('./components/AdvancedAnalytics'));
-const EcosystemHub = lazy(() => import('./components/EcosystemHub'));
-const DigitalHQ = lazy(() => import('./components/DigitalHQ'));
+const EcosystemHub = lazy(() => import('./components/EnhancedEcosystemHub'));
+const WorkHub = lazy(() => import('./components/EnhancedWorkHub'));
 const PeopleManagement = lazy(() => import('./components/PeopleManagement'));
-const StartupHub = lazy(() => import('./components/StartupHub'));
-const StartupOnboarding = lazy(() => import('./components/StartupOnboarding'));
+const Billing = lazy(() => import('./components/Billing'));
+const HelpSupport = lazy(() => import('./components/HelpSupport'));
+const StartupOnboarding = lazy(() => import('./components/RoleBasedOnboarding'));
 const Profile = lazy(() => import('./components/Profile'));
 const UserProfile = lazy(() => import('./components/UserProfile'));
 const StartupRoadmap = lazy(() => import('./components/StartupRoadmap'));
@@ -26,10 +34,11 @@ const GamificationDashboard = lazy(() => import('./components/GamificationDashbo
 const Login = lazy(() => import('./components/auth/Login'));
 const Signup = lazy(() => import('./components/auth/Signup'));
 const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
-// Landing page removed - going directly to dashboard
+const CreditStore = lazy(() => import('./components/CreditStore'));
+
 import './App.css';
 
-// Loading screen component
+// Optimized loading screen component
 const LoadingScreen = () => (
   <div className="fixed inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 flex items-center justify-center z-50">
     <motion.div
@@ -75,40 +84,88 @@ const AppContent = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [onboardingComplete, setOnboardingComplete] = useState(false);
   const { user, logout } = useAuth();
+  const { actions: appActions } = useAppState();
+  
+  // Analytics tracking
+  const { trackPageView, trackUserAction, trackOnboardingStep, trackError } = useAnalytics();
+  usePerformanceMonitor();
 
   useEffect(() => {
-    // Simulate loading time with error handling
+    // Track page view
+    trackPageView('app');
+    trackPagePerformance('app');
+    
+    // Load existing onboarding data if available
+    const existingOnboardingData = localStorage.getItem('startupos_onboarding_data');
+    if (existingOnboardingData) {
+      try {
+        const data = JSON.parse(existingOnboardingData);
+        const personalizedConfig = initializePersonalizedPlatform(data);
+        appActions.setOnboardingData(data);
+        appActions.setPersonalizedConfig(personalizedConfig);
+      } catch (error) {
+        console.error('Error loading onboarding data:', error);
+      }
+    }
+    
+    // Optimized loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
-      // Check if user needs onboarding (simulate first-time user)
+      // Check if user needs onboarding
       const hasCompletedOnboarding = localStorage.getItem('onboardingComplete');
       if (!hasCompletedOnboarding) {
         setShowOnboarding(true);
+        trackOnboardingStep('start');
       }
-    }, 1500); // Reduced from 2000ms for better UX
+    }, 1000); // Reduced from 1500ms
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [trackPageView, trackOnboardingStep, appActions]);
 
   // Error boundary effect
   useEffect(() => {
     const handleError = (error) => {
       console.error('App Error:', error);
+      trackError(error, { context: 'app' });
       setError(error.message || 'An unexpected error occurred');
     };
 
     window.addEventListener('error', handleError);
     return () => window.removeEventListener('error', handleError);
+  }, [trackError]);
+
+  const renderComponent = useCallback((Component) => {
+    if (!Component) {
+      console.error('Component is undefined');
+      return (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Component Not Found</h2>
+            <p className="text-gray-600 mb-4">The requested component could not be loaded.</p>
+            <button
+              onClick={() => setCurrentView('dashboard')}
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Go to Dashboard
+            </button>
+          </div>
+        </div>
+      );
+    }
+    
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <Component />
+      </Suspense>
+    );
   }, []);
 
   const renderCurrentView = () => {
     try {
-      const renderComponent = (Component) => (
-        <Suspense fallback={<LoadingScreen />}>
-          <Component />
-        </Suspense>
-      );
-
+      console.log('Rendering view:', currentView);
+      trackPageView(currentView);
+      trackPagePerformance(currentView);
+      
       switch (currentView) {
         case 'dashboard':
           return renderComponent(Dashboard);
@@ -122,29 +179,35 @@ const AppContent = () => {
           return renderComponent(AdvancedAnalytics);
         case 'ecosystem':
           return renderComponent(EcosystemHub);
-        case 'digital-hq':
-          return renderComponent(DigitalHQ);
+        case 'workhub':
+          return renderComponent(WorkHub);
         case 'people':
           return renderComponent(PeopleManagement);
-        case 'startup-hub':
-          return renderComponent(StartupHub);
+        case 'billing':
+          return renderComponent(Billing);
+        case 'support':
+          return renderComponent(HelpSupport);
         case 'profile':
           return renderComponent(UserProfile);
         case 'roadmap':
           return renderComponent(StartupRoadmap);
         case 'gamification':
           return renderComponent(GamificationDashboard);
+        case 'credit-store':
+          return renderComponent(CreditStore);
         default:
+          console.warn('Unknown view:', currentView);
           return renderComponent(Dashboard);
       }
     } catch (error) {
       console.error('Error rendering view:', error);
-      setError(`Failed to load ${currentView} page`);
+      setError(`Failed to load ${currentView} page: ${error.message}`);
       return (
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h2>
-            <p className="text-gray-600 mb-4">{error}</p>
+            <p className="text-gray-600 mb-4">Error: {error.message}</p>
+            <p className="text-sm text-gray-500 mb-4">View: {currentView}</p>
             <button
               onClick={() => {
                 setError(null);
@@ -162,10 +225,25 @@ const AppContent = () => {
 
   const handleOnboardingComplete = (data) => {
     console.log('Onboarding completed with data:', data);
+    trackOnboardingStep('complete', data);
+    
+    // Store comprehensive onboarding data for platform personalization
+    localStorage.setItem('startupos_onboarding_data', JSON.stringify(data));
     localStorage.setItem('onboardingComplete', 'true');
+    
+    // Initialize personalized platform configuration
+    const personalizedConfig = initializePersonalizedPlatform(data);
+    appActions.setOnboardingData(data);
+    appActions.setPersonalizedConfig(personalizedConfig);
+    
     setOnboardingComplete(true);
     setShowOnboarding(false);
     setCurrentView('dashboard');
+    
+    // Show success notification
+    setTimeout(() => {
+      alert('Welcome to StartupOS! Your platform has been personalized based on your preferences.');
+    }, 1000);
   };
 
   if (isLoading) {
@@ -173,11 +251,26 @@ const AppContent = () => {
   }
 
   if (showOnboarding) {
-    return <StartupOnboarding onComplete={handleOnboardingComplete} />;
+    return (
+      <OnboardingProvider>
+        <StartupOnboarding onComplete={handleOnboardingComplete} />
+      </OnboardingProvider>
+    );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
+      {/* Performance Optimizer */}
+      <PerformanceOptimizer />
+      
+      {/* SEO Head */}
+      <SEOHead 
+        title={generatePageTitle(currentView)}
+        description={generatePageDescription(currentView)}
+        keywords={generatePageKeywords(currentView)}
+        url={`https://startupos.com/${currentView}`}
+      />
+      
       {/* Error Toast */}
       {error && (
         <motion.div
@@ -231,61 +324,62 @@ const AppContent = () => {
 function App() {
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <AppStateProvider>
-          <ToastProvider>
-            <Router>
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/login" element={
-                  <Suspense fallback={<LoadingScreen />}>
-                    <Login />
-                  </Suspense>
-                } />
-                <Route path="/signup" element={
-                  <Suspense fallback={<LoadingScreen />}>
-                    <Signup />
-                  </Suspense>
-                } />
-                <Route path="/forgot-password" element={
-                  <Suspense fallback={<LoadingScreen />}>
-                    <ForgotPassword />
-                  </Suspense>
-                } />
-                
-                {/* Protected Routes - Dashboard as default */}
-                <Route path="/" element={
-                  <ProtectedRoute>
-                    <GamificationProvider>
-                      <AppContent />
-                    </GamificationProvider>
-                  </ProtectedRoute>
-                } />
-                <Route path="/app" element={
-                  <ProtectedRoute>
-                    <GamificationProvider>
-                      <AppContent />
-                    </GamificationProvider>
-                  </ProtectedRoute>
-                } />
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <GamificationProvider>
-                      <AppContent />
-                    </GamificationProvider>
-                  </ProtectedRoute>
-                } />
-                
-                {/* Catch all route */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </Router>
-          </ToastProvider>
-        </AppStateProvider>
-      </AuthProvider>
-    </ErrorBoundary>
+      <HelmetProvider>
+        <AuthProvider>
+          <AppStateProvider>
+            <ToastProvider>
+              <Router>
+                <Routes>
+              {/* Public Routes */}
+              <Route path="/login" element={
+                <Suspense fallback={<LoadingScreen />}>
+                  <Login />
+                </Suspense>
+              } />
+              <Route path="/signup" element={
+                <Suspense fallback={<LoadingScreen />}>
+                  <Signup />
+                </Suspense>
+              } />
+              <Route path="/forgot-password" element={
+                <Suspense fallback={<LoadingScreen />}>
+                  <ForgotPassword />
+                </Suspense>
+              } />
+              
+              {/* Protected Routes - Dashboard as default */}
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <GamificationProvider>
+                    <AppContent />
+                  </GamificationProvider>
+                </ProtectedRoute>
+              } />
+              <Route path="/app" element={
+                <ProtectedRoute>
+                  <GamificationProvider>
+                    <AppContent />
+                  </GamificationProvider>
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <GamificationProvider>
+                    <AppContent />
+                  </GamificationProvider>
+                </ProtectedRoute>
+              } />
+              
+              {/* Catch all route */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Router>
+        </ToastProvider>
+      </AppStateProvider>
+    </AuthProvider>
+    </HelmetProvider>
+  </ErrorBoundary>
   );
 }
 
 export default App;
-

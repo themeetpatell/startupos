@@ -5,7 +5,8 @@ import {
   Brain, Zap, Shield, Target, Clock, DollarSign,
   MessageCircle, Play, Pause, MoreHorizontal, Settings,
   Send, Bot, Code, Palette, Database, BarChart3,
-  ArrowRight, Sparkles, Crown, TrendingUp, Award
+  ArrowRight, Sparkles, Crown, TrendingUp, Award,
+  X, FileText
 } from 'lucide-react';
 
 const AICoBuilder = () => {
@@ -25,8 +26,22 @@ const AICoBuilder = () => {
     department: '',
     skills: [],
     personality: 'professional',
-    experience: 'intermediate'
+    experience: 'intermediate',
+    description: '',
+    instructions: '',
+    knowledge: [],
+    capabilities: [],
+    communicationStyle: 'professional',
+    workHours: '24/7',
+    timezone: 'UTC',
+    languages: ['English'],
+    specializations: [],
+    goals: [],
+    constraints: [],
+    examples: []
   });
+  const [builderStep, setBuilderStep] = useState(1);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const categories = [
     { id: 'all', name: 'All', count: 24, icon: Brain },

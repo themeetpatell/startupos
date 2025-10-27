@@ -11,14 +11,18 @@ export const useGamification = () => {
 };
 
 export const GamificationProvider = ({ children }) => {
-  const [userProgress, setUserProgress] = useState({
-    level: 1,
-    experience: 0,
-    points: 0,
-    achievements: [],
-    milestones: [],
-    streak: 0,
-    lastActivity: null
+  // Load from localStorage or use defaults
+  const [userProgress, setUserProgress] = useState(() => {
+    const saved = localStorage.getItem('gamificationProgress');
+    return saved ? JSON.parse(saved) : {
+      level: 1,
+      experience: 0,
+      points: 0,
+      achievements: [],
+      milestones: [],
+      streak: 0,
+      lastActivity: null
+    };
   });
 
   const [achievements, setAchievements] = useState([
