@@ -12,8 +12,6 @@ import { initializePersonalizedPlatform } from './utils/onboardingPersonalizatio
 
 // Lazy load components for better performance
 const Dashboard = lazy(() => import('./components/IntegratedDashboard'));
-const AICoBuilder = lazy(() => import('./components/EnhancedAICoBuilder'));
-const MAndA = lazy(() => import('./components/M&A/M&A'));
 const AdvancedAnalytics = lazy(() => import('./components/AdvancedAnalytics'));
 const EcosystemHub = lazy(() => import('./components/EnhancedEcosystemHub'));
 const WorkHub = lazy(() => import('./components/EnhancedWorkHub'));
@@ -24,6 +22,12 @@ const StartupOnboarding = lazy(() => import('./components/RoleBasedOnboarding'))
 const UserProfile = lazy(() => import('./components/UserProfile'));
 const StartupRoadmap = lazy(() => import('./components/StartupRoadmap'));
 const GamificationDashboard = lazy(() => import('./components/GamificationDashboard'));
+const IMPACTSSystem = lazy(() => import('./components/IMPACTSSystem'));
+const DecisionIntelligence = lazy(() => import('./components/DecisionIntelligence'));
+const RunwayIntelligence = lazy(() => import('./components/RunwayIntelligence'));
+const PMFValidation = lazy(() => import('./components/PMFValidation'));
+const CustomerIntelligence = lazy(() => import('./components/CustomerIntelligence'));
+const CapTableFundraising = lazy(() => import('./components/CapTableFundraising'));
 const Login = lazy(() => import('./components/auth/Login'));
 const Signup = lazy(() => import('./components/auth/Signup'));
 const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
@@ -126,10 +130,6 @@ const AppContent = () => {
       switch (currentView) {
         case 'dashboard':
           return renderComponent(Dashboard);
-        case 'ai-cobuilder':
-          return renderComponent(AICoBuilder);
-        case 'ma':
-          return renderComponent(MAndA);
         case 'analytics':
           return renderComponent(AdvancedAnalytics);
         case 'ecosystem':
@@ -148,6 +148,18 @@ const AppContent = () => {
           return renderComponent(StartupRoadmap);
         case 'gamification':
           return renderComponent(GamificationDashboard);
+        case 'impacts':
+          return renderComponent(IMPACTSSystem);
+        case 'decisions':
+          return renderComponent(DecisionIntelligence);
+        case 'runway':
+          return renderComponent(RunwayIntelligence);
+        case 'pmf':
+          return renderComponent(PMFValidation);
+        case 'customers':
+          return renderComponent(CustomerIntelligence);
+        case 'captable':
+          return renderComponent(CapTableFundraising);
         default:
           console.warn('Unknown view:', currentView);
           return renderComponent(Dashboard);
@@ -248,20 +260,6 @@ function App() {
                 } />
                 
                 <Route path="/" element={
-                  <ProtectedRoute>
-                    <GamificationProvider>
-                      <AppContent />
-                    </GamificationProvider>
-                  </ProtectedRoute>
-                } />
-                <Route path="/app" element={
-                  <ProtectedRoute>
-                    <GamificationProvider>
-                      <AppContent />
-                    </GamificationProvider>
-                  </ProtectedRoute>
-                } />
-                <Route path="/dashboard" element={
                   <ProtectedRoute>
                     <GamificationProvider>
                       <AppContent />

@@ -93,13 +93,6 @@ export const getPersonalizedFeatures = (onboardingData) => {
   const roleFeatures = {
     founder: [
       {
-        id: 'ai-cobuilder',
-        name: 'AI Co-Builder',
-        description: 'Leverage AI to build and scale your startup',
-        priority: 'high',
-        icon: 'Brain'
-      },
-      {
         id: 'analytics',
         name: 'Growth Analytics',
         description: 'Track revenue, users, and key metrics',
@@ -114,9 +107,9 @@ export const getPersonalizedFeatures = (onboardingData) => {
         icon: 'MessageSquare'
       },
       {
-        id: 'ma',
-        name: 'M&A Tools',
-        description: 'Tools for partnerships and acquisitions',
+        id: 'ecosystem',
+        name: 'Ecosystem Hub',
+        description: 'Connect with investors, accelerators, and partners',
         priority: 'medium',
         icon: 'TrendingUp'
       }

@@ -5,7 +5,8 @@ import {
   Search, User, ChevronDown, Building, Settings, LogOut,
   CreditCard, HelpCircle, Map, Trophy, Plus, ArrowUpRight,
   MessageCircle, Send, Users as UsersIcon, Zap, Target,
-  TrendingUp, Shield, Star, Calendar, FileText, Database
+  TrendingUp, Shield, Star, Calendar, FileText, Database, Rocket,
+  Lightbulb, Gauge, DollarSign
 } from 'lucide-react';
 // import SearchModal from './SearchModal';
 
@@ -42,18 +43,22 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
   // Main navbar items - only core features
   const mainNavigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home, color: 'emerald', description: 'Overview & Analytics' },
-    { id: 'ai-cobuilder', label: 'AI Co-Builder', icon: Brain, color: 'purple', description: 'AI Employees & Tools' },
+    { id: 'decisions', label: 'Decisions', icon: Brain, color: 'indigo', description: 'AI Strategic Advisor' },
     { id: 'workhub', label: 'WorkHub', icon: Building, color: 'blue', description: 'Team & Project Management' },
-    { id: 'ma', label: 'M&A', icon: TrendingUp, color: 'orange', description: 'Mergers & Acquisitions' },
-    { id: 'ecosystem', label: 'Ecosystem', icon: Globe, color: 'indigo', description: 'Startups & Investors' }
+    { id: 'roadmap', label: 'My Roadmap', icon: Map, color: 'orange', description: 'Track your progress' },
+    { id: 'impacts', label: 'IMPACTS', icon: Rocket, color: 'purple', description: 'Strategic Execution System' },
+    { id: 'ecosystem', label: 'Ecosystem', icon: Globe, color: 'teal', description: 'Startups & Investors' }
   ];
 
   // Profile dropdown items
   const profileDropdownItems = [
     { id: 'profile', label: 'My Profile', icon: User, color: 'blue', description: 'Manage your account' },
     { id: 'analytics', label: 'Analytics', icon: BarChart3, color: 'red', description: 'Data & Insights' },
-    { id: 'roadmap', label: 'My Roadmap', icon: Map, color: 'orange', description: 'Track your progress' },
-    { id: 'gamification', label: 'Gamification', icon: Trophy, color: 'yellow', description: 'Achievements & Rewards' }
+    { id: 'runway', label: 'Runway Intelligence', icon: Gauge, color: 'yellow', description: 'Financial health' },
+    { id: 'pmf', label: 'PMF Validation', icon: Target, color: 'purple', description: 'Product-market fit' },
+    { id: 'customers', label: 'Customer Intelligence', icon: Users, color: 'indigo', description: 'Research hub' },
+    { id: 'captable', label: 'Cap Table & Funding', icon: DollarSign, color: 'green', description: 'Equity & fundraising' },
+    { id: 'gamification', label: 'Gamification', icon: Trophy, color: 'orange', description: 'Achievements & Rewards' }
   ];
 
   // Account dropdown items
@@ -62,11 +67,6 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
     { id: 'support', label: 'Help & Support', icon: HelpCircle, color: 'indigo', description: 'Get assistance' }
   ];
 
-  const aiCoBuilderSubmenu = [
-    { id: 'ai-cobuilder', label: 'Marketplace', icon: Globe, description: 'Discover & Buy AI Builders' },
-    { id: 'ai-cobuilder-creator', label: 'Creator', icon: Plus, description: 'Build Your AI Assistant' },
-    { id: 'ai-cobuilder-manager', label: 'Manager', icon: Settings, description: 'Manage Your Builders' }
-  ];
 
   const notifications = [
     { id: 1, title: 'AI Copilot Suggestion', message: 'New funding strategy recommendation', time: '2m ago', read: false, type: 'ai' },
@@ -85,7 +85,9 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
       teal: isActive ? 'bg-teal-500 text-white shadow-teal-200' : 'text-teal-600 hover:bg-teal-50',
       orange: isActive ? 'bg-orange-500 text-white shadow-orange-200' : 'text-orange-600 hover:bg-orange-50',
       red: isActive ? 'bg-red-500 text-white shadow-red-200' : 'text-red-600 hover:bg-red-50',
-      indigo: isActive ? 'bg-indigo-500 text-white shadow-indigo-200' : 'text-indigo-600 hover:bg-indigo-50'
+      indigo: isActive ? 'bg-indigo-500 text-white shadow-indigo-200' : 'text-indigo-600 hover:bg-indigo-50',
+      yellow: isActive ? 'bg-yellow-500 text-white shadow-yellow-200' : 'text-yellow-600 hover:bg-yellow-50',
+      green: isActive ? 'bg-green-500 text-white shadow-green-200' : 'text-green-600 hover:bg-green-50'
     };
     return colors[color] || colors.blue;
   };
