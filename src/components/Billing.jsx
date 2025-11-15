@@ -155,7 +155,7 @@ const Billing = () => {
   const renderOverview = () => (
     <div className="space-y-8">
       {/* Current Plan Status */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+      <div className="bg-white rounded-2xl p-8 text-white">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-2xl font-bold mb-2">Pro Plan</h2>
@@ -200,8 +200,8 @@ const Billing = () => {
           className="bg-white rounded-xl border border-gray-200 p-6 text-left hover:shadow-lg transition-all duration-300"
         >
           <div className="flex items-center space-x-3 mb-4">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <Download className="w-6 h-6 text-green-600" />
+            <div className="p-2 bg-white rounded-lg">
+              <Download className="w-6 h-6 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold">Download Invoice</h3>
           </div>
@@ -214,8 +214,8 @@ const Billing = () => {
           className="bg-white rounded-xl border border-gray-200 p-6 text-left hover:shadow-lg transition-all duration-300"
         >
           <div className="flex items-center space-x-3 mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-purple-600" />
+            <div className="p-2 bg-white rounded-lg">
+              <TrendingUp className="w-6 h-6 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold">View Usage</h3>
           </div>
@@ -235,7 +235,7 @@ const Billing = () => {
             <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center space-x-3">
                 <div className={`w-2 h-2 rounded-full ${
-                  activity.status === 'success' ? 'bg-green-500' : 'bg-blue-500'
+                  activity.status === 'success' ? 'bg-blue-600' : 'bg-blue-500'
                 }`}></div>
                 <div>
                   <p className="font-medium text-gray-900">{activity.action}</p>
@@ -272,7 +272,7 @@ const Billing = () => {
               plan.popular 
                 ? 'border-blue-500 bg-blue-50' 
                 : plan.current
-                ? 'border-green-500 bg-green-50'
+                ? 'border-gray-200 bg-blue-600'
                 : 'border-gray-200 bg-white'
             }`}
           >
@@ -285,7 +285,7 @@ const Billing = () => {
             )}
             {plan.current && (
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
                   Current Plan
                 </span>
               </div>
@@ -303,7 +303,7 @@ const Billing = () => {
             <ul className="space-y-3 mb-8">
               {plan.features.map((feature, featureIndex) => (
                 <li key={featureIndex} className="flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
                   <span className="text-gray-700">{feature}</span>
                 </li>
               ))}
@@ -312,7 +312,7 @@ const Billing = () => {
             <button
               className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 ${
                 plan.current
-                  ? 'bg-green-500 text-white hover:bg-green-600'
+                  ? 'bg-blue-600 text-white hover:bg-blue-600'
                   : plan.popular
                   ? 'bg-blue-500 text-white hover:bg-blue-600'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -441,9 +441,9 @@ const Billing = () => {
             <div className="w-full bg-gray-200 rounded-full h-3">
               <div
                 className={`h-3 rounded-full transition-all duration-300 ${
-                  data.percentage > 80 ? 'bg-red-500' :
-                  data.percentage > 60 ? 'bg-yellow-500' :
-                  'bg-green-500'
+                  data.percentage > 80 ? 'bg-blue-600' :
+                  data.percentage > 60 ? 'bg-blue-600' :
+                  'bg-blue-600'
                 }`}
                 style={{ width: `${Math.min(data.percentage, 100)}%` }}
               ></div>
@@ -516,8 +516,8 @@ const Billing = () => {
                   <td className="px-6 py-4">
                     <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                       invoice.status === 'paid' 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
+                        ? 'bg-blue-600 text-blue-600' 
+                        : 'bg-blue-600 text-black'
                     }`}>
                       {invoice.status}
                     </span>
@@ -553,7 +553,7 @@ const Billing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Tabs */}
         <div className="flex space-x-1 bg-white rounded-2xl border border-gray-200 p-2 mb-8">

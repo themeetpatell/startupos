@@ -363,8 +363,8 @@ const PeopleManagement = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'active': return 'text-green-600 bg-green-50 border-green-200';
-      case 'away': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      case 'active': return 'text-blue-600 bg-blue-600 border-gray-200';
+      case 'away': return 'text-blue-600 bg-blue-600 border-gray-200';
       case 'offline': return 'text-gray-600 bg-gray-50 border-gray-200';
       default: return 'text-gray-600 bg-gray-50 border-gray-200';
     }
@@ -372,13 +372,13 @@ const PeopleManagement = () => {
 
   const getRoleColor = (color) => {
     const colors = {
-      red: 'bg-red-50 text-red-600 border-red-200',
+      red: 'bg-blue-600 text-white border-gray-200',
       blue: 'bg-blue-50 text-blue-600 border-blue-200',
-      purple: 'bg-purple-50 text-purple-600 border-purple-200',
-      green: 'bg-green-50 text-green-600 border-green-200',
-      indigo: 'bg-indigo-50 text-indigo-600 border-indigo-200',
-      pink: 'bg-pink-50 text-pink-600 border-pink-200',
-      orange: 'bg-orange-50 text-orange-600 border-orange-200',
+      purple: 'bg-blue-600 text-blue-600 border-gray-200',
+      green: 'bg-blue-600 text-blue-600 border-gray-200',
+      indigo: 'bg-blue-600 text-blue-600 border-gray-200',
+      pink: 'bg-blue-600 text-blue-600 border-gray-200',
+      orange: 'bg-blue-600 text-blue-600 border-gray-200',
       gray: 'bg-gray-50 text-gray-600 border-gray-200'
     };
     return colors[color] || colors.gray;
@@ -443,7 +443,7 @@ const PeopleManagement = () => {
             </div>
             <motion.button
               onClick={() => setShowInviteModal(true)}
-              className="flex items-center space-x-2 px-4 py-2 startupos-gradient text-white rounded-lg hover:shadow-lg transition-all"
+              className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -468,7 +468,7 @@ const PeopleManagement = () => {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-xl">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-xl">
                     {member.avatar}
                   </div>
                   <div>
@@ -498,7 +498,7 @@ const PeopleManagement = () => {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-1">
-                  <Star size={14} className="text-yellow-500 fill-current" />
+                  <Star size={14} className="text-blue-600 fill-current" />
                   <span className="text-sm font-medium">{member.performance.rating}</span>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -557,7 +557,7 @@ const PeopleManagement = () => {
                   >
                     <td className="py-4 px-6">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-lg">
+                        <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-lg">
                           {member.avatar}
                         </div>
                         <div>
@@ -579,7 +579,7 @@ const PeopleManagement = () => {
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center space-x-2">
-                        <Star size={14} className="text-yellow-500 fill-current" />
+                        <Star size={14} className="text-blue-600 fill-current" />
                         <span className="text-sm font-medium">{member.performance.rating}</span>
                         <span className="text-sm text-gray-500">({member.performance.completedTasks} tasks)</span>
                       </div>
@@ -631,7 +631,7 @@ const PeopleManagement = () => {
           <p className="text-gray-600 mt-1">Manage team roles and access permissions</p>
         </div>
         <motion.button
-          className="flex items-center space-x-2 px-4 py-2 startupos-gradient text-white rounded-lg hover:shadow-lg transition-all"
+          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -724,7 +724,7 @@ const PeopleManagement = () => {
           <p className="text-gray-600 mt-1">Organize your team by departments and functions</p>
         </div>
         <motion.button
-          className="flex items-center space-x-2 px-4 py-2 startupos-gradient text-white rounded-lg hover:shadow-lg transition-all"
+          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -828,7 +828,7 @@ const PeopleManagement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20">
+    <div className="min-h-screen bg-white pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <motion.div
@@ -837,10 +837,10 @@ const PeopleManagement = () => {
           className="mb-8"
         >
           <div className="flex items-center space-x-3 mb-2">
-            <div className="w-10 h-10 startupos-gradient rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
               <Users className="text-white" size={20} />
             </div>
-            <h1 className="text-3xl font-bold startupos-gradient-text">People Management</h1>
+            <h1 className="text-3xl font-bold text-black">People Management</h1>
           </div>
           <p className="text-gray-600">
             Manage your team, roles, and collaboration across your startup

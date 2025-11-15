@@ -243,17 +243,13 @@ const RoleBasedOnboarding = ({ onComplete }) => {
               console.log('Role button clicked:', role.id);
               handleInputChange('role', role.id);
             }}
-            className={`p-6 rounded-xl border-2 text-center transition-all hover:scale-105 ${
+            className={`p-6 rounded-xl border-2 text-center transition-all ${
               state.data.role === role.id
-                ? 'border-blue-500 bg-blue-50 shadow-lg'
-                : 'border-gray-300 hover:border-gray-400 hover:shadow-md'
+                ? 'border-blue-600 bg-blue-50 shadow-lg'
+                : 'border-gray-200 hover:border-blue-200 hover:bg-gray-50'
             }`}
           >
-              <div className={`w-12 h-12 bg-gradient-to-r ${
-                role.color === 'blue' ? 'from-blue-500 to-blue-600' :
-                role.color === 'green' ? 'from-green-500 to-green-600' :
-                'from-purple-500 to-purple-600'
-              } rounded-full flex items-center justify-center mx-auto mb-3`}>
+              <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
                 <role.icon className="h-6 w-6 text-white" />
               </div>
               <h4 className="text-lg font-semibold text-gray-900">{role.title}</h4>
@@ -261,7 +257,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
           ))}
         </div>
         {state.ui.errors.role && (
-          <p className="text-red-500 text-sm mt-2">{state.ui.errors.role}</p>
+          <p className="text-black text-sm mt-2">{state.ui.errors.role}</p>
         )}
               </div>
               
@@ -275,7 +271,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             value={state.data.profile?.stage || ''}
             onChange={(e) => handleInputChange('stage', e.target.value)}
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white ${
-              state.ui.errors.stage ? 'border-red-500' : 'border-gray-300'
+              state.ui.errors.stage ? 'border-gray-200' : 'border-gray-300'
             }`}
             style={{
               backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
@@ -292,7 +288,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             ))}
           </select>
           {state.ui.errors.stage && (
-            <p className="text-red-500 text-sm mt-2">{state.ui.errors.stage}</p>
+            <p className="text-black text-sm mt-2">{state.ui.errors.stage}</p>
           )}
         </div>
       )}
@@ -316,7 +312,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
           We'll use this to autofill your name, photo, and network credibility
         </p>
         {state.ui.errors.linkedinId && (
-          <p className="text-red-500 text-sm mt-1">{state.ui.errors.linkedinId}</p>
+          <p className="text-black text-sm mt-1">{state.ui.errors.linkedinId}</p>
         )}
             </div>
 
@@ -345,7 +341,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
           For localization and ecosystem relevance
         </p>
         {state.ui.errors.country && (
-          <p className="text-red-500 text-sm mt-1">{state.ui.errors.country}</p>
+          <p className="text-black text-sm mt-1">{state.ui.errors.country}</p>
         )}
       </div>
     </div>
@@ -388,7 +384,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             placeholder="Enter your startup name"
           />
           {state.ui.errors.startupName && (
-            <p className="text-red-500 text-sm mt-1">{state.ui.errors.startupName}</p>
+            <p className="text-black text-sm mt-1">{state.ui.errors.startupName}</p>
             )}
           </div>
           
@@ -413,7 +409,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             ))}
                 </select>
                 {state.ui.errors.industry && (
-                  <p className="text-red-500 text-sm mt-1">{state.ui.errors.industry}</p>
+                  <p className="text-black text-sm mt-1">{state.ui.errors.industry}</p>
                 )}
               </div>
 
@@ -481,7 +477,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
           Describe your startup in one compelling sentence
         </p>
         {state.ui.errors.startupDescription && (
-          <p className="text-red-500 text-sm mt-1">{state.ui.errors.startupDescription}</p>
+          <p className="text-black text-sm mt-1">{state.ui.errors.startupDescription}</p>
         )}
       </div>
     </div>
@@ -490,7 +486,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
   const renderInvestorCraft = () => (
     <div className="space-y-8">
       <div className="text-center mb-8">
-        <TrendingUp className="h-12 w-12 text-green-600 mx-auto mb-4" />
+        <TrendingUp className="h-12 w-12 text-blue-600 mx-auto mb-4" />
         <h3 className="text-2xl font-bold text-gray-900 mb-2">💰 Investor Setup</h3>
         <p className="text-gray-600">Tell us about your investment focus</p>
       </div>
@@ -519,7 +515,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             <option value="accelerator">Accelerator</option>
           </select>
           {state.ui.errors.investorType && (
-            <p className="text-red-500 text-sm mt-1">{state.ui.errors.investorType}</p>
+            <p className="text-black text-sm mt-1">{state.ui.errors.investorType}</p>
           )}
               </div>
               
@@ -561,8 +557,8 @@ const RoleBasedOnboarding = ({ onComplete }) => {
               onClick={() => handleArrayToggle('investmentIndustries', industry)}
               className={`p-3 rounded-lg border-2 text-center transition-all ${
                 state.data.profile?.investmentIndustries?.includes(industry)
-                  ? 'border-green-500 bg-green-50 text-green-700'
-                  : 'border-gray-300 hover:border-gray-400'
+                  ? 'border-blue-600 bg-blue-600 text-white'
+                  : 'border-gray-200 hover:border-blue-200 hover:bg-gray-50 text-gray-700'
               }`}
             >
               {industry}
@@ -570,7 +566,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
           ))}
         </div>
         {state.ui.errors.investmentIndustries && (
-          <p className="text-red-500 text-sm mt-2">{state.ui.errors.investmentIndustries}</p>
+          <p className="text-black text-sm mt-2">{state.ui.errors.investmentIndustries}</p>
         )}
       </div>
 
@@ -591,17 +587,17 @@ const RoleBasedOnboarding = ({ onComplete }) => {
               onClick={() => handleArrayToggle('engagementIntent', intent.id)}
               className={`p-4 rounded-lg border-2 text-left transition-all ${
                 state.data.profile?.engagementIntent?.includes(intent.id)
-                  ? 'border-green-500 bg-green-50'
-                  : 'border-gray-300 hover:border-gray-400'
+                  ? 'border-blue-600 bg-blue-600'
+                  : 'border-gray-200 hover:border-blue-200 hover:bg-gray-50'
               }`}
             >
-              <div className="font-semibold text-gray-900">{intent.label}</div>
-              <div className="text-sm text-gray-600">{intent.description}</div>
+              <div className={`font-semibold ${state.data.profile?.engagementIntent?.includes(intent.id) ? 'text-white' : 'text-gray-900'}`}>{intent.label}</div>
+              <div className={`text-sm ${state.data.profile?.engagementIntent?.includes(intent.id) ? 'text-blue-100' : 'text-gray-600'}`}>{intent.description}</div>
             </button>
           ))}
         </div>
         {state.ui.errors.engagementIntent && (
-          <p className="text-red-500 text-sm mt-2">{state.ui.errors.engagementIntent}</p>
+          <p className="text-black text-sm mt-2">{state.ui.errors.engagementIntent}</p>
         )}
       </div>
     </div>
@@ -610,7 +606,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
   const renderBuilderCraft = () => (
     <div className="space-y-8">
       <div className="text-center mb-8">
-        <Wrench className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+        <Wrench className="h-12 w-12 text-blue-600 mx-auto mb-4" />
         <h3 className="text-2xl font-bold text-gray-900 mb-2">⚡ Builder Setup</h3>
         <p className="text-gray-600">Tell us about your expertise</p>
       </div>
@@ -640,7 +636,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             <option value="design">Design</option>
           </select>
           {state.ui.errors.domain && (
-            <p className="text-red-500 text-sm mt-1">{state.ui.errors.domain}</p>
+            <p className="text-black text-sm mt-1">{state.ui.errors.domain}</p>
           )}
         </div>
 
@@ -666,7 +662,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             <option value="lead">Lead (10+ years)</option>
                 </select>
           {state.ui.errors.experienceLevel && (
-            <p className="text-red-500 text-sm mt-1">{state.ui.errors.experienceLevel}</p>
+            <p className="text-black text-sm mt-1">{state.ui.errors.experienceLevel}</p>
           )}
               </div>
               
@@ -692,7 +688,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
             <option value="freelance">Freelance</option>
                 </select>
           {state.ui.errors.availability && (
-            <p className="text-red-500 text-sm mt-1">{state.ui.errors.availability}</p>
+            <p className="text-black text-sm mt-1">{state.ui.errors.availability}</p>
           )}
         </div>
       </div>
@@ -708,10 +704,10 @@ const RoleBasedOnboarding = ({ onComplete }) => {
               <button
                 key={skill}
                 onClick={() => handleArrayToggle('skills', skill)}
-                className={`p-2 rounded-lg border text-center transition-all text-sm ${
+                className={`p-2 rounded-lg border-2 text-center transition-all text-sm font-medium ${
                   state.data.profile?.skills?.includes(skill)
-                    ? 'border-purple-500 bg-purple-50 text-purple-700'
-                    : 'border-gray-300 hover:border-gray-400'
+                    ? 'border-blue-600 bg-blue-600 text-white'
+                    : 'border-gray-200 hover:border-blue-200 hover:bg-gray-50 text-gray-700'
                 }`}
               >
                 {skill}
@@ -728,7 +724,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
           Select all that apply to your expertise
         </p>
         {state.ui.errors.skills && (
-          <p className="text-red-500 text-sm mt-2">{state.ui.errors.skills}</p>
+          <p className="text-black text-sm mt-2">{state.ui.errors.skills}</p>
         )}
       </div>
 
@@ -749,17 +745,17 @@ const RoleBasedOnboarding = ({ onComplete }) => {
               onClick={() => handleArrayToggle('builderEngagementIntent', intent.id)}
               className={`p-4 rounded-lg border-2 text-left transition-all ${
                 state.data.profile?.builderEngagementIntent?.includes(intent.id)
-                  ? 'border-purple-500 bg-purple-50'
-                      : 'border-gray-300 hover:border-gray-400'
+                  ? 'border-blue-600 bg-blue-600'
+                      : 'border-gray-200 hover:border-blue-200 hover:bg-gray-50'
                   }`}
                 >
-              <div className="font-semibold text-gray-900">{intent.label}</div>
-              <div className="text-sm text-gray-600">{intent.description}</div>
+              <div className={`font-semibold ${state.data.profile?.builderEngagementIntent?.includes(intent.id) ? 'text-white' : 'text-gray-900'}`}>{intent.label}</div>
+              <div className={`text-sm ${state.data.profile?.builderEngagementIntent?.includes(intent.id) ? 'text-blue-100' : 'text-gray-600'}`}>{intent.description}</div>
                 </button>
               ))}
             </div>
         {state.ui.errors.builderEngagementIntent && (
-          <p className="text-red-500 text-sm mt-2">{state.ui.errors.builderEngagementIntent}</p>
+          <p className="text-black text-sm mt-2">{state.ui.errors.builderEngagementIntent}</p>
         )}
       </div>
     </div>
@@ -767,105 +763,138 @@ const RoleBasedOnboarding = ({ onComplete }) => {
 
   // Step 3: Activate
   const renderActivateStep = () => (
-    <div className="relative bg-white rounded-[28px] shadow-[0_40px_80px_-12px_rgba(0,0,0,0.12)] border border-gray-100/60 w-[440px] h-[260px] mx-auto overflow-hidden">
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50/20 to-white opacity-70"></div>
-      
-      {/* Card Content */}
-      <div className="relative p-10 h-full flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[14px] flex items-center justify-center shadow-sm">
-              <Rocket className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-gray-900 tracking-[-0.02em]">StartupOS</h2>
-              <p className="text-sm text-gray-500 font-medium">Operating System</p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full shadow-sm"></div>
-            <p className="text-sm text-gray-500 font-medium">Live</p>
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="flex-1 flex items-center justify-between">
-          {/* Profile Section */}
-          <div className="flex items-center space-x-5">
-            <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center shadow-sm border border-gray-200/50">
-              <span className="text-xl font-bold text-gray-700">
-                {state.data.profile?.name?.charAt(0) || 'U'}
-              </span>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 tracking-[-0.02em] mb-1">
-                {state.data.profile?.name || 'Your Name'}
-              </h3>
-              <p className="text-sm text-gray-600 font-medium mb-3 capitalize">{state.data.role}</p>
-              
-              {/* Role-specific info */}
-              {state.data.role === 'founder' && state.data.profile?.startupName && (
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold text-gray-900">{state.data.profile.startupName}</p>
-                  <p className="text-xs text-gray-500 font-medium">{state.data.profile?.industry}</p>
-                </div>
-              )}
-
-              {state.data.role === 'investor' && state.data.profile?.investorType && (
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold text-gray-900 capitalize">{state.data.profile.investorType}</p>
-                  <p className="text-xs text-gray-500 font-medium">{state.data.profile?.investmentIndustries?.slice(0, 1).join(', ')}</p>
-                </div>
-              )}
-
-              {state.data.role === 'builder' && state.data.profile?.domain && (
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold text-gray-900 capitalize">{state.data.profile.domain}</p>
-                  <p className="text-xs text-gray-500 font-medium">{state.data.profile?.skills?.slice(0, 2).join(', ')}</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Country & Stage Section */}
-          <div className="flex flex-col space-y-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                <Globe className="h-4 w-4 text-gray-600" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Location</p>
-                <p className="text-sm font-semibold text-gray-900">{state.data.profile?.country || 'Not specified'}</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                <TrendingUp className="h-4 w-4 text-gray-600" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Stage</p>
-                <p className="text-sm font-semibold text-gray-900 capitalize">{state.data.profile?.stage || 'Not specified'}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="pt-6 mt-6 border-t border-gray-100">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="flex items-center justify-center py-8"
+    >
+      <div className="relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 w-full max-w-3xl overflow-hidden">
+        {/* Header Section */}
+        <div className="bg-gradient-to-br from-blue-600 via-blue-600 to-blue-700 px-8 py-6">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-400 font-medium">startupos.com</p>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-              <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            <div className="flex items-center space-x-4">
+              <motion.div 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2, type: "spring", bounce: 0.5 }}
+                className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg"
+              >
+                <Rocket className="h-7 w-7 text-white" />
+              </motion.div>
+              <div>
+                <h2 className="text-xl font-bold text-white">StartupOS</h2>
+                <p className="text-sm text-blue-100 font-medium">Operating System</p>
+              </div>
             </div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 }}
+              className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30"
+            >
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <p className="text-sm text-white font-semibold">Live</p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Profile Card Content */}
+        <div className="p-8">
+          <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border border-gray-100">
+            <div className="flex items-start space-x-6 mb-6">
+              {/* Profile Avatar */}
+              <motion.div 
+                initial={{ scale: 0, rotate: -10 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.3, type: "spring", bounce: 0.4 }}
+                className="relative flex-shrink-0"
+              >
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl">
+                  <span className="text-3xl font-bold text-white">
+                    {state.data.profile?.name?.charAt(0) || 'J'}
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Profile Info */}
+              <motion.div 
+                initial={{ x: -10, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="flex-1"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-1">
+                  {state.data.profile?.name || 'John Doe'}
+                </h3>
+                <p className="text-base text-gray-600 font-medium capitalize mb-3">{state.data.role || 'Founder'}</p>
+                
+                {/* Role-specific info */}
+                {state.data.role === 'founder' && state.data.profile?.startupName && (
+                  <div className="bg-white rounded-lg p-3 border border-gray-200">
+                    <p className="text-lg font-bold text-gray-900 mb-0.5">{state.data.profile.startupName}</p>
+                    <p className="text-sm text-gray-600">{state.data.profile?.industry}</p>
+                  </div>
+                )}
+
+                {state.data.role === 'investor' && state.data.profile?.investorType && (
+                  <div className="bg-white rounded-lg p-3 border border-gray-200">
+                    <p className="text-lg font-bold text-gray-900 capitalize mb-0.5">{state.data.profile.investorType}</p>
+                    <p className="text-sm text-gray-600">{state.data.profile?.investmentIndustries?.slice(0, 1).join(', ')}</p>
+                  </div>
+                )}
+
+                {state.data.role === 'builder' && state.data.profile?.domain && (
+                  <div className="bg-white rounded-lg p-3 border border-gray-200">
+                    <p className="text-lg font-bold text-gray-900 capitalize mb-0.5">{state.data.profile.domain}</p>
+                    <p className="text-sm text-gray-600">{state.data.profile?.skills?.slice(0, 2).join(', ')}</p>
+                  </div>
+                )}
+              </motion.div>
             </div>
+
+            {/* Location & Stage Grid */}
+            <motion.div 
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="grid grid-cols-2 gap-4"
+            >
+              {/* Location */}
+              <div className="bg-white rounded-xl p-4 border border-gray-200">
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                    <Globe className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">Location</p>
+                  </div>
+                </div>
+                <p className="text-lg font-bold text-gray-900 ml-13">
+                  {state.data.profile?.country || 'United States'}
+                </p>
+              </div>
+
+              {/* Stage */}
+              <div className="bg-white rounded-xl p-4 border border-gray-200">
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                    <TrendingUp className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">Stage</p>
+                  </div>
+                </div>
+                <p className="text-lg font-bold text-gray-900 capitalize ml-13">
+                  {state.data.profile?.stage?.replace('-', ' ') || 'Pre-Seed'}
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
-    );
+    </motion.div>
+  );
 
 
   const renderStepContent = () => {
@@ -881,45 +910,51 @@ const RoleBasedOnboarding = ({ onComplete }) => {
   const currentStepData = steps[state.currentStep];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Progress Bar */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-10"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold text-gray-700">
               Step {state.currentStep + 1} of {steps.length}
             </span>
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-semibold text-blue-600">
               {Math.round(progress)}% Complete
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-3">
+          <div className="relative w-full bg-gray-200 rounded-full h-2 overflow-hidden">
             <motion.div
-              className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full"
+              className="absolute top-0 left-0 h-full bg-blue-600 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Step Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-10">
           <motion.div
             key={state.currentStep}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             className="space-y-4"
           >
-            <div className={`w-20 h-20 bg-gradient-to-r ${
-              currentStepData.color === 'blue' ? 'from-blue-500 to-blue-600' :
-              currentStepData.color === 'green' ? 'from-green-500 to-green-600' :
-              'from-purple-500 to-purple-600'
-            } rounded-full flex items-center justify-center mx-auto`}>
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
+              className="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg"
+            >
               {React.createElement(currentStepData.icon, { className: "h-10 w-10 text-white" })}
-            </div>
+            </motion.div>
             <h1 className="text-4xl font-bold text-gray-900">{currentStepData.title}</h1>
-            <p className="text-xl text-gray-600">{currentStepData.subtitle}</p>
+            <p className="text-lg text-gray-600">{currentStepData.subtitle}</p>
           </motion.div>
         </div>
 
@@ -937,45 +972,53 @@ const RoleBasedOnboarding = ({ onComplete }) => {
         </AnimatePresence>
 
         {/* Navigation */}
-        <div className="flex justify-between items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex justify-between items-center mt-12 pt-6 border-t border-gray-200"
+        >
           <button
             onClick={actions.prevStep}
             disabled={state.currentStep === 0}
-            className="flex items-center space-x-2 px-6 py-3 text-gray-600 hover:text-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group flex items-center space-x-2 px-6 py-3 text-gray-600 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 hover:bg-gray-100 rounded-lg font-medium"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             <span>Previous</span>
           </button>
 
           <div className="flex space-x-2">
             {steps.map((_, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`w-3 h-3 rounded-full ${
-                  index <= state.currentStep ? 'bg-blue-500' : 'bg-gray-300'
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.1 * index }}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index <= state.currentStep ? 'bg-blue-600' : 'bg-gray-300'
                 }`}
               />
             ))}
           </div>
 
-            <button
-              onClick={handleNext}
-              disabled={state.ui.isLoading || isSubmitting}
-            className="enterprise-button-primary flex items-center space-x-2 px-8 py-4 rounded-full disabled:opacity-50"
-            >
-              {state.ui.isLoading || isSubmitting ? (
-                <>
+          <button
+            onClick={handleNext}
+            disabled={state.ui.isLoading || isSubmitting}
+            className="group flex items-center space-x-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
+          >
+            {state.ui.isLoading || isSubmitting ? (
+              <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span>Processing...</span>
-                </>
-              ) : (
-                <>
+                <span>Processing...</span>
+              </>
+            ) : (
+              <>
                 <span>{state.currentStep === steps.length - 1 ? 'Activate Account' : 'Next'}</span>
-                <ArrowRight className="h-5 w-5" />
-                </>
-              )}
-            </button>
-        </div>
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
+          </button>
+        </motion.div>
       </div>
     </div>
   );

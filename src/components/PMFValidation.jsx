@@ -12,28 +12,22 @@ import {
 const PMFValidation = () => {
   const [activeTab, setActiveTab] = useState('score');
   const [pmfScore, setPmfScore] = useState(68);
-  const [interviews, setInterviews] = useState([]);
   const [signals, setSignals] = useState([]);
-  const [showInterviewModal, setShowInterviewModal] = useState(false);
   const [showSignalModal, setShowSignalModal] = useState(false);
   const [showMetricModal, setShowMetricModal] = useState(false);
   const [showStepModal, setShowStepModal] = useState(false);
+  const [showPollModal, setShowPollModal] = useState(false);
+  const [showSurveyModal, setShowSurveyModal] = useState(false);
   const [showTranscriptModal, setShowTranscriptModal] = useState(false);
-  const [selectedInterview, setSelectedInterview] = useState(null);
   const [selectedMetric, setSelectedMetric] = useState(null);
   const [selectedStep, setSelectedStep] = useState(null);
+  const [selectedInterview, setSelectedInterview] = useState(null);
   const [metrics, setMetrics] = useState([]);
   const [steps, setSteps] = useState([]);
+  const [polls, setPolls] = useState([]);
+  const [surveys, setSurveys] = useState([]);
+  const [frameworks, setFrameworks] = useState([]);
   
-  const [interviewForm, setInterviewForm] = useState({
-    name: '',
-    company: '',
-    role: '',
-    date: '',
-    time: '',
-    notes: ''
-  });
-
   const [signalForm, setSignalForm] = useState({
     signal: '',
     category: 'retention',
@@ -45,46 +39,166 @@ const PMFValidation = () => {
     current: 0
   });
 
+  const [pollForm, setPollForm] = useState({
+    question: '',
+    options: ['', ''],
+    target: 'all_users'
+  });
+
+  const [surveyForm, setSurveyForm] = useState({
+    title: '',
+    framework: 'sean_ellis',
+    target: 'active_users'
+  });
+
+  const [interviews, setInterviews] = useState([]);
+  const [interviewForm, setInterviewForm] = useState({
+    name: '',
+    company: '',
+    role: '',
+    date: '',
+    time: '',
+    notes: ''
+  });
+
   useEffect(() => {
-    const mockInterviews = [
+    const mockPolls = [
       {
         id: 1,
-        name: 'Sarah Chen',
-        company: 'TechCorp',
-        role: 'VP Product',
-        date: '2025-01-18',
-        duration: 45,
-        status: 'completed',
-        transcript: 'Interview transcript:\n\nQ: How would you feel if you could no longer use our product?\nA: Very disappointed! It\'s become essential for our product workflow. We use it every day.\n\nQ: What\'s the main benefit you get?\nA: It saves us about 10 hours per week on manual processes. The automation features are incredible.\n\nQ: What would make it better?\nA: Better integrations with Slack and Jira would be amazing.',
-        insights: ['Must-have for her team', 'Pricing is acceptable', 'Needs better integrations'],
-        pmfSignals: { mustHave: true, paymentIntent: 'high', frequency: 'daily' }
+        question: 'How disappointed would you be if you could no longer use our product?',
+        options: [
+          { id: 1, text: 'Very disappointed', votes: 42, percent: 58 },
+          { id: 2, text: 'Somewhat disappointed', votes: 18, percent: 25 },
+          { id: 3, text: 'Not disappointed', votes: 12, percent: 17 }
+        ],
+        totalResponses: 72,
+        status: 'active',
+        createdAt: '2025-01-15',
+        target: 'active_users',
+        framework: 'Sean Ellis Test'
       },
       {
         id: 2,
-        name: 'Michael Rodriguez',
-        company: 'StartupX',
-        role: 'Founder',
-        date: '2025-01-17',
-        duration: 32,
+        question: 'What is the ONE thing we should improve?',
+        options: [
+          { id: 1, text: 'Better integrations', votes: 28, percent: 45 },
+          { id: 2, text: 'Mobile app', votes: 22, percent: 35 },
+          { id: 3, text: 'Pricing', votes: 12, percent: 20 }
+        ],
+        totalResponses: 62,
         status: 'completed',
-        transcript: 'Interview transcript:\n\nQ: How often do you use the product?\nA: About once a week, mainly for reporting.\n\nQ: Would you be disappointed without it?\nA: Somewhat. I could probably find alternatives, but it\'s convenient.\n\nQ: Price point feedback?\nA: A bit expensive for our stage. Would love a startup discount.',
-        insights: ['Would use weekly', 'Price sensitivity high', 'Loves core features'],
-        pmfSignals: { mustHave: false, paymentIntent: 'medium', frequency: 'weekly' }
-      },
-      {
-        id: 3,
-        name: 'Emily Watson',
-        company: 'ScaleUp Inc',
-        role: 'COO',
-        date: '2025-01-20',
-        duration: 0,
-        status: 'scheduled',
-        transcript: null,
-        insights: [],
-        pmfSignals: null
+        createdAt: '2025-01-10',
+        target: 'all_users',
+        framework: 'Custom'
       }
     ];
-    setInterviews(mockInterviews);
+    setPolls(mockPolls);
+
+    const mockSurveys = [
+      {
+        id: 1,
+        title: 'Product-Market Fit Survey',
+        framework: 'sean_ellis',
+        questions: 3,
+        responses: 89,
+        status: 'active',
+        createdAt: '2025-01-12',
+        completionRate: 67,
+        results: {
+          mustHave: 58,
+          someDisappointment: 25,
+          noDisappointment: 17
+        }
+      },
+      {
+        id: 2,
+        title: 'Net Promoter Score',
+        framework: 'nps',
+        questions: 2,
+        responses: 124,
+        status: 'completed',
+        createdAt: '2025-01-05',
+        completionRate: 78,
+        results: {
+          nps: 42,
+          promoters: 56,
+          passives: 30,
+          detractors: 14
+        }
+      }
+    ];
+    setSurveys(mockSurveys);
+
+    const mockFrameworks = [
+      {
+        id: 'sean_ellis',
+        name: 'Sean Ellis Test',
+        description: 'Measure must-have sentiment. 40%+ "very disappointed" indicates strong PMF',
+        question: 'How would you feel if you could no longer use this product?',
+        options: ['Very disappointed', 'Somewhat disappointed', 'Not disappointed'],
+        benchmark: '40% very disappointed',
+        difficulty: 'easy',
+        timeToComplete: '2 min',
+        icon: Target,
+        color: 'blue'
+      },
+      {
+        id: 'nps',
+        name: 'Net Promoter Score',
+        description: 'Measure customer loyalty and likelihood to recommend. 50+ is excellent',
+        question: 'How likely are you to recommend us to a friend? (0-10)',
+        benchmark: 'NPS > 50',
+        difficulty: 'easy',
+        timeToComplete: '1 min',
+        icon: Heart,
+        color: 'pink'
+      },
+      {
+        id: 'retention_cohort',
+        name: 'Retention Cohort',
+        description: 'Track user retention over time. Strong PMF shows >40% retention at Month 3',
+        benchmark: '40%+ at Month 3',
+        difficulty: 'medium',
+        timeToComplete: '5 min',
+        icon: TrendingUp,
+        color: 'green'
+      },
+      {
+        id: 'engagement_depth',
+        name: 'Engagement Depth',
+        description: 'Measure how deeply users engage with your product features',
+        benchmark: '3+ features used regularly',
+        difficulty: 'medium',
+        timeToComplete: '10 min',
+        icon: Activity,
+        color: 'purple'
+      },
+      {
+        id: 'problem_validation',
+        name: 'Problem Validation',
+        description: 'Validate if you\'re solving a real, urgent problem',
+        question: 'How urgent is solving this problem for you?',
+        options: ['Critical - need solution now', 'Important - within 3 months', 'Nice to have'],
+        benchmark: '60%+ critical',
+        difficulty: 'easy',
+        timeToComplete: '3 min',
+        icon: AlertTriangle,
+        color: 'orange'
+      },
+      {
+        id: 'csat',
+        name: 'Customer Satisfaction',
+        description: 'Measure satisfaction with specific features or experiences',
+        question: 'How satisfied are you with [feature]?',
+        options: ['Very satisfied', 'Satisfied', 'Neutral', 'Dissatisfied', 'Very dissatisfied'],
+        benchmark: '80%+ satisfied',
+        difficulty: 'easy',
+        timeToComplete: '2 min',
+        icon: Star,
+        color: 'yellow'
+      }
+    ];
+    setFrameworks(mockFrameworks);
 
     const mockSignals = [
       {
@@ -340,44 +454,173 @@ const PMFValidation = () => {
     setSteps(updated);
   };
 
+  const handleCreatePoll = () => {
+    if (!pollForm.question || pollForm.options.some(opt => !opt.trim())) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    const newPoll = {
+      id: Date.now(),
+      question: pollForm.question,
+      options: pollForm.options.map((text, index) => ({
+        id: index + 1,
+        text,
+        votes: 0,
+        percent: 0
+      })),
+      totalResponses: 0,
+      status: 'active',
+      createdAt: new Date().toISOString().split('T')[0],
+      target: pollForm.target,
+      framework: 'Custom'
+    };
+
+    setPolls(prev => [newPoll, ...prev]);
+    setPollForm({ question: '', options: ['', ''], target: 'all_users' });
+    setShowPollModal(false);
+  };
+
+  const handleCreateSurvey = () => {
+    if (!surveyForm.title) {
+      alert('Please enter survey title');
+      return;
+    }
+
+    const framework = frameworks.find(f => f.id === surveyForm.framework);
+    const newSurvey = {
+      id: Date.now(),
+      title: surveyForm.title,
+      framework: surveyForm.framework,
+      questions: framework?.id === 'nps' ? 2 : 3,
+      responses: 0,
+      status: 'active',
+      createdAt: new Date().toISOString().split('T')[0],
+      completionRate: 0,
+      results: null
+    };
+
+    setSurveys(prev => [newSurvey, ...prev]);
+    setSurveyForm({ title: '', framework: 'sean_ellis', target: 'active_users' });
+    setShowSurveyModal(false);
+  };
+
+  const handleLaunchFramework = (frameworkId) => {
+    const framework = frameworks.find(f => f.id === frameworkId);
+    setSurveyForm({ ...surveyForm, framework: frameworkId, title: framework.name });
+    setShowSurveyModal(true);
+  };
+
+  const handleAddPollOption = () => {
+    setPollForm(prev => ({ ...prev, options: [...prev.options, ''] }));
+  };
+
+  const handleRemovePollOption = (index) => {
+    if (pollForm.options.length > 2) {
+      setPollForm(prev => ({
+        ...prev,
+        options: prev.options.filter((_, i) => i !== index)
+      }));
+    }
+  };
+
+  const handleUpdatePollOption = (index, value) => {
+    setPollForm(prev => ({
+      ...prev,
+      options: prev.options.map((opt, i) => i === index ? value : opt)
+    }));
+  };
+
   const tabs = [
     { id: 'score', label: 'PMF Score', icon: Target, description: 'Overall health' },
     { id: 'signals', label: 'Signals', icon: Activity, description: 'Key indicators' },
-    { id: 'interviews', label: 'Customer Interviews', icon: MessageCircle, description: 'Qualitative research' },
-    { id: 'validation', label: 'Validation Framework', icon: CheckCircle, description: 'Step-by-step' },
+    { id: 'methods', label: 'Validation Methods', icon: CheckCircle, description: 'Frameworks & Surveys' },
+    { id: 'polls', label: 'Audience Polls', icon: MessageCircle, description: 'Quick user feedback' },
     { id: 'insights', label: 'AI Insights', icon: Brain, description: 'What to do next' }
   ];
 
 
   const getScoreColor = (score) => {
-    if (score >= 80) return { bg: 'bg-green-500', text: 'text-green-600', status: 'Strong PMF' };
-    if (score >= 60) return { bg: 'bg-yellow-500', text: 'text-yellow-600', status: 'Getting Close' };
-    if (score >= 40) return { bg: 'bg-orange-500', text: 'text-orange-600', status: 'Early Signs' };
-    return { bg: 'bg-red-500', text: 'text-red-600', status: 'Keep Searching' };
+    if (score >= 80) return { bg: 'bg-green-500', text: 'text-green-600', status: 'Strong PMF', stroke: '#22c55e' };
+    if (score >= 60) return { bg: 'bg-blue-500', text: 'text-blue-600', status: 'Getting Close', stroke: '#3b82f6' };
+    if (score >= 40) return { bg: 'bg-orange-500', text: 'text-orange-600', status: 'Early Signs', stroke: '#f97316' };
+    return { bg: 'bg-red-500', text: 'text-red-600', status: 'Keep Searching', stroke: '#ef4444' };
   };
 
   const getMetricStatus = (status) => {
     switch (status) {
-      case 'good': return { color: 'green', icon: CheckCircle };
-      case 'warning': return { color: 'yellow', icon: AlertTriangle };
-      case 'close': return { color: 'blue', icon: TrendingUp };
-      default: return { color: 'gray', icon: AlertTriangle };
+      case 'good': return { 
+        color: 'green', 
+        icon: CheckCircle,
+        textColor: 'text-green-600',
+        bgColor: 'bg-green-500'
+      };
+      case 'warning': return { 
+        color: 'yellow', 
+        icon: AlertTriangle,
+        textColor: 'text-orange-600',
+        bgColor: 'bg-orange-500'
+      };
+      case 'close': return { 
+        color: 'blue', 
+        icon: TrendingUp,
+        textColor: 'text-blue-600',
+        bgColor: 'bg-blue-500'
+      };
+      default: return { 
+        color: 'gray', 
+        icon: AlertTriangle,
+        textColor: 'text-gray-600',
+        bgColor: 'bg-gray-500'
+      };
     }
   };
 
   const getStepStatus = (status) => {
     switch (status) {
-      case 'completed': return { color: 'green', icon: CheckCircle, text: 'Completed' };
-      case 'in-progress': return { color: 'blue', icon: RefreshCw, text: 'In Progress' };
-      case 'not-started': return { color: 'gray', icon: Clock, text: 'Not Started' };
-      default: return { color: 'gray', icon: Clock, text: 'Pending' };
+      case 'completed': return { 
+        color: 'green', 
+        icon: CheckCircle, 
+        text: 'Completed',
+        bgColor: 'bg-green-500',
+        iconColor: 'text-green-600',
+        badgeBg: 'bg-green-100',
+        badgeText: 'text-green-700'
+      };
+      case 'in-progress': return { 
+        color: 'blue', 
+        icon: RefreshCw, 
+        text: 'In Progress',
+        bgColor: 'bg-blue-100',
+        iconColor: 'text-blue-600',
+        badgeBg: 'bg-blue-100',
+        badgeText: 'text-blue-700'
+      };
+      case 'not-started': return { 
+        color: 'gray', 
+        icon: Clock, 
+        text: 'Not Started',
+        bgColor: 'bg-gray-100',
+        iconColor: 'text-gray-600',
+        badgeBg: 'bg-gray-100',
+        badgeText: 'text-gray-700'
+      };
+      default: return { 
+        color: 'gray', 
+        icon: Clock, 
+        text: 'Pending',
+        bgColor: 'bg-gray-100',
+        iconColor: 'text-gray-600',
+        badgeBg: 'bg-gray-100',
+        badgeText: 'text-gray-700'
+      };
     }
   };
 
   const scoreColor = getScoreColor(pmfScore);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
@@ -387,22 +630,17 @@ const PMFValidation = () => {
           className="mb-8"
         >
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
-                <Target className="w-7 h-7 text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">Product-Market Fit</h1>
-                <p className="text-gray-600">Systematic validation framework</p>
-              </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Product-Market Fit</h1>
+              <p className="text-gray-600">Systematic validation framework</p>
             </div>
             
             <button 
-              onClick={() => setShowInterviewModal(true)}
-              className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all font-medium"
+              onClick={() => setShowSurveyModal(true)}
+              className="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium"
             >
               <Plus size={20} />
-              <span>Schedule Interview</span>
+              <span>Launch Survey</span>
             </button>
           </div>
 
@@ -410,7 +648,7 @@ const PMFValidation = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200"
+            className="bg-white p-8 rounded-xl shadow-sm border border-gray-200"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-6">
@@ -420,7 +658,7 @@ const PMFValidation = () => {
                       cx="64"
                       cy="64"
                       r="56"
-                      stroke="#f3f4f6"
+                      stroke="rgb(243 244 246)"
                       strokeWidth="12"
                       fill="none"
                     />
@@ -428,12 +666,11 @@ const PMFValidation = () => {
                       cx="64"
                       cy="64"
                       r="56"
-                      stroke={scoreColor.bg.replace('bg-', '#')}
+                      stroke={scoreColor.stroke}
                       strokeWidth="12"
                       fill="none"
                       strokeDasharray={`${(pmfScore / 100) * 352} 352`}
                       strokeLinecap="round"
-                      className={scoreColor.bg}
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -454,7 +691,7 @@ const PMFValidation = () => {
               </div>
 
               <div className="text-right space-y-2">
-                <div className="flex items-center space-x-2 text-green-600">
+                <div className="flex items-center space-x-2 text-blue-600">
                   <TrendingUp size={20} />
                   <span className="font-bold">+12 points</span>
                 </div>
@@ -478,7 +715,7 @@ const PMFValidation = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-2 px-4 py-3 rounded-lg transition-all flex-1 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md'
+                      ? 'bg-blue-600 text-white shadow-md'
                       : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
@@ -526,14 +763,14 @@ const PMFValidation = () => {
                         <div key={metric.id} className="border-b border-gray-100 pb-4 last:border-0">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center space-x-3">
-                              <StatusIcon size={20} className={`text-${status.color}-600`} />
+                              <StatusIcon size={20} className={status.textColor} />
                               <div>
                                 <div className="font-medium text-gray-900">{metric.name}</div>
                                 <div className="text-xs text-gray-500">{metric.description}</div>
                               </div>
                             </div>
                             <div className="text-right">
-                              <div className={`text-xl font-bold text-${status.color}-600`}>
+                              <div className={`text-xl font-bold ${status.textColor}`}>
                                 {metric.current}%
                               </div>
                               <div className="text-xs text-gray-500">Target: {metric.target}%</div>
@@ -541,7 +778,7 @@ const PMFValidation = () => {
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2">
                             <div 
-                              className={`bg-${status.color}-500 h-2 rounded-full transition-all`} 
+                              className={`${status.bgColor} h-2 rounded-full transition-all`} 
                               style={{ width: `${progress}%` }}
                             ></div>
                           </div>
@@ -564,7 +801,7 @@ const PMFValidation = () => {
               <div className="mb-4 flex justify-end">
                 <button
                   onClick={() => setShowSignalModal(true)}
-                  className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:shadow-lg transition-all font-medium text-sm"
+                  className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium text-sm"
                 >
                   <Plus size={18} />
                   <span>Add Signal</span>
@@ -577,8 +814,8 @@ const PMFValidation = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className={`p-4 rounded-xl border-2 ${
-                      signal.type === 'positive' ? 'bg-green-50 border-green-200' : 'bg-yellow-50 border-yellow-200'
+                    className={`p-4 rounded-xl border shadow-sm ${
+                      signal.type === 'positive' ? 'bg-white border-gray-200' : 'bg-white border-gray-200'
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -586,11 +823,11 @@ const PMFValidation = () => {
                         {signal.type === 'positive' ? (
                           <ThumbsUp className="text-green-600 mt-1" size={20} />
                         ) : (
-                          <AlertTriangle className="text-yellow-600 mt-1" size={20} />
+                          <AlertTriangle className="text-orange-600 mt-1" size={20} />
                         )}
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
-                            <span className="px-2 py-0.5 bg-white text-gray-700 text-xs font-medium rounded">
+                            <span className="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-medium rounded">
                               {signal.category}
                             </span>
                             <span className={`px-2 py-0.5 text-xs font-medium rounded ${
@@ -618,108 +855,160 @@ const PMFValidation = () => {
             </motion.div>
           )}
 
-          {activeTab === 'interviews' && (
+          {activeTab === 'methods' && (
             <motion.div
-              key="interviews"
+              key="methods"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <div className="space-y-4">
-                {interviews.map((interview, index) => (
-                  <motion.div
-                    key={interview.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold">
-                          {interview.name.split(' ').map(n => n[0]).join('')}
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Validation Frameworks</h2>
+                <p className="text-gray-600">Choose a proven framework to validate your product-market fit</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6 mb-8">
+                {frameworks.map((framework) => {
+                  const Icon = framework.icon;
+                  const colorClasses = {
+                    blue: { bg: 'bg-blue-100', text: 'text-blue-600', border: 'border-blue-200' },
+                    pink: { bg: 'bg-pink-100', text: 'text-pink-600', border: 'border-gray-200' },
+                    green: { bg: 'bg-green-100', text: 'text-green-600', border: 'border-gray-200' },
+                    purple: { bg: 'bg-purple-100', text: 'text-purple-600', border: 'border-gray-200' },
+                    orange: { bg: 'bg-orange-100', text: 'text-orange-600', border: 'border-gray-200' },
+                    yellow: { bg: 'bg-yellow-100', text: 'text-yellow-600', border: 'border-gray-200' }
+                  };
+                  const colors = colorClasses[framework.color] || colorClasses.blue;
+
+                  return (
+                    <div key={framework.id} className={`bg-white p-6 rounded-xl shadow-sm border ${colors.border} hover:shadow-md transition-all`}>
+                      <div className="flex items-start justify-between mb-4">
+                        <div className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center`}>
+                          <Icon size={24} className={colors.text} />
                         </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded">
+                            {framework.difficulty}
+                          </span>
+                          <span className="text-xs text-gray-600 flex items-center space-x-1">
+                            <Clock size={12} />
+                            <span>{framework.timeToComplete}</span>
+                          </span>
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">{framework.name}</h3>
+                      <p className="text-sm text-gray-600 mb-4">{framework.description}</p>
+
+                      {framework.question && (
+                        <div className="bg-gray-50 p-3 rounded-lg mb-4">
+                          <div className="text-xs font-semibold text-gray-700 mb-1">Sample Question:</div>
+                          <div className="text-sm text-gray-900">"{framework.question}"</div>
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-bold text-gray-900">{interview.name}</h3>
-                          <div className="text-sm text-gray-600">{interview.role} at {interview.company}</div>
-                          <div className="flex items-center space-x-3 mt-2">
-                            <span className={`px-2 py-1 text-xs font-medium rounded ${
-                              interview.status === 'completed' ? 'bg-green-100 text-green-700' :
-                              interview.status === 'scheduled' ? 'bg-blue-100 text-blue-700' :
-                              'bg-gray-100 text-gray-700'
+                          <div className="text-xs text-gray-600">Benchmark</div>
+                          <div className="text-sm font-bold text-gray-900">{framework.benchmark}</div>
+                        </div>
+                        <button
+                          onClick={() => handleLaunchFramework(framework.id)}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm font-medium"
+                        >
+                          Launch Survey
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mb-4">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Active Surveys</h2>
+                <p className="text-gray-600">Track your ongoing validation efforts</p>
+              </div>
+
+              <div className="space-y-4">
+                {surveys.length === 0 ? (
+                  <div className="bg-white p-12 rounded-xl text-center border-2 border-dashed border-gray-300 shadow-sm">
+                    <BarChart3 className="mx-auto text-gray-400 mb-4" size={48} />
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">No Active Surveys</h3>
+                    <p className="text-gray-600">Launch a framework above to start collecting data</p>
+                  </div>
+                ) : (
+                  surveys.map((survey, index) => (
+                    <motion.div
+                      key={survey.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
+                    >
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-3 mb-2">
+                            <h3 className="text-lg font-bold text-gray-900">{survey.title}</h3>
+                            <span className={`px-3 py-1 text-xs font-medium rounded ${
+                              survey.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
                             }`}>
-                              {interview.status}
+                              {survey.status}
                             </span>
-                            <span className="text-xs text-gray-500 flex items-center space-x-1">
-                              <Calendar size={12} />
-                              <span>{interview.date}</span>
+                          </div>
+                          <div className="flex items-center space-x-4 text-sm text-gray-600">
+                            <span className="flex items-center space-x-1">
+                              <Calendar size={14} />
+                              <span>{survey.createdAt}</span>
                             </span>
-                            {interview.duration > 0 && (
-                              <span className="text-xs text-gray-500 flex items-center space-x-1">
-                                <Clock size={12} />
-                                <span>{interview.duration} min</span>
-                              </span>
-                            )}
+                            <span>{survey.questions} questions</span>
+                            <span>{survey.responses} responses</span>
+                            <span>{survey.completionRate}% completion rate</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center space-x-2">
-                        {interview.status === 'completed' && interview.pmfSignals && interview.pmfSignals.mustHave && (
-                          <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full flex items-center space-x-1">
-                            <Heart size={12} />
-                            <span>Must-Have</span>
-                          </span>
-                        )}
-                        <button
-                          onClick={() => handleDeleteInterview(interview.id)}
-                          className="text-gray-400 hover:text-red-600 transition-colors p-1"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
-                    </div>
-
-                    {interview.insights.length > 0 && (
-                      <div className="bg-gray-50 p-4 rounded-lg mb-3">
-                        <h4 className="text-sm font-semibold text-gray-900 mb-2">Key Insights</h4>
-                        <ul className="space-y-1">
-                          {interview.insights.map((insight, idx) => (
-                            <li key={idx} className="text-sm text-gray-700 flex items-start space-x-2">
-                              <span className="text-blue-600 mt-1">•</span>
-                              <span>{insight}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    <div className="flex items-center space-x-3">
-                      {interview.status === 'scheduled' && (
-                        <>
-                          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium">
-                            Join Call
-                          </button>
-                          <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium">
-                            Reschedule
-                          </button>
-                        </>
+                      {survey.results && (
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="text-sm font-semibold text-gray-900 mb-3">Results:</h4>
+                          <div className="grid grid-cols-3 gap-4">
+                            {survey.framework === 'sean_ellis' && (
+                              <>
+                                <div className="text-center">
+                                  <div className="text-2xl font-bold text-blue-600">{survey.results.mustHave}%</div>
+                                  <div className="text-xs text-gray-600">Very Disappointed</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-2xl font-bold text-blue-600">{survey.results.someDisappointment}%</div>
+                                  <div className="text-xs text-gray-600">Somewhat Disappointed</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-2xl font-bold text-gray-600">{survey.results.noDisappointment}%</div>
+                                  <div className="text-xs text-gray-600">Not Disappointed</div>
+                                </div>
+                              </>
+                            )}
+                            {survey.framework === 'nps' && (
+                              <>
+                                <div className="text-center">
+                                  <div className="text-2xl font-bold text-blue-600">{survey.results.nps}</div>
+                                  <div className="text-xs text-gray-600">NPS Score</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-2xl font-bold text-blue-600">{survey.results.promoters}%</div>
+                                  <div className="text-xs text-gray-600">Promoters</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-2xl font-bold text-red-600">{survey.results.detractors}%</div>
+                                  <div className="text-xs text-gray-600">Detractors</div>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       )}
-                      {interview.status === 'completed' && interview.transcript && (
-                        <button 
-                          onClick={() => {
-                            setSelectedInterview(interview);
-                            setShowTranscriptModal(true);
-                          }}
-                          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium flex items-center space-x-2"
-                        >
-                          <FileText size={16} />
-                          <span>View Transcript</span>
-                        </button>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  ))
+                )}
               </div>
             </motion.div>
           )}
@@ -745,15 +1034,15 @@ const PMFValidation = () => {
                       className="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
                     >
                       <div className="flex items-start space-x-4">
-                        <div className={`w-12 h-12 bg-${status.color}-100 rounded-full flex items-center justify-center flex-shrink-0`}>
-                          <StatusIcon size={20} className={`text-${status.color}-600`} />
+                        <div className={`w-12 h-12 ${status.bgColor} rounded-full flex items-center justify-center flex-shrink-0`}>
+                          <StatusIcon size={20} className={status.iconColor} />
                         </div>
                         
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center space-x-3">
                               <h3 className="text-lg font-bold text-gray-900">{step.title}</h3>
-                              <span className={`px-2 py-1 text-xs font-medium rounded bg-${status.color}-100 text-${status.color}-700`}>
+                              <span className={`px-2 py-1 text-xs font-medium rounded ${status.badgeBg} ${status.badgeText}`}>
                                 {status.text}
                               </span>
                             </div>
@@ -771,7 +1060,7 @@ const PMFValidation = () => {
                                   setSelectedStep(step);
                                   setShowStepModal(true);
                                 }}
-                                className="text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center space-x-1"
+                                className="text-sm text-blue-600 hover:text-blue-600 font-medium flex items-center space-x-1"
                               >
                                 <Plus size={14} />
                                 <span>Add Evidence</span>
@@ -787,12 +1076,12 @@ const PMFValidation = () => {
                                 {step.evidence.map((item, idx) => (
                                   <li key={idx} className="text-sm text-gray-600 flex items-start justify-between group">
                                     <div className="flex items-start space-x-2 flex-1">
-                                      <CheckCircle size={14} className="text-green-600 mt-0.5 flex-shrink-0" />
+                                      <CheckCircle size={14} className="text-blue-600 mt-0.5 flex-shrink-0" />
                                       <span>{item}</span>
                                     </div>
                                     <button
                                       onClick={() => handleDeleteEvidence(step.id, idx)}
-                                      className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-600 transition-all ml-2"
+                                      className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-black transition-all ml-2"
                                     >
                                       <X size={14} />
                                     </button>
@@ -810,6 +1099,117 @@ const PMFValidation = () => {
             </motion.div>
           )}
 
+          {activeTab === 'polls' && (
+            <motion.div
+              key="polls"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">Audience Polls</h2>
+                    <p className="text-gray-600">Quick user feedback</p>
+                  </div>
+                  <button
+                    onClick={() => setShowPollModal(true)}
+                    className="flex items-center space-x-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium"
+                  >
+                    <Plus size={18} />
+                    <span>Add Poll</span>
+                  </button>
+                </div>
+
+                {polls.length === 0 ? (
+                  <div className="bg-white p-12 rounded-xl shadow-sm border-2 border-dashed border-gray-300 text-center">
+                    <MessageCircle className="mx-auto text-gray-400 mb-4" size={48} />
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">No Polls Yet</h3>
+                    <p className="text-gray-600 mb-4">Create your first poll to get quick feedback from your users</p>
+                    <button
+                      onClick={() => setShowPollModal(true)}
+                      className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+                    >
+                      Create First Poll
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-6">
+                    {polls.map((poll) => (
+                      <div key={poll.id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-2">
+                              <h3 className="text-lg font-bold text-gray-900">{poll.question}</h3>
+                              <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                poll.status === 'active' 
+                                  ? 'bg-green-100 text-green-700' 
+                                  : 'bg-gray-100 text-gray-700'
+                              }`}>
+                                {poll.status === 'active' ? 'Active' : 'Completed'}
+                              </span>
+                            </div>
+                            <div className="flex items-center space-x-4 text-sm text-gray-600">
+                              <span className="flex items-center space-x-1">
+                                <Users size={14} />
+                                <span>{poll.totalResponses} responses</span>
+                              </span>
+                              <span className="flex items-center space-x-1">
+                                <Calendar size={14} />
+                                <span>{new Date(poll.createdAt).toLocaleDateString()}</span>
+                              </span>
+                              <span className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded text-xs font-medium">
+                                {poll.framework}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                              <Share size={18} />
+                            </button>
+                            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                              <Download size={18} />
+                            </button>
+                            <button className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                              <Trash2 size={18} />
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          {poll.options.map((option) => (
+                            <div key={option.id}>
+                              <div className="flex items-center justify-between mb-1.5">
+                                <span className="text-sm font-medium text-gray-900">{option.text}</span>
+                                <span className="text-sm font-bold text-blue-600">{option.percent}%</span>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                <div 
+                                  className="bg-blue-600 h-2.5 rounded-full transition-all" 
+                                  style={{ width: `${option.percent}%` }}
+                                ></div>
+                              </div>
+                              <div className="text-xs text-gray-500 mt-1">{option.votes} votes</div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {poll.status === 'active' && (
+                          <div className="mt-4 pt-4 border-t border-gray-200">
+                            <button className="flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-700 font-medium">
+                              <Eye size={16} />
+                              <span>View All Responses</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+
           {activeTab === 'insights' && (
             <motion.div
               key="insights"
@@ -819,12 +1219,12 @@ const PMFValidation = () => {
             >
               <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
                 <div className="flex items-center space-x-3 mb-6">
-                  <Brain className="text-purple-600" size={32} />
+                  <Brain className="text-blue-600" size={32} />
                   <h2 className="text-2xl font-bold text-gray-900">AI Recommendations</h2>
                 </div>
 
                 <div className="space-y-6">
-                  <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
+                  <div className="p-6 bg-white rounded-xl">
                     <h3 className="text-lg font-bold text-gray-900 mb-3">🎯 Priority #1: Improve Week-2 Retention</h3>
                     <p className="text-gray-700 mb-4">
                       Your retention at 45% is below the 60% threshold for PMF. This is the biggest blocker to achieving product-market fit.
@@ -848,14 +1248,14 @@ const PMFValidation = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
+                  <div className="p-6 bg-white rounded-xl">
                     <h3 className="text-lg font-bold text-gray-900 mb-3">✅ Strength: Must-Have Score</h3>
                     <p className="text-gray-700">
                       42% of users say your product is "must-have" (target: 40%+). This is a strong signal! Double down on what's working for these users.
                     </p>
                   </div>
 
-                  <div className="p-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl">
+                  <div className="p-6 bg-white rounded-xl">
                     <h3 className="text-lg font-bold text-gray-900 mb-3">⚠️ Watch: Conversion to Paid</h3>
                     <p className="text-gray-700 mb-4">
                       Only 8% are upgrading to paid (target: 15%+). This could be a pricing or value communication issue.
@@ -864,15 +1264,15 @@ const PMFValidation = () => {
                       <div className="font-semibold text-gray-900 mb-2">Next Steps:</div>
                       <ul className="space-y-2 text-sm text-gray-700">
                         <li className="flex items-start space-x-2">
-                          <ChevronRight size={16} className="text-orange-600 mt-0.5" />
+                          <ChevronRight size={16} className="text-blue-600 mt-0.5" />
                           <span>Test different pricing tiers (consider lower entry point)</span>
                         </li>
                         <li className="flex items-start space-x-2">
-                          <ChevronRight size={16} className="text-orange-600 mt-0.5" />
+                          <ChevronRight size={16} className="text-blue-600 mt-0.5" />
                           <span>Add clear value prop on upgrade page</span>
                         </li>
                         <li className="flex items-start space-x-2">
-                          <ChevronRight size={16} className="text-orange-600 mt-0.5" />
+                          <ChevronRight size={16} className="text-blue-600 mt-0.5" />
                           <span>Interview users who didn't upgrade to understand objections</span>
                         </li>
                       </ul>
@@ -880,133 +1280,6 @@ const PMFValidation = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Schedule Interview Modal */}
-        <AnimatePresence>
-          {showInterviewModal && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-              onClick={() => setShowInterviewModal(false)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-              >
-                <div className="p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10">
-                  <h2 className="text-2xl font-bold text-gray-900">Schedule Customer Interview</h2>
-                  <button
-                    onClick={() => setShowInterviewModal(false)}
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
-
-                <div className="p-6 space-y-5">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Name *
-                      </label>
-                      <input
-                        type="text"
-                        value={interviewForm.name}
-                        onChange={(e) => setInterviewForm({ ...interviewForm, name: e.target.value })}
-                        placeholder="John Doe"
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Company
-                      </label>
-                      <input
-                        type="text"
-                        value={interviewForm.company}
-                        onChange={(e) => setInterviewForm({ ...interviewForm, company: e.target.value })}
-                        placeholder="Acme Inc"
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Role
-                    </label>
-                    <input
-                      type="text"
-                      value={interviewForm.role}
-                      onChange={(e) => setInterviewForm({ ...interviewForm, role: e.target.value })}
-                      placeholder="Product Manager"
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Date *
-                      </label>
-                      <input
-                        type="date"
-                        value={interviewForm.date}
-                        onChange={(e) => setInterviewForm({ ...interviewForm, date: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Time
-                      </label>
-                      <input
-                        type="time"
-                        value={interviewForm.time}
-                        onChange={(e) => setInterviewForm({ ...interviewForm, time: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Notes
-                    </label>
-                    <textarea
-                      value={interviewForm.notes}
-                      onChange={(e) => setInterviewForm({ ...interviewForm, notes: e.target.value })}
-                      placeholder="Prep notes, questions to ask..."
-                      rows="4"
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-gray-900"
-                    />
-                  </div>
-                </div>
-
-                <div className="p-6 border-t border-gray-200 flex items-center justify-end space-x-3 sticky bottom-0 bg-white">
-                  <button
-                    onClick={() => setShowInterviewModal(false)}
-                    className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleScheduleInterview}
-                    disabled={!interviewForm.name.trim() || !interviewForm.date}
-                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-                  >
-                    Schedule Interview
-                  </button>
-                </div>
-              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -1026,7 +1299,7 @@ const PMFValidation = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full"
+                className="bg-white rounded-xl shadow-lg max-w-2xl w-full"
               >
                 <div className="p-6 border-b border-gray-200 flex items-center justify-between">
                   <h2 className="text-2xl font-bold text-gray-900">Add PMF Signal</h2>
@@ -1048,7 +1321,7 @@ const PMFValidation = () => {
                       onChange={(e) => setSignalForm({ ...signalForm, signal: e.target.value })}
                       placeholder="e.g., Users spending 20+ minutes per session"
                       rows="3"
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-gray-900"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-gray-900"
                     />
                   </div>
 
@@ -1060,7 +1333,7 @@ const PMFValidation = () => {
                       <select
                         value={signalForm.type}
                         onChange={(e) => setSignalForm({ ...signalForm, type: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 font-medium"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 font-medium"
                       >
                         <option value="positive">Positive</option>
                         <option value="warning">Warning</option>
@@ -1074,7 +1347,7 @@ const PMFValidation = () => {
                       <select
                         value={signalForm.category}
                         onChange={(e) => setSignalForm({ ...signalForm, category: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 font-medium"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 font-medium"
                       >
                         <option value="retention">Retention</option>
                         <option value="engagement">Engagement</option>
@@ -1091,7 +1364,7 @@ const PMFValidation = () => {
                       <select
                         value={signalForm.strength}
                         onChange={(e) => setSignalForm({ ...signalForm, strength: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 font-medium"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 font-medium"
                       >
                         <option value="strong">Strong</option>
                         <option value="medium">Medium</option>
@@ -1104,14 +1377,14 @@ const PMFValidation = () => {
                 <div className="p-6 border-t border-gray-200 flex items-center justify-end space-x-3">
                   <button
                     onClick={() => setShowSignalModal(false)}
-                    className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleAddSignal}
                     disabled={!signalForm.signal.trim()}
-                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                   >
                     Add Signal
                   </button>
@@ -1136,7 +1409,7 @@ const PMFValidation = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-2xl shadow-2xl max-w-md w-full"
+                className="bg-white rounded-xl shadow-lg max-w-md w-full"
               >
                 <div className="p-6 border-b border-gray-200 flex items-center justify-between">
                   <h2 className="text-2xl font-bold text-gray-900">Update Metric</h2>
@@ -1160,7 +1433,7 @@ const PMFValidation = () => {
                               setSelectedMetric(metric);
                               setMetricUpdateForm({ current: metric.current });
                             }}
-                            className="w-full p-4 text-left border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
+                            className="w-full p-4 text-left border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
                           >
                             <div className="font-semibold text-gray-900">{metric.name}</div>
                             <div className="text-sm text-gray-600">Current: {metric.current}% (Target: {metric.target}%)</div>
@@ -1186,7 +1459,7 @@ const PMFValidation = () => {
                           max="100"
                           value={metricUpdateForm.current}
                           onChange={(e) => setMetricUpdateForm({ current: e.target.value })}
-                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
                         />
                       </div>
                     </>
@@ -1207,14 +1480,14 @@ const PMFValidation = () => {
                       setShowMetricModal(false);
                       setSelectedMetric(null);
                     }}
-                    className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
                   >
                     Cancel
                   </button>
                   {selectedMetric && (
                     <button
                       onClick={handleUpdateMetric}
-                      className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all font-medium"
+                      className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium"
                     >
                       Update
                     </button>
@@ -1243,7 +1516,7 @@ const PMFValidation = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-2xl shadow-2xl max-w-md w-full"
+                className="bg-white rounded-xl shadow-lg max-w-md w-full"
               >
                 <div className="p-6 border-b border-gray-200 flex items-center justify-between">
                   <h2 className="text-2xl font-bold text-gray-900">Add Evidence</h2>
@@ -1259,7 +1532,7 @@ const PMFValidation = () => {
                 </div>
 
                 <div className="p-6 space-y-4">
-                  <div className="bg-purple-50 p-4 rounded-lg">
+                  <div className="bg-white p-4 rounded-lg">
                     <div className="font-semibold text-gray-900">{selectedStep.title}</div>
                     <div className="text-sm text-gray-600 mt-1">{selectedStep.description}</div>
                   </div>
@@ -1272,7 +1545,7 @@ const PMFValidation = () => {
                       id="evidence-input"
                       placeholder="e.g., Completed 15 customer interviews"
                       rows="3"
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 resize-none text-gray-900"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-gray-900"
                     />
                   </div>
                 </div>
@@ -1283,7 +1556,7 @@ const PMFValidation = () => {
                       setShowStepModal(false);
                       setSelectedStep(null);
                     }}
-                    className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
                   >
                     Cancel
                   </button>
@@ -1297,7 +1570,7 @@ const PMFValidation = () => {
                         setSelectedStep(null);
                       }
                     }}
-                    className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl hover:shadow-lg transition-all font-medium"
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium"
                   >
                     Add Evidence
                   </button>
@@ -1325,7 +1598,7 @@ const PMFValidation = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-white rounded-xl shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
               >
                 <div className="p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10">
                   <div>

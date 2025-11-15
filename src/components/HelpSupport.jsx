@@ -199,8 +199,8 @@ const HelpSupport = () => {
           className="bg-white rounded-xl border border-gray-200 p-6 text-left hover:shadow-lg transition-all duration-300"
         >
           <div className="flex items-center space-x-3 mb-4">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Video className="w-6 h-6 text-green-600" />
+            <div className="p-3 bg-white rounded-lg">
+              <Video className="w-6 h-6 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold">Video Tutorials</h3>
           </div>
@@ -213,8 +213,8 @@ const HelpSupport = () => {
           className="bg-white rounded-xl border border-gray-200 p-6 text-left hover:shadow-lg transition-all duration-300"
         >
           <div className="flex items-center space-x-3 mb-4">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <BookOpen className="w-6 h-6 text-purple-600" />
+            <div className="p-3 bg-white rounded-lg">
+              <BookOpen className="w-6 h-6 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold">Documentation</h3>
           </div>
@@ -377,12 +377,12 @@ const HelpSupport = () => {
           whileHover={{ scale: 1.02 }}
           className="bg-white rounded-2xl border border-gray-200 p-8 text-center hover:shadow-lg transition-all duration-300"
         >
-          <div className="p-4 bg-green-100 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-            <Mail className="w-8 h-8 text-green-600" />
+          <div className="p-4 bg-white rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+            <Mail className="w-8 h-8 text-blue-600" />
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">Email Support</h3>
           <p className="text-gray-600 mb-4">Send us an email and we'll respond within 24 hours</p>
-          <button className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-600 transition-colors">
             Send Email
           </button>
         </motion.div>
@@ -391,12 +391,12 @@ const HelpSupport = () => {
           whileHover={{ scale: 1.02 }}
           className="bg-white rounded-2xl border border-gray-200 p-8 text-center hover:shadow-lg transition-all duration-300"
         >
-          <div className="p-4 bg-purple-100 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-            <Phone className="w-8 h-8 text-purple-600" />
+          <div className="p-4 bg-white rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+            <Phone className="w-8 h-8 text-blue-600" />
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">Phone Support</h3>
           <p className="text-gray-600 mb-4">Call us for urgent issues and complex problems</p>
-          <button className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-600 transition-colors">
             Call Now
           </button>
         </motion.div>
@@ -448,7 +448,7 @@ const HelpSupport = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Tabs */}
         <div className="flex space-x-1 bg-white rounded-2xl border border-gray-200 p-2 mb-8">

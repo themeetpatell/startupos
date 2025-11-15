@@ -218,11 +218,11 @@ const IMPACTSSystem = () => {
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'active': return 'bg-green-100 text-green-800 border-green-500';
-      case 'paused': return 'bg-yellow-100 text-yellow-800 border-yellow-500';
-      case 'completed': return 'bg-blue-100 text-blue-800 border-blue-500';
-      case 'blocked': return 'bg-red-100 text-red-800 border-red-500';
-      default: return 'bg-gray-100 text-gray-800 border-gray-500';
+      case 'active': return 'bg-blue-50 text-blue-700 border-blue-200';
+      case 'paused': return 'bg-gray-50 text-gray-700 border-gray-200';
+      case 'completed': return 'bg-green-50 text-green-700 border-green-200';
+      case 'blocked': return 'bg-red-50 text-red-700 border-red-200';
+      default: return 'bg-gray-50 text-gray-700 border-gray-200';
     }
   };
 
@@ -230,17 +230,17 @@ const IMPACTSSystem = () => {
     switch(status) {
       case 'completed': return <CheckCircle className="h-4 w-4 text-green-600" />;
       case 'on-track': return <Activity className="h-4 w-4 text-blue-600" />;
-      case 'at-risk': return <AlertCircle className="h-4 w-4 text-red-600" />;
+      case 'at-risk': return <AlertCircle className="h-4 w-4 text-orange-600" />;
       default: return <Target className="h-4 w-4 text-gray-600" />;
     }
   };
 
   const getSignalTypeColor = (type) => {
     switch(type) {
-      case 'positive': return 'bg-green-100 text-green-800 border-green-500';
-      case 'negative': return 'bg-red-100 text-red-800 border-red-500';
-      case 'warning': return 'bg-yellow-100 text-yellow-800 border-yellow-500';
-      default: return 'bg-gray-100 text-gray-800 border-gray-500';
+      case 'positive': return 'bg-green-50 text-green-700 border-green-200';
+      case 'negative': return 'bg-red-50 text-red-700 border-red-200';
+      case 'warning': return 'bg-orange-50 text-orange-700 border-orange-200';
+      default: return 'bg-gray-50 text-gray-700 border-gray-200';
     }
   };
 
@@ -268,19 +268,18 @@ const IMPACTSSystem = () => {
     : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-xl p-8 text-white">
-          <div className="flex items-center space-x-3 mb-2">
-            <Rocket className="h-8 w-8" />
-            <h1 className="text-4xl font-bold">IMPACTS</h1>
-          </div>
-          <p className="text-indigo-100 text-lg mb-4">Intent • Milestone • Progress • Alignment • Compounding • Traction • Signal</p>
-          <div className="flex items-center space-x-6">
+        <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-1">IMPACTS</h1>
+              <p className="text-gray-600 text-sm">Intent • Milestone • Progress • Alignment • Compounding • Traction • Signal</p>
+            </div>
             <button 
               onClick={() => setShowCreateModal(true)}
-              className="bg-white text-indigo-600 px-6 py-3 rounded-lg hover:bg-white/90 flex items-center space-x-2 font-semibold transition-all"
+              className="bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 flex items-center space-x-2 font-medium transition-all shadow-sm hover:shadow"
             >
               <Plus className="h-5 w-5" />
               <span>New Impact</span>
@@ -290,80 +289,60 @@ const IMPACTSSystem = () => {
 
         {/* KPI Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <div className="bg-indigo-100 rounded-full p-3">
-                <Target className="h-6 w-6 text-indigo-600" />
-              </div>
-              <span className="text-2xl font-bold">{overallImpacts}</span>
-            </div>
-            <p className="text-sm font-medium text-gray-600">Total Impacts</p>
-            <p className="text-xs text-indigo-600 mt-1">{activeImpacts} active</p>
+          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+            <p className="text-sm font-medium text-gray-600 mb-2">Total Impacts</p>
+            <span className="text-2xl font-bold text-gray-900">{overallImpacts}</span>
+            <p className="text-xs text-blue-600 mt-1">{activeImpacts} active</p>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <div className="bg-blue-100 rounded-full p-3">
-                <BarChart3 className="h-6 w-6 text-blue-600" />
-              </div>
-              <span className="text-2xl font-bold">{overallProgress}%</span>
-            </div>
-            <p className="text-sm font-medium text-gray-600">Overall Progress</p>
+          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+            <p className="text-sm font-medium text-gray-600 mb-2">Overall Progress</p>
+            <span className="text-2xl font-bold text-gray-900">{overallProgress}%</span>
             <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
               <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${overallProgress}%` }} />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <div className="bg-green-100 rounded-full p-3">
-                <TrendingUp className="h-6 w-6 text-green-600" />
-              </div>
-              <span className="text-2xl font-bold">{overallMomentum}</span>
-            </div>
-            <p className="text-sm font-medium text-gray-600">Overall Momentum</p>
+          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+            <p className="text-sm font-medium text-gray-600 mb-2">Overall Momentum</p>
+            <span className="text-2xl font-bold text-gray-900">{overallMomentum}</span>
             <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-green-600 h-2 rounded-full" style={{ width: `${overallMomentum}%` }} />
+              <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${overallMomentum}%` }} />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <div className="bg-purple-100 rounded-full p-3">
-                <Award className="h-6 w-6 text-purple-600" />
-              </div>
-              <span className="text-2xl font-bold">
-                {impacts.reduce((sum, i) => sum + i.milestones.filter(m => m.status === 'completed').length, 0)}
-              </span>
-            </div>
-            <p className="text-sm font-medium text-gray-600">Milestones Hit</p>
-            <p className="text-xs text-purple-600 mt-1">Across all impacts</p>
+          <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+            <p className="text-sm font-medium text-gray-600 mb-2">Milestones Hit</p>
+            <span className="text-2xl font-bold text-gray-900">
+              {impacts.reduce((sum, i) => sum + i.milestones.filter(m => m.status === 'completed').length, 0)}
+            </span>
+            <p className="text-xs text-blue-600 mt-1">Across all impacts</p>
           </div>
         </div>
 
         {/* Category Filter */}
-        <div className="bg-white rounded-lg border border-gray-200 p-1 inline-flex">
+        <div className="bg-white rounded-xl border border-gray-200 p-1.5 inline-flex shadow-sm">
           <button
             onClick={() => setViewMode('all')}
-            className={`px-6 py-2 rounded-lg transition-all ${viewMode === 'all' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`px-4 py-2.5 rounded-lg transition-all font-medium ${viewMode === 'all' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-700 hover:bg-gray-50'}`}
           >
             All
           </button>
           <button
             onClick={() => setViewMode('product')}
-            className={`px-6 py-2 rounded-lg transition-all ${viewMode === 'product' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`px-4 py-2.5 rounded-lg transition-all font-medium ${viewMode === 'product' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-700 hover:bg-gray-50'}`}
           >
             Product
           </button>
           <button
             onClick={() => setViewMode('revenue')}
-            className={`px-6 py-2 rounded-lg transition-all ${viewMode === 'revenue' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`px-4 py-2.5 rounded-lg transition-all font-medium ${viewMode === 'revenue' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-700 hover:bg-gray-50'}`}
           >
             Revenue
           </button>
           <button
             onClick={() => setViewMode('people')}
-            className={`px-6 py-2 rounded-lg transition-all ${viewMode === 'people' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`px-4 py-2.5 rounded-lg transition-all font-medium ${viewMode === 'people' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-700 hover:bg-gray-50'}`}
           >
             People
           </button>
@@ -372,61 +351,61 @@ const IMPACTSSystem = () => {
         {/* Impacts List */}
         <div className="space-y-4">
           {filteredImpacts.map((impact) => (
-            <div key={impact.id} className="bg-white rounded-lg border-2 border-gray-200 overflow-hidden hover:border-indigo-300 transition-all">
+            <div key={impact.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-sm transition-all shadow-sm">
               <div className="p-6">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3 flex-wrap gap-2">
-                      <div className={`px-4 py-1.5 rounded-full border-2 flex items-center space-x-2 text-sm font-bold ${getStatusColor(impact.status)}`}>
-                        <Activity className="h-4 w-4" />
+                    <div className="flex items-center space-x-2 mb-3 flex-wrap gap-2">
+                      <div className={`px-3 py-1 rounded-lg border flex items-center space-x-1.5 text-xs font-semibold ${getStatusColor(impact.status)}`}>
+                        <Activity className="h-3.5 w-3.5" />
                         <span className="capitalize">{impact.status}</span>
                       </div>
-                      <div className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium capitalize">
+                      <div className="px-2.5 py-1 rounded-lg bg-gray-50 text-gray-700 text-xs font-semibold capitalize border border-gray-200">
                         {impact.category}
                       </div>
-                      <div className="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-medium">
+                      <div className="px-2.5 py-1 rounded-lg bg-gray-50 text-gray-700 text-xs font-semibold capitalize border border-gray-200">
                         {impact.priority} priority
                       </div>
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{impact.title}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{impact.title}</h3>
                     
                     {/* INTENT - The Why */}
-                    <div className="bg-indigo-50 rounded-lg p-4 border-l-4 border-indigo-500 mb-4">
+                    <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500 mb-4">
                       <div className="flex items-center space-x-2 mb-2">
-                        <Lightbulb className="h-5 w-5 text-indigo-600" />
-                        <span className="font-semibold text-indigo-900">Intent</span>
+                        <Lightbulb className="h-4 w-4 text-blue-600" />
+                        <span className="font-semibold text-sm text-gray-900">Intent</span>
                       </div>
-                      <p className="text-indigo-800">{impact.intent}</p>
+                      <p className="text-sm text-gray-700">{impact.intent}</p>
                     </div>
 
                     {/* PROGRESS & TRACTION */}
-                    <div className="grid grid-cols-3 gap-4 mb-4">
+                    <div className="grid grid-cols-3 gap-3 mb-4">
                       <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                        <p className="text-xs font-semibold text-blue-900 mb-1">Progress</p>
-                        <p className="text-2xl font-bold text-blue-600">{impact.progress.overall}%</p>
+                        <p className="text-xs font-semibold text-gray-600 mb-1">Progress</p>
+                        <p className="text-2xl font-bold text-gray-900">{impact.progress.overall}%</p>
                         <div className="flex items-center space-x-1 mt-1">
                           {impact.progress.trend === 'accelerating' && <TrendingUp className="h-3 w-3 text-green-600" />}
                           {impact.progress.trend === 'decelerating' && <TrendingDown className="h-3 w-3 text-red-600" />}
-                          {impact.progress.trend === 'stable' && <Activity className="h-3 w-3 text-yellow-600" />}
-                          <span className="text-xs text-gray-600">{impact.progress.trend}</span>
+                          {impact.progress.trend === 'stable' && <Activity className="h-3 w-3 text-blue-600" />}
+                          <span className="text-xs text-gray-600 capitalize">{impact.progress.trend}</span>
                         </div>
                       </div>
                       
-                      <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                        <p className="text-xs font-semibold text-green-900 mb-1">Momentum</p>
-                        <p className="text-2xl font-bold text-green-600">{impact.traction.momentum}</p>
+                      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <p className="text-xs font-semibold text-gray-600 mb-1">Momentum</p>
+                        <p className="text-2xl font-bold text-gray-900">{impact.traction.momentum}</p>
                         <div className="flex items-center space-x-1 mt-1">
                           {impact.traction.direction === 'up' && <TrendingUp className="h-3 w-3 text-green-600" />}
                           {impact.traction.direction === 'down' && <TrendingDown className="h-3 w-3 text-red-600" />}
-                          <span className="text-xs text-gray-600">{impact.traction.velocity}</span>
+                          <span className="text-xs text-gray-600 capitalize">{impact.traction.velocity}</span>
                         </div>
                       </div>
 
-                      <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                        <p className="text-xs font-semibold text-purple-900 mb-1">Strategic Value</p>
-                        <p className="text-2xl font-bold text-purple-600">{impact.alignment.strategicValue}</p>
+                      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <p className="text-xs font-semibold text-gray-600 mb-1">Strategic Value</p>
+                        <p className="text-2xl font-bold text-gray-900">{impact.alignment.strategicValue}</p>
                         <p className="text-xs text-gray-600 mt-1">out of 10</p>
                       </div>
                     </div>
@@ -446,10 +425,10 @@ const IMPACTSSystem = () => {
                             </div>
                             <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
                               <span>{milestone.current} / {milestone.target}</span>
-                              <span className="text-purple-600">Due: {milestone.deadline}</span>
+                              <span className="text-blue-600">Due: {milestone.deadline}</span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-1.5">
-                              <div className="bg-indigo-600 h-1.5 rounded-full" style={{ width: `${Math.min(100, (milestone.current / milestone.target) * 100)}%` }} />
+                              <div className="bg-blue-600 h-1.5 rounded-full" style={{ width: `${Math.min(100, (milestone.current / milestone.target) * 100)}%` }} />
                             </div>
                           </div>
                         ))}
@@ -471,8 +450,8 @@ const IMPACTSSystem = () => {
                                 <p className="text-xs text-gray-600 mb-1">{signal.metric}</p>
                                 <div className="flex items-center space-x-2">
                                   <span className="text-sm font-bold text-gray-900">{signal.value}</span>
-                                  {signal.trend === 'up' && <TrendingUp className="h-3 w-3 text-green-600" />}
-                                  {signal.trend === 'down' && <TrendingDown className="h-3 w-3 text-red-600" />}
+                                  {signal.trend === 'up' && <TrendingUp className="h-3 w-3 text-blue-600" />}
+                                  {signal.trend === 'down' && <TrendingDown className="h-3 w-3 text-black" />}
                                 </div>
                               </div>
                             ))}
@@ -487,14 +466,14 @@ const IMPACTSSystem = () => {
                           </h4>
                           <div className="space-y-2">
                             {impact.compounding.leverage.map((item, idx) => (
-                              <div key={idx} className="border border-purple-200 rounded-lg p-3 bg-purple-50">
+                              <div key={idx} className="border border-gray-200 rounded-lg p-3 bg-gray-50">
                                 <div className="flex items-center justify-between">
                                   <div>
                                     <p className="text-sm font-medium text-gray-900">{item.asset}</p>
-                                    <p className="text-xs text-gray-600">{item.impact} impact</p>
+                                    <p className="text-xs text-gray-600 capitalize">{item.impact} impact</p>
                                   </div>
                                   <div className="text-right">
-                                    <p className="text-lg font-bold text-purple-600">{item.multiplier}x</p>
+                                    <p className="text-lg font-bold text-blue-600">{item.multiplier}x</p>
                                     <p className="text-xs text-gray-600">leverage</p>
                                   </div>
                                 </div>
@@ -511,15 +490,15 @@ const IMPACTSSystem = () => {
                           </h4>
                           <div className="space-y-2">
                             {impact.signals.slice(0, 3).map((signal, idx) => (
-                              <div key={idx} className={`border rounded-lg p-3 ${getSignalTypeColor(signal.type)} border-opacity-50`}>
+                              <div key={idx} className={`border rounded-lg p-3 ${getSignalTypeColor(signal.type)}`}>
                                 <div className="flex items-center justify-between mb-1">
-                                  <span className="text-xs font-medium">{signal.source}</span>
-                                  <span className="text-xs">{signal.date}</span>
+                                  <span className="text-xs font-semibold text-gray-900">{signal.source}</span>
+                                  <span className="text-xs text-gray-600">{signal.date}</span>
                                 </div>
-                                <p className="text-sm">{signal.insight}</p>
-                                <span className={`text-xs px-2 py-0.5 rounded mt-1 inline-block ${
-                                  signal.impact === 'critical' ? 'bg-red-200 text-red-900' : 
-                                  signal.impact === 'high' ? 'bg-orange-200 text-orange-900' : 'bg-blue-200 text-blue-900'
+                                <p className="text-sm text-gray-700 mb-2">{signal.insight}</p>
+                                <span className={`text-xs px-2 py-0.5 rounded inline-block font-semibold ${
+                                  signal.impact === 'critical' ? 'bg-red-100 text-red-700' : 
+                                  signal.impact === 'high' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'
                                 }`}>
                                   {signal.impact} impact
                                 </span>
@@ -529,17 +508,17 @@ const IMPACTSSystem = () => {
                         </div>
 
                         {/* ALIGNMENT */}
-                        <div className="bg-cyan-50 rounded-lg p-4 border border-cyan-200 mb-4">
+                        <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-4">
                           <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center space-x-2">
-                            <Link className="h-4 w-4" />
+                            <Link className="h-4 w-4 text-blue-600" />
                             <span>Strategic Alignment</span>
                           </h4>
                           <div className="space-y-2">
                             <div>
-                              <p className="text-xs font-medium text-gray-600 mb-1">Connects With:</p>
+                              <p className="text-xs font-medium text-gray-600 mb-2">Connects With:</p>
                               <div className="flex flex-wrap gap-2">
                                 {impact.alignment.connectsWith.map((link, idx) => (
-                                  <span key={idx} className="px-2 py-1 bg-white rounded text-xs border border-cyan-200">
+                                  <span key={idx} className="px-2.5 py-1 bg-white rounded-lg text-xs border border-blue-200 text-gray-700 font-medium">
                                     {link}
                                   </span>
                                 ))}
@@ -568,14 +547,14 @@ const IMPACTSSystem = () => {
                       <div className="flex items-center space-x-2">
                         <button 
                           onClick={() => setShowDetailsModal(impact)}
-                          className="text-indigo-600 hover:text-indigo-700 text-sm font-medium flex items-center space-x-1"
+                          className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center space-x-1"
                         >
                           <Eye className="h-4 w-4" />
                           <span>View All</span>
                         </button>
                         <button 
                           onClick={() => toggleImpact(impact.id)}
-                          className="p-2 hover:bg-gray-100 rounded-lg"
+                          className="p-2 hover:bg-gray-50 rounded-lg transition-colors"
                         >
                           {expandedImpacts.has(impact.id) ? (
                             <ChevronUp className="h-4 w-4 text-gray-600" />
@@ -594,13 +573,13 @@ const IMPACTSSystem = () => {
 
         {/* Empty State */}
         {filteredImpacts.length === 0 && (
-          <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
+          <div className="bg-white rounded-xl border-2 border-dashed border-gray-300 p-12 text-center">
             <Rocket className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-gray-900 mb-2">No impacts found</h3>
             <p className="text-gray-600 mb-6">Create your first IMPACT to drive strategic execution</p>
             <button 
               onClick={() => setShowCreateModal(true)}
-              className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-medium"
+              className="bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 font-medium transition-all shadow-sm hover:shadow"
             >
               Create New Impact
             </button>

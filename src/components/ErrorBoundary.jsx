@@ -32,10 +32,10 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-white flex items-center justify-center px-4">
           <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center">
             <div className="mb-6">
-              <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <AlertTriangle className="w-16 h-16 text-black mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Oops! Something went wrong
               </h1>
@@ -45,12 +45,12 @@ class ErrorBoundary extends React.Component {
             </div>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-left">
-                <h3 className="font-semibold text-red-800 mb-2">Error Details:</h3>
-                <p className="text-sm text-red-700 font-mono mb-2">
+              <div className="mb-6 p-4 bg-blue-600 border border-gray-200 rounded-lg text-left">
+                <h3 className="font-semibold text-black mb-2">Error Details:</h3>
+                <p className="text-sm text-black font-mono mb-2">
                   {this.state.error.toString()}
                 </p>
-                <details className="text-xs text-red-600">
+                <details className="text-xs text-black">
                   <summary className="cursor-pointer font-semibold">Stack Trace</summary>
                   <pre className="mt-2 whitespace-pre-wrap">
                     {this.state.errorInfo.componentStack}

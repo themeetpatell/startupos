@@ -65,9 +65,9 @@ const AdvancedAnalytics = () => {
   ];
 
   const deviceData = [
-    { name: 'Desktop', value: 45, color: '#3B82F6' },
-    { name: 'Mobile', value: 35, color: '#10B981' },
-    { name: 'Tablet', value: 20, color: '#F59E0B' },
+    { name: 'Desktop', value: 45, color: 'rgb(59 130 246)' },
+    { name: 'Mobile', value: 35, color: 'rgb(34 197 94)' },
+    { name: 'Tablet', value: 20, color: 'rgb(251 146 60)' },
   ];
 
   const geographicData = [
@@ -158,24 +158,24 @@ const AdvancedAnalytics = () => {
 
   const getInsightColor = (type) => {
     switch (type) {
-      case 'opportunity': return 'text-blue-600 bg-blue-50 border-blue-200';
-      case 'warning': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'success': return 'text-green-600 bg-green-50 border-green-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case 'opportunity': return 'bg-blue-50 border-blue-200';
+      case 'warning': return 'bg-orange-50 border-orange-200';
+      case 'success': return 'bg-green-50 border-green-200';
+      default: return 'bg-gray-50 border-gray-200';
     }
   };
 
   const getInsightIcon = (type) => {
     switch (type) {
-      case 'opportunity': return <TrendingUp size={16} />;
-      case 'warning': return <AlertTriangle size={16} />;
-      case 'success': return <CheckCircle size={16} />;
-      default: return <Activity size={16} />;
+      case 'opportunity': return <TrendingUp size={16} className="text-blue-600" />;
+      case 'warning': return <AlertTriangle size={16} className="text-orange-600" />;
+      case 'success': return <CheckCircle size={16} className="text-green-600" />;
+      default: return <Activity size={16} className="text-gray-600" />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Header */}
         <motion.div
@@ -190,77 +190,59 @@ const AdvancedAnalytics = () => {
               <select
                 value={timeRange}
                 onChange={(e) => setTimeRange(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none font-medium transition-all"
               >
                 <option value="7d">Last 7 days</option>
                 <option value="30d">Last 30 days</option>
                 <option value="90d">Last 90 days</option>
                 <option value="1y">Last year</option>
               </select>
-              <motion.button
+              <button
                 onClick={handleRefresh}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="flex items-center space-x-2 px-4 py-2.5 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors font-medium"
               >
                 <RefreshCw size={16} className={isRefreshing ? 'animate-spin' : ''} />
                 <span>Refresh</span>
-              </motion.button>
-              <motion.button
-                className="flex items-center space-x-2 px-4 py-2 startupos-gradient text-white rounded-lg hover:shadow-lg transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              </button>
+              <button
+                className="flex items-center space-x-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-medium shadow-sm hover:shadow"
               >
                 <Download size={16} />
                 <span>Export</span>
-              </motion.button>
+              </button>
             </div>
           </div>
         </motion.div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {kpiMetrics.map((kpi, index) => {
-            const Icon = kpi.icon;
             return (
               <motion.div
                 key={kpi.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover-lift"
+                className="bg-white rounded-xl shadow-sm border border-gray-200 p-5"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                    kpi.color === 'green' ? 'bg-green-50 text-green-600' :
-                    kpi.color === 'blue' ? 'bg-blue-50 text-blue-600' :
-                    kpi.color === 'purple' ? 'bg-purple-50 text-purple-600' :
-                    'bg-orange-50 text-orange-600'
-                  }`}>
-                    <Icon size={24} />
-                  </div>
-                  <div className={`flex items-center space-x-1 text-sm font-medium ${
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-sm font-medium text-gray-600">{kpi.title}</div>
+                  <div className={`flex items-center space-x-1 text-sm font-semibold ${
                     kpi.trend === 'up' ? 'text-green-600' : 'text-red-600'
                   }`}>
-                    {kpi.trend === 'up' ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
+                    {kpi.trend === 'up' ? <ArrowUp size={14} /> : <ArrowDown size={14} />}
                     <span>{kpi.change}</span>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1">{kpi.value}</h3>
-                  <p className="text-gray-600 text-sm mb-3">{kpi.title}</p>
-                  <div className="flex items-center justify-between text-sm">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{kpi.value}</h3>
+                  <div className="flex items-center justify-between text-xs mb-2">
                     <span className="text-gray-500">Target: {kpi.target}</span>
-                    <span className="text-gray-500">{kpi.progress}%</span>
+                    <span className="text-gray-600 font-medium">{kpi.progress}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
-                      className={`h-2 rounded-full ${
-                        kpi.color === 'green' ? 'bg-green-500' :
-                        kpi.color === 'blue' ? 'bg-blue-500' :
-                        kpi.color === 'purple' ? 'bg-purple-500' :
-                        'bg-orange-500'
-                      }`}
+                      className="h-2 rounded-full bg-blue-600"
                       style={{ width: `${kpi.progress}%` }}
                     ></div>
                   </div>
@@ -297,31 +279,29 @@ const AdvancedAnalytics = () => {
             animate={{ opacity: 1, x: 0 }}
             className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
           >
-            <div className="flex items-center space-x-2 mb-6">
-              <Zap size={20} className="text-blue-600" />
-              <h3 className="text-lg font-semibold text-gray-900">AI Insights</h3>
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-gray-900">AI Insights</h3>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {insights.map((insight) => (
-                <motion.div
+                <div
                   key={insight.id}
                   className={`p-4 rounded-lg border ${getInsightColor(insight.type)}`}
-                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5">
                       {getInsightIcon(insight.type)}
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium text-sm mb-1">{insight.title}</h4>
-                      <p className="text-xs opacity-90 mb-2">{insight.description}</p>
+                      <h4 className="font-semibold text-sm text-gray-900 mb-1">{insight.title}</h4>
+                      <p className="text-xs text-gray-600 mb-2">{insight.description}</p>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-medium">Impact: {insight.impact}</span>
-                        <button className="text-xs hover:underline">Take Action</button>
+                        <span className="text-xs font-medium text-gray-700">Impact: {insight.impact}</span>
+                        <button className="text-xs text-blue-600 hover:underline font-medium">Take Action</button>
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </motion.div>
@@ -347,11 +327,11 @@ const AdvancedAnalytics = () => {
                 <span className="text-sm text-gray-600">Organic</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
                 <span className="text-sm text-gray-600">Paid</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
                 <span className="text-sm text-gray-600">Referral</span>
               </div>
             </div>
@@ -429,8 +409,8 @@ const AdvancedAnalytics = () => {
                     <td className="py-4 px-4 text-gray-600">${country.revenue.toLocaleString()}</td>
                     <td className="py-4 px-4">
                       <div className="flex items-center space-x-1">
-                        <ArrowUp size={14} className="text-green-600" />
-                        <span className="text-green-600 font-medium">{country.growth}%</span>
+                        <ArrowUp size={14} className="text-blue-600" />
+                        <span className="text-blue-600 font-medium">{country.growth}%</span>
                       </div>
                     </td>
                   </motion.tr>
@@ -465,7 +445,7 @@ const AdvancedAnalytics = () => {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div 
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full transition-all duration-1000"
+                    className="bg-blue-600 h-3 rounded-full transition-all duration-1000"
                     style={{ width: `${stage.percentage}%` }}
                   ></div>
                 </div>

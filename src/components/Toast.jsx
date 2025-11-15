@@ -21,9 +21,9 @@ const Toast = ({ toast, onRemove }) => {
   };
 
   const colors = {
-    success: 'bg-green-500',
-    error: 'bg-red-500',
-    warning: 'bg-yellow-500',
+    success: 'bg-blue-600',
+    error: 'bg-blue-600',
+    warning: 'bg-blue-600',
     info: 'bg-blue-500'
   };
 

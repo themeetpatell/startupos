@@ -42,29 +42,29 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
 
   // Main navbar items - only core features
   const mainNavigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home, color: 'emerald', description: 'Overview & Analytics' },
-    { id: 'decisions', label: 'Decisions', icon: Brain, color: 'indigo', description: 'AI Strategic Advisor' },
-    { id: 'workhub', label: 'WorkHub', icon: Building, color: 'blue', description: 'Team & Project Management' },
-    { id: 'roadmap', label: 'My Roadmap', icon: Map, color: 'orange', description: 'Track your progress' },
-    { id: 'impacts', label: 'IMPACTS', icon: Rocket, color: 'purple', description: 'Strategic Execution System' },
-    { id: 'ecosystem', label: 'Ecosystem', icon: Globe, color: 'teal', description: 'Startups & Investors' }
+    { id: 'dashboard', label: 'Dashboard', icon: Home, description: 'Overview & Analytics' },
+    { id: 'decisions', label: 'Decisions', icon: Brain, description: 'AI Strategic Advisor' },
+    { id: 'workhub', label: 'WorkHub', icon: Building, description: 'Team & Project Management' },
+    { id: 'roadmap', label: 'My Roadmap', icon: Map, description: 'Track your progress' },
+    { id: 'impacts', label: 'IMPACTS', icon: Rocket, description: 'Strategic Execution System' },
+    { id: 'ecosystem', label: 'Ecosystem', icon: Globe, description: 'Startups & Investors' }
   ];
 
   // Profile dropdown items
   const profileDropdownItems = [
-    { id: 'profile', label: 'My Profile', icon: User, color: 'blue', description: 'Manage your account' },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3, color: 'red', description: 'Data & Insights' },
-    { id: 'runway', label: 'Runway Intelligence', icon: Gauge, color: 'yellow', description: 'Financial health' },
-    { id: 'pmf', label: 'PMF Validation', icon: Target, color: 'purple', description: 'Product-market fit' },
-    { id: 'customers', label: 'Customer Intelligence', icon: Users, color: 'indigo', description: 'Research hub' },
-    { id: 'captable', label: 'Cap Table & Funding', icon: DollarSign, color: 'green', description: 'Equity & fundraising' },
-    { id: 'gamification', label: 'Gamification', icon: Trophy, color: 'orange', description: 'Achievements & Rewards' }
+    { id: 'profile', label: 'My Profile', icon: User, description: 'Manage your account' },
+    { id: 'analytics', label: 'Analytics', icon: BarChart3, description: 'Data & Insights' },
+    { id: 'runway', label: 'Runway Intelligence', icon: Gauge, description: 'Financial health' },
+    { id: 'pmf', label: 'PMF Validation', icon: Target, description: 'Product-market fit' },
+    { id: 'customers', label: 'Customer Intelligence', icon: Users, description: 'Research hub' },
+    { id: 'captable', label: 'Cap Table & Funding', icon: DollarSign, description: 'Equity & fundraising' },
+    { id: 'gamification', label: 'Gamification', icon: Trophy, description: 'Achievements & Rewards' }
   ];
 
   // Account dropdown items
   const accountDropdownItems = [
-    { id: 'billing', label: 'Billing', icon: CreditCard, color: 'green', description: 'Manage subscription' },
-    { id: 'support', label: 'Help & Support', icon: HelpCircle, color: 'indigo', description: 'Get assistance' }
+    { id: 'billing', label: 'Billing', icon: CreditCard, description: 'Manage subscription' },
+    { id: 'support', label: 'Help & Support', icon: HelpCircle, description: 'Get assistance' }
   ];
 
 
@@ -77,19 +77,10 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
-  const getColorClasses = (color, isActive = false) => {
-    const colors = {
-      emerald: isActive ? 'bg-emerald-500 text-white shadow-emerald-200' : 'text-emerald-600 hover:bg-emerald-50',
-      purple: isActive ? 'bg-purple-500 text-white shadow-purple-200' : 'text-purple-600 hover:bg-purple-50',
-      blue: isActive ? 'bg-blue-500 text-white shadow-blue-200' : 'text-blue-600 hover:bg-blue-50',
-      teal: isActive ? 'bg-teal-500 text-white shadow-teal-200' : 'text-teal-600 hover:bg-teal-50',
-      orange: isActive ? 'bg-orange-500 text-white shadow-orange-200' : 'text-orange-600 hover:bg-orange-50',
-      red: isActive ? 'bg-red-500 text-white shadow-red-200' : 'text-red-600 hover:bg-red-50',
-      indigo: isActive ? 'bg-indigo-500 text-white shadow-indigo-200' : 'text-indigo-600 hover:bg-indigo-50',
-      yellow: isActive ? 'bg-yellow-500 text-white shadow-yellow-200' : 'text-yellow-600 hover:bg-yellow-50',
-      green: isActive ? 'bg-green-500 text-white shadow-green-200' : 'text-green-600 hover:bg-green-50'
-    };
-    return colors[color] || colors.blue;
+  const getColorClasses = (isActive = false) => {
+    return isActive 
+      ? 'bg-blue-600 text-white shadow-lg' 
+      : 'text-black hover:bg-blue-50';
   };
 
   const handleSearch = (query) => {
@@ -119,13 +110,13 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
               whileHover={{ scale: 1.02 }}
             >
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 via-blue-400 to-purple-400 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
               </div>
               <div className="hidden sm:block">
-                <span className="text-xl font-bold text-gray-900">StartupOS</span>
+                <span className="text-xl font-bold text-black">StartupOS</span>
               </div>
             </motion.div>
 
@@ -146,7 +137,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       onClick={() => setCurrentView(item.id)}
                       className={`flex items-center space-x-2 px-3 py-2 rounded-xl transition-all duration-300 font-medium text-sm ${
                         isActive 
-                          ? getColorClasses(item.color, true) + ' shadow-lg'
+                          ? getColorClasses(true) + ' shadow-lg'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                       whileHover={{ scale: 1.02, y: -1 }}
@@ -155,7 +146,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       <Icon size={18} />
                       <span className="hidden sm:inline">{item.label}</span>
                       {item.badge && (
-                        <span className="px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs rounded-full font-bold">
+                        <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full font-bold">
                           {item.badge}
                         </span>
                       )}
@@ -182,7 +173,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       onClick={() => setCurrentView(item.id)}
                       className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 font-medium text-sm ${
                         isActive 
-                          ? getColorClasses(item.color, true) + ' shadow-lg'
+                          ? getColorClasses(true) + ' shadow-lg'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                       whileHover={{ scale: 1.02, y: -1 }}
@@ -191,7 +182,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       <Icon size={18} />
                       <span>{item.label}</span>
                       {item.badge && (
-                        <span className="px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs rounded-full font-bold">
+                        <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full font-bold">
                           {item.badge}
                         </span>
                       )}
@@ -214,7 +205,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
               <div className="relative" ref={searchRef}>
                 <motion.button
                   onClick={() => console.log('Search clicked')}
-                  className="p-2 text-gray-600 hover:text-emerald-500 hover:bg-emerald-50 rounded-xl transition-all duration-300"
+                  className="p-2 text-black hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -239,7 +230,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                             placeholder="Search StartupOS..."
                             value={searchQuery}
                             onChange={(e) => handleSearch(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-gray-200 transition-all duration-300"
                             autoFocus
                           />
                         </div>
@@ -287,13 +278,13 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
               <div className="relative" ref={notificationRef}>
                 <motion.button
                   onClick={() => setShowNotifications(!showNotifications)}
-                  className="p-2 text-gray-600 hover:text-purple-500 hover:bg-purple-50 rounded-xl transition-all duration-300 relative"
+                  className="p-2 text-black hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 relative"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Bell size={20} />
                   {unreadCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center font-bold">
                       {unreadCount}
                     </span>
                   )}
@@ -309,10 +300,10 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       transition={{ duration: 0.2 }}
                       className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50"
                     >
-                      <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-pink-50">
+                      <div className="p-4 border-b border-gray-100 bg-blue-50">
                         <div className="flex items-center justify-between">
                           <h3 className="font-bold text-gray-800">Notifications</h3>
-                          <button className="text-sm text-purple-600 hover:text-purple-700 font-medium">
+                          <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
                             Mark all as read
                           </button>
                         </div>
@@ -327,16 +318,11 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                             }`}
                           >
                             <div className="flex items-start space-x-3">
-                              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                                notification.type === 'ai' ? 'bg-blue-100' :
-                                notification.type === 'match' ? 'bg-green-100' :
-                                notification.type === 'project' ? 'bg-purple-100' :
-                                'bg-gray-100'
-                              }`}>
+                              <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-50">
                                 {notification.type === 'ai' ? <Brain size={16} className="text-blue-600" /> :
-                                 notification.type === 'match' ? <Users size={16} className="text-green-600" /> :
-                                 notification.type === 'project' ? <Target size={16} className="text-purple-600" /> :
-                                 <MessageCircle size={16} className="text-gray-600" />}
+                                 notification.type === 'match' ? <Users size={16} className="text-blue-600" /> :
+                                 notification.type === 'project' ? <Target size={16} className="text-blue-600" /> :
+                                 <MessageCircle size={16} className="text-blue-600" />}
                               </div>
                               <div className="flex-1">
                                 <h4 className="font-semibold text-gray-800 text-sm">{notification.title}</h4>
@@ -354,7 +340,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       </div>
                       
                       <div className="p-4 border-t border-gray-100">
-                        <button className="w-full text-center text-sm text-purple-600 hover:text-purple-700 font-medium">
+                        <button className="w-full text-center text-sm text-blue-600 hover:text-blue-700 font-medium">
                           View all notifications
                         </button>
                       </div>
@@ -371,7 +357,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-400 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                     {user?.avatar ? (
                       <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-lg object-cover" />
                     ) : (
@@ -391,9 +377,9 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       transition={{ duration: 0.2 }}
                       className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50"
                     >
-                      <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
+                      <div className="p-4 border-b border-gray-100 bg-blue-50">
                         <div className="flex items-center space-x-3">
-                          <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-xl flex items-center justify-center">
+                          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
                             {user?.avatar ? (
                               <img src={user.avatar} alt={user.name} className="w-12 h-12 rounded-xl object-cover" />
                             ) : (
@@ -404,7 +390,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                             <h3 className="font-bold text-gray-800 text-lg">{user?.name || 'User'}</h3>
                             <p className="text-sm text-gray-600">{user?.role || 'User'} @ {user?.company || 'Startup'}</p>
                             <div className="mt-2">
-                              <span className="px-2 py-1 bg-gradient-to-r from-emerald-400 to-blue-400 text-white text-xs rounded-full font-medium">
+                              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded-full font-medium">
                                 Pro Member
                               </span>
                             </div>
@@ -432,7 +418,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                               }}
                               className={`w-full flex items-center space-x-3 px-3 py-3 text-left rounded-xl transition-all duration-300 ${
                                 isActive 
-                                  ? getColorClasses(item.color, true) + ' shadow-md'
+                                  ? getColorClasses(true) + ' shadow-md'
                                   : `hover:bg-${item.color}-50`
                               }`}
                               whileHover={{ scale: 1.02, x: 4 }}
@@ -482,7 +468,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                               }}
                               className={`w-full flex items-center space-x-3 px-3 py-3 text-left rounded-xl transition-all duration-300 ${
                                 isActive 
-                                  ? getColorClasses(item.color, true) + ' shadow-md'
+                                  ? getColorClasses(true) + ' shadow-md'
                                   : `hover:bg-${item.color}-50`
                               }`}
                               whileHover={{ scale: 1.02, x: 4 }}
@@ -521,16 +507,16 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                             onLogout();
                             setShowProfile(false);
                           }}
-                          className="w-full flex items-center space-x-3 px-3 py-3 text-left hover:bg-red-50 rounded-xl transition-all duration-300"
+                          className="w-full flex items-center space-x-3 px-3 py-3 text-left hover:bg-gray-50 rounded-xl transition-all duration-300"
                           whileHover={{ scale: 1.02, x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
-                            <LogOut size={20} className="text-red-600" />
+                          <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+                            <LogOut size={20} className="text-black" />
                           </div>
                           <div>
-                            <div className="font-medium text-red-600">Sign Out</div>
-                            <div className="text-sm text-red-500">Logout from StartupOS</div>
+                            <div className="font-medium text-black">Sign Out</div>
+                            <div className="text-sm text-gray-600">Logout from StartupOS</div>
                           </div>
                         </motion.button>
                       </div>
@@ -542,7 +528,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
               {/* Mobile Menu */}
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden p-2 text-gray-600 hover:text-emerald-500 hover:bg-emerald-50 rounded-xl transition-all duration-300"
+                className="lg:hidden p-2 text-black hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -573,7 +559,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                       placeholder="Search StartupOS..."
                       value={searchQuery}
                       onChange={(e) => handleSearch(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-gray-200 transition-all duration-300"
                     />
                   </div>
                 </div>
@@ -599,7 +585,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                           }}
                           className={`relative flex flex-col items-center space-y-2 p-4 rounded-xl transition-all duration-300 ${
                             isActive
-                              ? getColorClasses(item.color, true) + ' shadow-lg'
+                              ? getColorClasses(true) + ' shadow-lg'
                               : 'text-gray-600 hover:bg-gray-50'
                           }`}
                           whileHover={{ scale: 1.02, y: -2 }}
@@ -611,7 +597,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                             <div className="text-xs opacity-75">{item.description}</div>
                           </div>
                           {item.badge && (
-                            <span className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                            <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-bold">
                               {item.badge}
                             </span>
                           )}
@@ -642,7 +628,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                           }}
                           className={`flex flex-col items-center space-y-2 p-4 rounded-xl transition-all duration-300 ${
                             isActive
-                              ? getColorClasses(item.color, true) + ' shadow-lg'
+                              ? getColorClasses(true) + ' shadow-lg'
                               : 'text-gray-600 hover:bg-gray-50'
                           }`}
                           whileHover={{ scale: 1.02, y: -2 }}
@@ -680,7 +666,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                           }}
                           className={`flex flex-col items-center space-y-2 p-4 rounded-xl transition-all duration-300 ${
                             isActive
-                              ? getColorClasses(item.color, true) + ' shadow-lg'
+                              ? getColorClasses(true) + ' shadow-lg'
                               : 'text-gray-600 hover:bg-gray-50'
                           }`}
                           whileHover={{ scale: 1.02, y: -2 }}
@@ -717,12 +703,12 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
             onClick={() => setShowChat(!showChat)}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-full shadow-2xl flex items-center justify-center text-white hover:shadow-emerald-500/40 transition-all duration-300 cursor-pointer"
+            className="w-14 h-14 bg-blue-600 rounded-full shadow-2xl flex items-center justify-center text-white hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer"
           >
             <MessageCircle size={24} />
           </motion.button>
 
-          <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-orange-400 to-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold border-2 border-white shadow-lg">
+          <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center font-bold border-2 border-white shadow-lg">
             5
           </div>
 
@@ -735,13 +721,13 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                 transition={{ duration: 0.3 }}
                 className="absolute bottom-20 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
               >
-                <div className="p-4 bg-gradient-to-r from-emerald-500 to-blue-600 text-white">
+                <div className="p-4 bg-blue-600 text-white">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <MessageCircle size={20} />
                       <div>
                         <h3 className="font-bold">Startup Network</h3>
-                        <p className="text-sm text-emerald-100">5 active connections</p>
+                        <p className="text-sm text-gray-400">5 active connections</p>
                       </div>
                     </div>
                     <button

@@ -400,28 +400,28 @@ const EnhancedWorkHub = () => {
   const getMetricsCards = () => {
     const metrics = {
       founder: [
-        { title: 'Monthly Revenue', value: '$2.4M', change: '+24%', icon: DollarSign, color: 'green' },
+        { title: 'Monthly Revenue', value: '$2.4M', change: '+24%', icon: DollarSign, color: 'blue' },
         { title: 'Active Users', value: '15.2K', change: '+12%', icon: Users, color: 'blue' },
-        { title: 'Team Size', value: '28', change: '+3', icon: UserPlus, color: 'purple' },
-        { title: 'Funding Raised', value: '$5.8M', change: '+$2M', icon: TrendingUp, color: 'orange' }
+        { title: 'Team Size', value: '28', change: '+3', icon: UserPlus, color: 'blue' },
+        { title: 'Funding Raised', value: '$5.8M', change: '+$2M', icon: TrendingUp, color: 'blue' }
       ],
       employee: [
         { title: 'Active Projects', value: '12', change: '+2', icon: FolderOpen, color: 'blue' },
-        { title: 'Performance Score', value: '4.8/5', change: '+0.2', icon: Star, color: 'green' },
-        { title: 'Skills Mastered', value: '8', change: '+1', icon: Award, color: 'purple' },
-        { title: 'Years Experience', value: '5', change: '+1', icon: Clock, color: 'orange' }
+        { title: 'Performance Score', value: '4.8/5', change: '+0.2', icon: Star, color: 'blue' },
+        { title: 'Skills Mastered', value: '8', change: '+1', icon: Award, color: 'blue' },
+        { title: 'Years Experience', value: '5', change: '+1', icon: Clock, color: 'blue' }
       ],
       investor: [
         { title: 'Portfolio Companies', value: '45', change: '+3', icon: Building, color: 'blue' },
-        { title: 'Total Investments', value: '$12.5M', change: '+$2.1M', icon: DollarSign, color: 'green' },
-        { title: 'Successful Exits', value: '8', change: '+1', icon: TrendingUp, color: 'purple' },
-        { title: 'Average Returns', value: '3.2x', change: '+0.3x', icon: BarChart3, color: 'orange' }
+        { title: 'Total Investments', value: '$12.5M', change: '+$2.1M', icon: DollarSign, color: 'blue' },
+        { title: 'Successful Exits', value: '8', change: '+1', icon: TrendingUp, color: 'blue' },
+        { title: 'Average Returns', value: '3.2x', change: '+0.3x', icon: BarChart3, color: 'blue' }
       ],
       unemployed: [
         { title: 'Job Applications', value: '47', change: '+8', icon: Briefcase, color: 'blue' },
-        { title: 'Interviews Scheduled', value: '8', change: '+2', icon: Calendar, color: 'green' },
-        { title: 'Skills Learned', value: '12', change: '+3', icon: GraduationCap, color: 'purple' },
-        { title: 'Network Connections', value: '156', change: '+12', icon: Users, color: 'orange' }
+        { title: 'Interviews Scheduled', value: '8', change: '+2', icon: Calendar, color: 'blue' },
+        { title: 'Skills Learned', value: '12', change: '+3', icon: GraduationCap, color: 'blue' },
+        { title: 'Network Connections', value: '156', change: '+12', icon: Users, color: 'blue' }
       ]
     };
     return metrics[userType] || metrics.founder;
@@ -439,99 +439,91 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Founder Dashboard</h2>
-          <div className="flex items-center space-x-2">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
+            <button className="px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 flex items-center space-x-2 font-medium transition-all shadow-sm hover:shadow">
               <Settings className="w-4 h-4" />
               <span>Customize KPIs</span>
             </button>
-            <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center space-x-2">
+            <button className="px-4 py-2.5 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 flex items-center space-x-2 font-medium transition-colors">
               <RefreshCw className="w-4 h-4" />
               <span>Refresh Data</span>
             </button>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <DollarSign className="w-8 h-8 text-blue-600" />
-              <span className="text-green-600 text-sm font-medium">+24%</span>
+              <div className="text-sm font-medium text-gray-600">Monthly Revenue</div>
+              <span className="text-sm font-semibold text-blue-600">+24%</span>
             </div>
-            <div className="text-3xl font-bold text-blue-900 mb-1">$2.4M</div>
-            <div className="text-sm text-blue-700">Monthly Revenue</div>
-            <div className="text-xs text-gray-600 mt-1">vs $1.9M last month</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">$2.4M</div>
+            <div className="text-xs text-gray-500">vs $1.9M last month</div>
           </div>
           
-          <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <Clock className="w-8 h-8 text-green-600" />
-              <span className="text-green-600 text-sm font-medium">18 months</span>
+              <div className="text-sm font-medium text-gray-600">Runway</div>
+              <span className="text-sm font-semibold text-blue-600">18 months</span>
             </div>
-            <div className="text-3xl font-bold text-green-900 mb-1">$1.2M</div>
-            <div className="text-sm text-green-700">Runway</div>
-            <div className="text-xs text-gray-600 mt-1">at current burn rate</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">$1.2M</div>
+            <div className="text-xs text-gray-500">at current burn rate</div>
           </div>
           
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <Target className="w-8 h-8 text-purple-600" />
-              <span className="text-red-600 text-sm font-medium">+15%</span>
+              <div className="text-sm font-medium text-gray-600">CAC</div>
+              <span className="text-sm font-semibold text-blue-600">+15%</span>
             </div>
-            <div className="text-3xl font-bold text-purple-900 mb-1">$45</div>
-            <div className="text-sm text-purple-700">CAC</div>
-            <div className="text-xs text-gray-600 mt-1">Customer Acquisition Cost</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">$45</div>
+            <div className="text-xs text-gray-500">Customer Acquisition Cost</div>
           </div>
           
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <TrendingUp className="w-8 h-8 text-orange-600" />
-              <span className="text-green-600 text-sm font-medium">+8%</span>
+              <div className="text-sm font-medium text-gray-600">LTV</div>
+              <span className="text-sm font-semibold text-blue-600">+8%</span>
             </div>
-            <div className="text-3xl font-bold text-orange-900 mb-1">$1,200</div>
-            <div className="text-sm text-orange-700">LTV</div>
-            <div className="text-xs text-gray-600 mt-1">Lifetime Value</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">$1,200</div>
+            <div className="text-xs text-gray-500">Lifetime Value</div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border border-indigo-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <Users className="w-8 h-8 text-indigo-600" />
-              <span className="text-green-600 text-sm font-medium">+12%</span>
+              <div className="text-sm font-medium text-gray-600">Active Users</div>
+              <span className="text-sm font-semibold text-blue-600">+12%</span>
             </div>
-            <div className="text-3xl font-bold text-indigo-900 mb-1">15.2K</div>
-            <div className="text-sm text-indigo-700">Active Users</div>
-            <div className="text-xs text-gray-600 mt-1">+1.6K this month</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">15.2K</div>
+            <div className="text-xs text-gray-500">+1.6K this month</div>
           </div>
           
-          <div className="bg-gradient-to-br from-pink-50 to-pink-100 p-6 rounded-xl border border-pink-200">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <Star className="w-8 h-8 text-pink-600" />
-              <span className="text-green-600 text-sm font-medium">+2</span>
+              <div className="text-sm font-medium text-gray-600">NPS Score</div>
+              <span className="text-sm font-semibold text-blue-600">+2</span>
             </div>
-            <div className="text-3xl font-bold text-pink-900 mb-1">72</div>
-            <div className="text-sm text-pink-700">NPS Score</div>
-            <div className="text-xs text-gray-600 mt-1">Net Promoter Score</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">72</div>
+            <div className="text-xs text-gray-500">Net Promoter Score</div>
           </div>
           
-          <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border border-red-200">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <Zap className="w-8 h-8 text-red-600" />
-              <span className="text-red-600 text-sm font-medium">+5%</span>
+              <div className="text-sm font-medium text-gray-600">Burn Rate</div>
+              <span className="text-sm font-semibold text-blue-600">+5%</span>
             </div>
-            <div className="text-3xl font-bold text-red-900 mb-1">$85K</div>
-            <div className="text-sm text-red-700">Burn Rate</div>
-            <div className="text-xs text-gray-600 mt-1">Monthly burn</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">$85K</div>
+            <div className="text-xs text-gray-500">Monthly burn</div>
           </div>
           
-          <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-xl border border-teal-200">
+          <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <Activity className="w-8 h-8 text-teal-600" />
-              <span className="text-green-600 text-sm font-medium">-2%</span>
+              <div className="text-sm font-medium text-gray-600">Churn Rate</div>
+              <span className="text-sm font-semibold text-blue-600">-2%</span>
             </div>
-            <div className="text-3xl font-bold text-teal-900 mb-1">3.2%</div>
-            <div className="text-sm text-teal-700">Churn Rate</div>
-            <div className="text-xs text-gray-600 mt-1">Monthly churn</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">3.2%</div>
+            <div className="text-xs text-gray-500">Monthly churn</div>
           </div>
         </div>
       </div>
@@ -540,62 +532,53 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <h3 className="text-xl font-bold text-gray-900 mb-6">Milestone Tracker</h3>
         <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+          <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-gray-200"></div>
           <div className="space-y-6">
             {[
               { 
                 title: "Series A Closed", 
                 date: "Dec 2024", 
                 status: "completed", 
-                description: "$2M raised from Sequoia Capital",
-                icon: CheckCircle,
-                color: "green"
+                description: "$2M raised from Sequoia Capital"
               },
               { 
                 title: "Product Launch", 
                 date: "Jan 2025", 
                 status: "upcoming", 
-                description: "Public launch with 10K+ users",
-                icon: Rocket,
-                color: "blue"
+                description: "Public launch with 10K+ users"
               },
               { 
                 title: "International Expansion", 
                 date: "Mar 2025", 
                 status: "planned", 
-                description: "Launch in European markets",
-                icon: Globe,
-                color: "purple"
+                description: "Launch in European markets"
               },
               { 
                 title: "Series B Fundraising", 
                 date: "Jun 2025", 
                 status: "planned", 
-                description: "Target $10M Series B round",
-                icon: DollarSign,
-                color: "orange"
+                description: "Target $10M Series B round"
               }
             ].map((milestone, index) => (
-              <div key={index} className="relative flex items-start space-x-4">
-                <div className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center ${
-                  milestone.status === 'completed' ? 'bg-green-500' : 
-                  milestone.status === 'upcoming' ? 'bg-blue-500' : 'bg-gray-300'
+              <div key={index} className="relative flex items-start space-x-4 ml-8">
+                <div className={`absolute -left-5 top-1.5 w-2.5 h-2.5 rounded-full ${
+                  milestone.status === 'completed' ? 'bg-blue-600' : 
+                  milestone.status === 'upcoming' ? 'bg-blue-400' : 'bg-gray-300'
                 }`}>
-                  <milestone.icon className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-lg font-semibold text-gray-900">{milestone.title}</h4>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      milestone.status === 'completed' ? 'bg-green-100 text-green-800' :
-                      milestone.status === 'upcoming' ? 'bg-blue-100 text-blue-800' :
-                      'bg-gray-100 text-gray-800'
+                    <h4 className="text-base font-bold text-gray-900">{milestone.title}</h4>
+                    <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${
+                      milestone.status === 'completed' ? 'bg-blue-600 text-white' :
+                      milestone.status === 'upcoming' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
+                      'bg-gray-100 text-gray-600'
                     }`}>
                       {milestone.status}
                     </span>
                   </div>
-                  <p className="text-gray-600 mt-1">{milestone.description}</p>
-                  <p className="text-sm text-gray-500 mt-1">{milestone.date}</p>
+                  <p className="text-sm text-gray-600 mt-1.5">{milestone.description}</p>
+                  <p className="text-xs text-gray-500 mt-1">{milestone.date}</p>
                 </div>
               </div>
             ))}
@@ -630,28 +613,25 @@ const EnhancedWorkHub = () => {
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
           <h3 className="text-xl font-bold text-gray-900 mb-6">Alerts & Signals</h3>
           <div className="space-y-3">
-            <div className="flex items-start space-x-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="font-semibold text-gray-900 mb-1">Cash Runway Alert</div>
+              <div className="text-sm text-gray-600">Runway &lt; 6 months. Consider fundraising.</div>
+              <div className="text-xs text-gray-500 mt-2">2 days ago</div>
+            </div>
+            <div className="flex items-start space-x-3 p-4 bg-white border border-gray-200 rounded-lg">
+              <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
               <div>
-                <div className="font-medium text-red-900">Cash Runway Alert</div>
-                  <div className="text-sm text-red-700">Runway &lt; 6 months. Consider fundraising.</div>
-                <div className="text-xs text-red-600 mt-1">2 days ago</div>
+                <div className="font-medium text-blue-600">Churn Rate Warning</div>
+                <div className="text-sm text-blue-600">Churn increased to 3.2% this month.</div>
+                <div className="text-xs text-blue-600 mt-1">1 week ago</div>
               </div>
             </div>
-            <div className="flex items-start space-x-3 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
+            <div className="flex items-start space-x-3 p-4 bg-white border border-gray-200 rounded-lg">
+              <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
               <div>
-                <div className="font-medium text-yellow-900">Churn Rate Warning</div>
-                <div className="text-sm text-yellow-700">Churn increased to 3.2% this month.</div>
-                <div className="text-xs text-yellow-600 mt-1">1 week ago</div>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
-              <div>
-                <div className="font-medium text-green-900">Goal Achieved</div>
-                <div className="text-sm text-green-700">Monthly revenue target exceeded by 15%.</div>
-                <div className="text-xs text-green-600 mt-1">3 days ago</div>
+                <div className="font-medium text-blue-600">Goal Achieved</div>
+                <div className="text-sm text-blue-600">Monthly revenue target exceeded by 15%.</div>
+                <div className="text-xs text-blue-600 mt-1">3 days ago</div>
               </div>
             </div>
           </div>
@@ -672,7 +652,7 @@ const EnhancedWorkHub = () => {
               <div className="text-2xl mb-2">{integration.icon}</div>
               <div className="font-medium text-gray-900">{integration.name}</div>
               <div className={`text-xs mt-1 ${
-                integration.status === 'connected' ? 'text-green-600' : 'text-red-600'
+                integration.status === 'connected' ? 'text-blue-600' : 'text-black'
               }`}>
                 {integration.status}
               </div>
@@ -738,7 +718,7 @@ const EnhancedWorkHub = () => {
                     <span>📅 {update.date}</span>
                     <span>👥 {update.recipients}</span>
                     <span className={`px-2 py-1 rounded-full text-xs ${
-                      update.status === 'sent' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                      update.status === 'sent' ? 'bg-blue-600 text-blue-600' : 'bg-blue-600 text-blue-600'
                     }`}>
                       {update.status}
                     </span>
@@ -759,13 +739,13 @@ const EnhancedWorkHub = () => {
                   <div className="text-lg font-bold text-blue-900">{update.metrics.revenue}</div>
                   <div className="text-sm text-blue-700">Revenue</div>
                 </div>
-                <div className="text-center p-3 bg-green-50 rounded-lg">
-                  <div className="text-lg font-bold text-green-900">{update.metrics.users}</div>
-                  <div className="text-sm text-green-700">Active Users</div>
+                <div className="text-center p-3 bg-white rounded-lg">
+                  <div className="text-lg font-bold text-blue-600">{update.metrics.users}</div>
+                  <div className="text-sm text-blue-600">Active Users</div>
                 </div>
-                <div className="text-center p-3 bg-purple-50 rounded-lg">
-                  <div className="text-lg font-bold text-purple-900">{update.metrics.runway}</div>
-                  <div className="text-sm text-purple-700">Runway</div>
+                <div className="text-center p-3 bg-white rounded-lg">
+                  <div className="text-lg font-bold text-blue-600">{update.metrics.runway}</div>
+                  <div className="text-sm text-blue-600">Runway</div>
                 </div>
               </div>
               
@@ -774,7 +754,7 @@ const EnhancedWorkHub = () => {
                 <ul className="space-y-1">
                   {update.highlights.map((highlight, hIndex) => (
                     <li key={hIndex} className="flex items-center space-x-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-green-600" />
+                      <CheckCircle className="w-4 h-4 text-blue-600" />
                       <span>{highlight}</span>
                     </li>
                   ))}
@@ -822,8 +802,8 @@ const EnhancedWorkHub = () => {
                       <p className="text-sm text-gray-600">{investor.contact}</p>
                     </div>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      investor.access === 'Full Access' ? 'bg-green-100 text-green-800' :
-                      investor.access === 'Limited Access' ? 'bg-yellow-100 text-yellow-800' :
+                      investor.access === 'Full Access' ? 'bg-blue-600 text-blue-600' :
+                      investor.access === 'Limited Access' ? 'bg-blue-600 text-blue-600' :
                       'bg-gray-100 text-gray-800'
                     }`}>
                       {investor.access}
@@ -1013,7 +993,7 @@ const EnhancedWorkHub = () => {
                     <span className="text-sm text-gray-400">{post.time}</span>
                     <span className={`px-2 py-1 text-xs rounded-full ${
                       post.type === 'announcement' ? 'bg-blue-100 text-blue-800' :
-                      post.type === 'celebration' ? 'bg-green-100 text-green-800' :
+                      post.type === 'celebration' ? 'bg-blue-600 text-blue-600' :
                       'bg-gray-100 text-gray-800'
                     }`}>
                       {post.type}
@@ -1056,7 +1036,7 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-gray-900">Task Boards</h3>
-          <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center space-x-2">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-600 flex items-center space-x-2">
             <Plus className="w-4 h-4" />
             <span>New Task</span>
           </button>
@@ -1091,9 +1071,9 @@ const EnhancedWorkHub = () => {
                     <div className="flex items-start justify-between mb-2">
                       <h5 className="font-medium text-gray-900 text-sm">{task.name}</h5>
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        task.priority === 'high' ? 'bg-red-100 text-red-800' :
-                        task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-green-100 text-green-800'
+                        task.priority === 'high' ? 'bg-blue-600 text-white' :
+                        task.priority === 'medium' ? 'bg-blue-600 text-blue-600' :
+                        'bg-blue-600 text-blue-600'
                       }`}>
                         {task.priority}
                       </span>
@@ -1131,7 +1111,7 @@ const EnhancedWorkHub = () => {
                       <span className="font-medium text-gray-900">{msg.author}</span>
                       <span className="text-xs text-gray-500">{msg.time}</span>
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        msg.type === 'general' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+                        msg.type === 'general' ? 'bg-blue-100 text-blue-800' : 'bg-blue-600 text-blue-600'
                       }`}>
                         #{msg.type}
                       </span>
@@ -1181,7 +1161,7 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-gray-900">Idea Hub</h3>
-          <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-600 flex items-center space-x-2">
             <Plus className="w-4 h-4" />
             <span>Submit Idea</span>
           </button>
@@ -1218,8 +1198,8 @@ const EnhancedWorkHub = () => {
               <div className="flex items-start justify-between mb-3">
                 <h4 className="font-medium text-gray-900">{idea.title}</h4>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  idea.status === 'in_progress' ? 'bg-green-100 text-green-800' :
-                  idea.status === 'under_review' ? 'bg-yellow-100 text-yellow-800' :
+                  idea.status === 'in_progress' ? 'bg-blue-600 text-blue-600' :
+                  idea.status === 'under_review' ? 'bg-blue-600 text-blue-600' :
                   'bg-gray-100 text-gray-800'
                 }`}>
                   {idea.status.replace('_', ' ')}
@@ -1270,7 +1250,7 @@ const EnhancedWorkHub = () => {
               emoji: "🎊"
             }
           ].map((post, index) => (
-            <div key={index} className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+            <div key={index} className="p-4 bg-white rounded-lg border border-blue-200">
               <div className="flex items-center space-x-2 mb-3">
                 <span className="text-2xl">{post.emoji}</span>
                 <span className="text-sm font-medium text-gray-700 capitalize">{post.type}</span>
@@ -1293,7 +1273,7 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">AI Pitch Deck Builder</h2>
-          <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-600 flex items-center space-x-2">
             <Zap className="w-4 h-4" />
             <span>Generate Deck</span>
           </button>
@@ -1319,19 +1299,19 @@ const EnhancedWorkHub = () => {
                 </div>
               </div>
               
-              <div className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+              <div className="p-4 bg-white rounded-lg border border-gray-200">
                 <h4 className="font-medium text-gray-900 mb-2">AI-Generated Sections</h4>
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <CheckCircle className="w-4 h-4 text-blue-600" />
                     <span>Problem & Solution (Auto-generated from user data)</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <CheckCircle className="w-4 h-4 text-blue-600" />
                     <span>Market Size (Updated with latest data)</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <CheckCircle className="w-4 h-4 text-blue-600" />
                     <span>Financial Projections (Based on current metrics)</span>
                   </div>
                 </div>
@@ -1352,7 +1332,7 @@ const EnhancedWorkHub = () => {
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium text-gray-900">{template.name}</span>
                     {template.ai && (
-                      <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
+                      <span className="px-2 py-1 bg-blue-600 text-blue-600 text-xs rounded">
                         AI-Powered
                       </span>
                     )}
@@ -1405,9 +1385,9 @@ const EnhancedWorkHub = () => {
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">Valuation Range</h4>
             <div className="space-y-4">
-              <div className="p-4 bg-green-50 rounded-lg">
-                <div className="text-2xl font-bold text-green-900">$19.2M - $28.8M</div>
-                <div className="text-sm text-green-700">Conservative Estimate</div>
+              <div className="p-4 bg-white rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">$19.2M - $28.8M</div>
+                <div className="text-sm text-blue-600">Conservative Estimate</div>
                 <div className="text-xs text-gray-600 mt-1">Based on 8x revenue multiple</div>
               </div>
               <div className="p-4 bg-blue-50 rounded-lg">
@@ -1415,9 +1395,9 @@ const EnhancedWorkHub = () => {
                 <div className="text-sm text-blue-700">Optimistic Estimate</div>
                 <div className="text-xs text-gray-600 mt-1">Based on 12x revenue multiple</div>
               </div>
-              <div className="p-4 bg-purple-50 rounded-lg">
-                <div className="text-2xl font-bold text-purple-900">$36M</div>
-                <div className="text-sm text-purple-700">Median Valuation</div>
+              <div className="p-4 bg-white rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">$36M</div>
+                <div className="text-sm text-blue-600">Median Valuation</div>
                 <div className="text-xs text-gray-600 mt-1">Based on 15x revenue multiple</div>
               </div>
             </div>
@@ -1544,9 +1524,9 @@ const EnhancedWorkHub = () => {
                     <div className="text-lg font-bold text-gray-900">{deal.amount}</div>
                     <div className="flex items-center justify-between text-xs text-gray-500 mt-1">
                       <span className={`px-2 py-1 rounded ${
-                        deal.status === 'Completed' ? 'bg-green-100 text-green-800' :
+                        deal.status === 'Completed' ? 'bg-blue-600 text-blue-600' :
                         deal.status === 'Signed' ? 'bg-blue-100 text-blue-800' :
-                        deal.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
+                        deal.status === 'Pending' ? 'bg-blue-600 text-blue-600' :
                         'bg-gray-100 text-gray-800'
                       }`}>
                         {deal.status}
@@ -1576,10 +1556,10 @@ const EnhancedWorkHub = () => {
                 <div className="text-2xl font-bold text-blue-900">$45.2B</div>
                 <div className="text-sm text-blue-700">Global market size (2024)</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="font-medium text-gray-900">Growth Rate</div>
-                <div className="text-2xl font-bold text-green-900">12.5%</div>
-                <div className="text-sm text-green-700">Annual growth rate</div>
+                <div className="text-2xl font-bold text-blue-600">12.5%</div>
+                <div className="text-sm text-blue-600">Annual growth rate</div>
               </div>
             </div>
           </div>
@@ -1617,17 +1597,17 @@ const EnhancedWorkHub = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Compliance Status</h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <span className="font-medium text-gray-900">Data Protection (GDPR)</span>
-                <CheckCircle className="w-5 h-5 text-green-600" />
+                <CheckCircle className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <span className="font-medium text-gray-900">Terms of Service</span>
-                <CheckCircle className="w-5 h-5 text-green-600" />
+                <CheckCircle className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <span className="font-medium text-gray-900">Privacy Policy</span>
-                <AlertCircle className="w-5 h-5 text-yellow-600" />
+                <AlertCircle className="w-5 h-5 text-blue-600" />
               </div>
             </div>
           </div>
@@ -1670,22 +1650,22 @@ const EnhancedWorkHub = () => {
               <div className="p-4 bg-blue-50 rounded-lg">
                 <div className="text-2xl font-bold text-blue-900">2.4M</div>
                 <div className="text-sm text-blue-700">Impressions</div>
-                <div className="text-xs text-green-600">+15% this month</div>
+                <div className="text-xs text-blue-600">+15% this month</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
-                <div className="text-2xl font-bold text-green-900">12.5%</div>
-                <div className="text-sm text-green-700">Click-through Rate</div>
-                <div className="text-xs text-green-600">+3% this month</div>
+              <div className="p-4 bg-white rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">12.5%</div>
+                <div className="text-sm text-blue-600">Click-through Rate</div>
+                <div className="text-xs text-blue-600">+3% this month</div>
               </div>
-              <div className="p-4 bg-purple-50 rounded-lg">
-                <div className="text-2xl font-bold text-purple-900">8.2K</div>
-                <div className="text-sm text-purple-700">New Leads</div>
-                <div className="text-xs text-green-600">+22% this month</div>
+              <div className="p-4 bg-white rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">8.2K</div>
+                <div className="text-sm text-blue-600">New Leads</div>
+                <div className="text-xs text-blue-600">+22% this month</div>
               </div>
-              <div className="p-4 bg-orange-50 rounded-lg">
-                <div className="text-2xl font-bold text-orange-900">$45</div>
-                <div className="text-sm text-orange-700">Cost per Lead</div>
-                <div className="text-xs text-red-600">+5% this month</div>
+              <div className="p-4 bg-white rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">$45</div>
+                <div className="text-sm text-blue-600">Cost per Lead</div>
+                <div className="text-xs text-black">+5% this month</div>
               </div>
             </div>
           </div>
@@ -1728,13 +1708,13 @@ const EnhancedWorkHub = () => {
                 </div>
                 <div className="text-sm text-gray-600 mt-1">Complete 3 more projects</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-medium text-gray-900">Learn React Native</span>
-                  <span className="text-green-600 font-bold">40%</span>
+                  <span className="text-blue-600 font-bold">40%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-green-600 h-2 rounded-full" style={{width: '40%'}}></div>
+                  <div className="bg-blue-600 h-2 rounded-full" style={{width: '40%'}}></div>
                 </div>
                 <div className="text-sm text-gray-600 mt-1">Complete online course</div>
               </div>
@@ -1743,8 +1723,8 @@ const EnhancedWorkHub = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Achievements</h3>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
-                <Award className="w-5 h-5 text-green-600" />
+              <div className="flex items-center space-x-3 p-3 bg-white rounded-lg">
+                <Award className="w-5 h-5 text-blue-600" />
                 <div>
                   <div className="font-medium text-gray-900">React Certification</div>
                   <div className="text-sm text-gray-600">Completed 2 days ago</div>
@@ -1779,9 +1759,9 @@ const EnhancedWorkHub = () => {
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-medium text-gray-900">{project.name}</h3>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  project.priority === 'High' ? 'bg-red-100 text-red-800' :
-                  project.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-green-100 text-green-800'
+                  project.priority === 'High' ? 'bg-blue-600 text-white' :
+                  project.priority === 'Medium' ? 'bg-blue-600 text-blue-600' :
+                  'bg-blue-600 text-blue-600'
                 }`}>
                   {project.priority}
                 </span>
@@ -1793,7 +1773,7 @@ const EnhancedWorkHub = () => {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div className={`h-2 rounded-full ${
-                    project.status === 'Completed' ? 'bg-green-600' : 'bg-blue-600'
+                    project.status === 'Completed' ? 'bg-blue-600' : 'bg-blue-600'
                   }`} style={{width: `${project.progress}%`}}></div>
                 </div>
               </div>
@@ -1821,10 +1801,10 @@ const EnhancedWorkHub = () => {
                 <div className="text-sm text-gray-600">Dec 15, 2024 • 2:00 PM</div>
                 <div className="text-xs text-blue-600 mt-1">Conference Room A</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="font-medium text-gray-900">New Employee Onboarding</div>
                 <div className="text-sm text-gray-600">Welcome 5 new team members</div>
-                <div className="text-xs text-green-600 mt-1">This week</div>
+                <div className="text-xs text-blue-600 mt-1">This week</div>
               </div>
             </div>
           </div>
@@ -1866,10 +1846,10 @@ const EnhancedWorkHub = () => {
                 <div className="text-2xl font-bold text-blue-900">12</div>
                 <div className="text-sm text-blue-700">days remaining</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="font-medium text-gray-900">Sick Leave</div>
-                <div className="text-2xl font-bold text-green-900">5</div>
-                <div className="text-sm text-green-700">days remaining</div>
+                <div className="text-2xl font-bold text-blue-600">5</div>
+                <div className="text-sm text-blue-600">days remaining</div>
               </div>
             </div>
           </div>
@@ -2007,19 +1987,19 @@ const EnhancedWorkHub = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Performance</h3>
             <div className="space-y-4">
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="font-medium text-gray-900">Overall Rating</div>
-                <div className="text-3xl font-bold text-green-900">4.8/5</div>
-                <div className="text-sm text-green-700">Excellent performance</div>
+                <div className="text-3xl font-bold text-blue-600">4.8/5</div>
+                <div className="text-sm text-blue-600">Excellent performance</div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-3 bg-blue-50 rounded-lg text-center">
                   <div className="text-2xl font-bold text-blue-900">12</div>
                   <div className="text-sm text-blue-700">Projects Completed</div>
                 </div>
-                <div className="p-3 bg-purple-50 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-purple-900">95%</div>
-                  <div className="text-sm text-purple-700">On-time Delivery</div>
+                <div className="p-3 bg-white rounded-lg text-center">
+                  <div className="text-2xl font-bold text-blue-600">95%</div>
+                  <div className="text-sm text-blue-600">On-time Delivery</div>
                 </div>
               </div>
             </div>
@@ -2036,7 +2016,7 @@ const EnhancedWorkHub = () => {
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium text-gray-900">{goal.goal}</span>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      goal.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
+                      goal.status === 'Completed' ? 'bg-blue-600 text-blue-600' : 'bg-blue-100 text-blue-800'
                     }`}>
                       {goal.status}
                     </span>
@@ -2088,13 +2068,13 @@ const EnhancedWorkHub = () => {
                 <div className="text-2xl font-bold text-blue-900">23</div>
                 <div className="text-sm text-blue-700">Active Deals</div>
               </div>
-              <div className="p-3 bg-green-50 rounded-lg text-center">
-                <div className="text-2xl font-bold text-green-900">8</div>
-                <div className="text-sm text-green-700">Due Diligence</div>
+              <div className="p-3 bg-white rounded-lg text-center">
+                <div className="text-2xl font-bold text-blue-600">8</div>
+                <div className="text-sm text-blue-600">Due Diligence</div>
               </div>
-              <div className="p-3 bg-purple-50 rounded-lg text-center">
-                <div className="text-2xl font-bold text-purple-900">5</div>
-                <div className="text-sm text-purple-700">Term Sheets</div>
+              <div className="p-3 bg-white rounded-lg text-center">
+                <div className="text-2xl font-bold text-blue-600">5</div>
+                <div className="text-sm text-blue-600">Term Sheets</div>
               </div>
             </div>
           </div>
@@ -2119,7 +2099,7 @@ const EnhancedWorkHub = () => {
                 <div key={index} className="p-4 border border-gray-200 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="font-medium text-gray-900">{company.name}</h4>
-                    <span className="text-green-600 font-bold">{company.performance}</span>
+                    <span className="text-blue-600 font-bold">{company.performance}</span>
                   </div>
                   <div className="text-sm text-gray-600">
                     <div>{company.stage} • Valuation: {company.valuation}</div>
@@ -2131,10 +2111,10 @@ const EnhancedWorkHub = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance Metrics</h3>
             <div className="space-y-4">
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="font-medium text-gray-900">Total Portfolio Value</div>
-                <div className="text-2xl font-bold text-green-900">$12.5M</div>
-                <div className="text-sm text-green-700">+15% this quarter</div>
+                <div className="text-2xl font-bold text-blue-600">$12.5M</div>
+                <div className="text-sm text-blue-600">+15% this quarter</div>
               </div>
               <div className="p-4 bg-blue-50 rounded-lg">
                 <div className="font-medium text-gray-900">Average Return</div>
@@ -2160,7 +2140,7 @@ const EnhancedWorkHub = () => {
                 <div className="font-medium text-gray-900">AI/ML Sector</div>
                 <div className="text-sm text-gray-600">Market size: $45B • Growth: 25% YoY</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="font-medium text-gray-900">Cybersecurity</div>
                 <div className="text-sm text-gray-600">Market size: $180B • Growth: 12% YoY</div>
               </div>
@@ -2235,10 +2215,10 @@ const EnhancedWorkHub = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Metrics</h3>
             <div className="space-y-4">
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <div className="font-medium text-gray-900">IRR</div>
-                <div className="text-2xl font-bold text-green-900">18.5%</div>
-                <div className="text-sm text-green-700">Internal Rate of Return</div>
+                <div className="text-2xl font-bold text-blue-600">18.5%</div>
+                <div className="text-sm text-blue-600">Internal Rate of Return</div>
               </div>
               <div className="p-4 bg-blue-50 rounded-lg">
                 <div className="font-medium text-gray-900">DPI</div>
@@ -2260,17 +2240,17 @@ const EnhancedWorkHub = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Compliance Status</h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <span className="font-medium text-gray-900">SEC Registration</span>
-                <CheckCircle className="w-5 h-5 text-green-600" />
+                <CheckCircle className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <span className="font-medium text-gray-900">Anti-Money Laundering</span>
-                <CheckCircle className="w-5 h-5 text-green-600" />
+                <CheckCircle className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <span className="font-medium text-gray-900">Tax Reporting</span>
-                <AlertCircle className="w-5 h-5 text-yellow-600" />
+                <AlertCircle className="w-5 h-5 text-blue-600" />
               </div>
             </div>
           </div>
@@ -2280,7 +2260,7 @@ const EnhancedWorkHub = () => {
               <div className="p-3 border border-gray-200 rounded-lg">
                 <div className="font-medium text-gray-900">Q4 Tax Filing</div>
                 <div className="text-sm text-gray-600">Due: Jan 31, 2025</div>
-                <div className="text-xs text-red-600 mt-1">30 days remaining</div>
+                <div className="text-xs text-black mt-1">30 days remaining</div>
               </div>
               <div className="p-3 border border-gray-200 rounded-lg">
                 <div className="font-medium text-gray-900">Annual Report</div>
@@ -2310,7 +2290,7 @@ const EnhancedWorkHub = () => {
               <div className="flex items-start justify-between mb-3">
                 <h3 className="font-medium text-gray-900">{job.title}</h3>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  job.type === 'Full-time' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
+                  job.type === 'Full-time' ? 'bg-blue-600 text-blue-600' : 'bg-blue-100 text-blue-800'
                 }`}>
                   {job.type}
                 </span>
@@ -2362,7 +2342,7 @@ const EnhancedWorkHub = () => {
                 </div>
               </div>
               <div className="flex space-x-2">
-                <button className="flex-1 px-3 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700">
+                <button className="flex-1 px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-600">
                   Apply
                 </button>
                 <button className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50">
@@ -2453,7 +2433,7 @@ const EnhancedWorkHub = () => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Financial Dashboard</h2>
           <div className="flex items-center space-x-2">
-            <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center space-x-2">
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-600 flex items-center space-x-2">
               <RefreshCw className="w-4 h-4" />
               <span>Sync Data</span>
             </button>
@@ -2465,43 +2445,43 @@ const EnhancedWorkHub = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
+          <div className="bg-white p-6 rounded-xl border border-gray-200">
             <div className="flex items-center justify-between mb-2">
-              <DollarSign className="w-8 h-8 text-green-600" />
-              <span className="text-green-600 text-sm font-medium">+24%</span>
+              <DollarSign className="w-8 h-8 text-blue-600" />
+              <span className="text-blue-600 text-sm font-medium">+24%</span>
             </div>
-            <div className="text-3xl font-bold text-green-900 mb-1">$2.4M</div>
-            <div className="text-sm text-green-700">Monthly Revenue</div>
+            <div className="text-3xl font-bold text-blue-600 mb-1">$2.4M</div>
+            <div className="text-sm text-blue-600">Monthly Revenue</div>
             <div className="text-xs text-gray-600 mt-1">vs $1.9M last month</div>
           </div>
           
-          <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border border-red-200">
+          <div className="bg-white p-6 rounded-xl border border-gray-200">
             <div className="flex items-center justify-between mb-2">
-              <TrendingDown className="w-8 h-8 text-red-600" />
-              <span className="text-red-600 text-sm font-medium">+5%</span>
+              <TrendingDown className="w-8 h-8 text-black" />
+              <span className="text-black text-sm font-medium">+5%</span>
             </div>
-            <div className="text-3xl font-bold text-red-900 mb-1">$85K</div>
-            <div className="text-sm text-red-700">Monthly Burn</div>
+            <div className="text-3xl font-bold text-black mb-1">$85K</div>
+            <div className="text-sm text-black">Monthly Burn</div>
             <div className="text-xs text-gray-600 mt-1">vs $81K last month</div>
           </div>
           
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+          <div className="bg-white p-6 rounded-xl border border-gray-200">
             <div className="flex items-center justify-between mb-2">
               <Percent className="w-8 h-8 text-blue-600" />
-              <span className="text-green-600 text-sm font-medium">+2%</span>
+              <span className="text-blue-600 text-sm font-medium">+2%</span>
             </div>
-            <div className="text-3xl font-bold text-blue-900 mb-1">68%</div>
-            <div className="text-sm text-blue-700">Gross Margin</div>
+            <div className="text-3xl font-bold text-blue-600 mb-1">68%</div>
+            <div className="text-sm text-blue-600">Gross Margin</div>
             <div className="text-xs text-gray-600 mt-1">vs 66% last month</div>
           </div>
           
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200">
+          <div className="bg-white p-6 rounded-xl border border-gray-200">
             <div className="flex items-center justify-between mb-2">
-              <Clock className="w-8 h-8 text-purple-600" />
-              <span className="text-green-600 text-sm font-medium">+2 months</span>
+              <Clock className="w-8 h-8 text-blue-600" />
+              <span className="text-blue-600 text-sm font-medium">+2 months</span>
             </div>
-            <div className="text-3xl font-bold text-purple-900 mb-1">18</div>
-            <div className="text-sm text-purple-700">Months Runway</div>
+            <div className="text-3xl font-bold text-blue-600 mb-1">18</div>
+            <div className="text-sm text-blue-600">Months Runway</div>
             <div className="text-xs text-gray-600 mt-1">at current burn rate</div>
           </div>
         </div>
@@ -2514,26 +2494,26 @@ const EnhancedWorkHub = () => {
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">30 Days</h4>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Inflows</div>
                   <div className="text-sm text-gray-600">Customer payments, grants</div>
                 </div>
-                <div className="text-lg font-bold text-green-900">+$2.4M</div>
+                <div className="text-lg font-bold text-blue-600">+$2.4M</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Outflows</div>
                   <div className="text-sm text-gray-600">Salaries, operations, marketing</div>
                 </div>
-                <div className="text-lg font-bold text-red-900">-$85K</div>
+                <div className="text-lg font-bold text-black">-$85K</div>
               </div>
               <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Net Cash Flow</div>
                   <div className="text-sm text-gray-600">Monthly change</div>
                 </div>
-                <div className="text-lg font-bold text-blue-900">+$2.3M</div>
+                <div className="text-lg font-bold text-blue-600">+$2.3M</div>
               </div>
             </div>
           </div>
@@ -2541,26 +2521,26 @@ const EnhancedWorkHub = () => {
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">60 Days</h4>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Projected Inflows</div>
                   <div className="text-sm text-gray-600">Based on current pipeline</div>
                 </div>
-                <div className="text-lg font-bold text-green-900">+$2.6M</div>
+                <div className="text-lg font-bold text-blue-600">+$2.6M</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Projected Outflows</div>
                   <div className="text-sm text-gray-600">Including planned hires</div>
                 </div>
-                <div className="text-lg font-bold text-red-900">-$95K</div>
+                <div className="text-lg font-bold text-black">-$95K</div>
               </div>
               <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Projected Net</div>
                   <div className="text-sm text-gray-600">Expected change</div>
                 </div>
-                <div className="text-lg font-bold text-blue-900">+$2.5M</div>
+                <div className="text-lg font-bold text-blue-600">+$2.5M</div>
               </div>
             </div>
           </div>
@@ -2568,26 +2548,26 @@ const EnhancedWorkHub = () => {
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">90 Days</h4>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Expected Inflows</div>
                   <div className="text-sm text-gray-600">Q1 projections</div>
                 </div>
-                <div className="text-lg font-bold text-green-900">+$2.8M</div>
+                <div className="text-lg font-bold text-blue-600">+$2.8M</div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Expected Outflows</div>
                   <div className="text-sm text-gray-600">Full team expansion</div>
                 </div>
-                <div className="text-lg font-bold text-red-900">-$110K</div>
+                <div className="text-lg font-bold text-black">-$110K</div>
               </div>
               <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                 <div>
                   <div className="font-medium text-gray-900">Expected Net</div>
                   <div className="text-sm text-gray-600">Q1 forecast</div>
                 </div>
-                <div className="text-lg font-bold text-blue-900">+$2.7M</div>
+                <div className="text-lg font-bold text-blue-600">+$2.7M</div>
               </div>
             </div>
           </div>
@@ -2606,28 +2586,25 @@ const EnhancedWorkHub = () => {
                   scenario: "Conservative", 
                   revenue: "$2.1M", 
                   burn: "$85K", 
-                  runway: "15 months",
-                  color: "red"
+                  runway: "15 months"
                 },
                 { 
                   scenario: "Current Growth", 
                   revenue: "$2.4M", 
                   burn: "$85K", 
-                  runway: "18 months",
-                  color: "blue"
+                  runway: "18 months"
                 },
                 { 
                   scenario: "Optimistic", 
                   revenue: "$2.8M", 
                   burn: "$95K", 
-                  runway: "22 months",
-                  color: "green"
+                  runway: "22 months"
                 }
               ].map((scenario, index) => (
-                <div key={index} className={`p-4 border border-gray-200 rounded-lg bg-${scenario.color}-50`}>
+                <div key={index} className="p-4 border border-gray-200 rounded-lg bg-gray-50">
                   <div className="flex items-center justify-between mb-2">
                     <h5 className="font-medium text-gray-900">{scenario.scenario}</h5>
-                    <span className={`px-2 py-1 text-xs rounded-full bg-${scenario.color}-100 text-${scenario.color}-800`}>
+                    <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-600">
                       {scenario.runway}
                     </span>
                   </div>
@@ -2688,7 +2665,7 @@ const EnhancedWorkHub = () => {
               <div className="text-2xl mb-2">{integration.icon}</div>
               <div className="font-medium text-gray-900">{integration.name}</div>
               <div className={`text-xs mt-1 ${
-                integration.status === 'connected' ? 'text-green-600' : 'text-red-600'
+                integration.status === 'connected' ? 'text-blue-600' : 'text-black'
               }`}>
                 {integration.status}
               </div>
@@ -2800,14 +2777,14 @@ const EnhancedWorkHub = () => {
                 </div>
                 <div className="flex flex-col items-end space-y-2">
                   <span className={`px-2 py-1 text-xs rounded-full ${
-                    job.priority === 'high' ? 'bg-red-100 text-red-800' :
-                    job.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
+                    job.priority === 'high' ? 'bg-blue-600 text-white' :
+                    job.priority === 'medium' ? 'bg-blue-600 text-blue-600' :
+                    'bg-blue-600 text-blue-600'
                   }`}>
                     {job.priority}
                   </span>
                   <span className={`px-2 py-1 text-xs rounded-full ${
-                    job.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    job.status === 'Active' ? 'bg-blue-600 text-blue-600' : 'bg-gray-100 text-gray-800'
                   }`}>
                     {job.status}
                   </span>
@@ -2992,7 +2969,7 @@ const EnhancedWorkHub = () => {
                   <p className="text-xs text-gray-500">Joined {employee.joinDate}</p>
                 </div>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  employee.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                  employee.status === 'Active' ? 'bg-blue-600 text-blue-600' : 'bg-gray-100 text-gray-800'
                 }`}>
                   {employee.status}
                 </span>
@@ -3067,9 +3044,9 @@ const EnhancedWorkHub = () => {
                   <div className="flex items-center justify-between mb-2">
                     <h5 className="font-medium text-gray-900">{referral.candidate}</h5>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      referral.status === 'Hired' ? 'bg-green-100 text-green-800' :
+                      referral.status === 'Hired' ? 'bg-blue-600 text-blue-600' :
                       referral.status === 'Interview Scheduled' ? 'bg-blue-100 text-blue-800' :
-                      'bg-yellow-100 text-yellow-800'
+                      'bg-blue-600 text-blue-600'
                     }`}>
                       {referral.status}
                     </span>
@@ -3080,7 +3057,7 @@ const EnhancedWorkHub = () => {
                     <div>Date: {referral.date}</div>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-green-600">Reward: {referral.reward}</span>
+                    <span className="text-sm font-medium text-blue-600">Reward: {referral.reward}</span>
                     <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
                       View Details
                     </button>
@@ -3103,16 +3080,16 @@ const EnhancedWorkHub = () => {
                 </div>
               </div>
               
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-white rounded-lg">
                 <h5 className="font-medium text-gray-900 mb-2">Program Stats</h5>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <div className="text-2xl font-bold text-green-900">12</div>
-                    <div className="text-green-700">Total Referrals</div>
+                    <div className="text-2xl font-bold text-blue-600">12</div>
+                    <div className="text-blue-600">Total Referrals</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-green-900">3</div>
-                    <div className="text-green-700">Successful Hires</div>
+                    <div className="text-2xl font-bold text-blue-600">3</div>
+                    <div className="text-blue-600">Successful Hires</div>
                   </div>
                 </div>
               </div>
@@ -3134,7 +3111,7 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Market Dashboard</h2>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+          <button className="px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 flex items-center space-x-2 font-medium transition-all shadow-sm hover:shadow">
             <RefreshCw className="w-4 h-4" />
             <span>Update Data</span>
           </button>
@@ -3150,24 +3127,24 @@ const EnhancedWorkHub = () => {
                 { name: "Competitor C", marketShare: "12%", funding: "$20M", growth: "+5%", status: "Stable" },
                 { name: "Your Startup", marketShare: "8%", funding: "$5.8M", growth: "+24%", status: "Rising" }
               ].map((competitor, index) => (
-                <div key={index} className={`p-4 border border-gray-200 rounded-lg ${
-                  competitor.name === 'Your Startup' ? 'bg-blue-50 border-blue-200' : 'hover:bg-gray-50'
+                <div key={index} className={`p-5 border border-gray-200 rounded-xl ${
+                  competitor.name === 'Your Startup' ? 'bg-blue-50 border-blue-200' : 'bg-white hover:shadow-sm transition-shadow'
                 }`}>
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium text-gray-900">{competitor.name}</h4>
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      competitor.status === 'Strong' ? 'bg-green-100 text-green-800' :
-                      competitor.status === 'Growing' ? 'bg-blue-100 text-blue-800' :
-                      competitor.status === 'Rising' ? 'bg-purple-100 text-purple-800' :
-                      'bg-gray-100 text-gray-800'
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-bold text-gray-900">{competitor.name}</h4>
+                    <span className={`px-2.5 py-1 text-xs font-semibold rounded-lg ${
+                      competitor.status === 'Strong' ? 'bg-blue-600 text-white' :
+                      competitor.status === 'Growing' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
+                      competitor.status === 'Rising' ? 'bg-blue-600 text-white' :
+                      'bg-gray-100 text-gray-600'
                     }`}>
                       {competitor.status}
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-4 text-sm text-gray-600">
-                    <div>Share: {competitor.marketShare}</div>
-                    <div>Funding: {competitor.funding}</div>
-                    <div>Growth: {competitor.growth}</div>
+                    <div><span className="font-medium">Share:</span> {competitor.marketShare}</div>
+                    <div><span className="font-medium">Funding:</span> {competitor.funding}</div>
+                    <div><span className="font-medium">Growth:</span> {competitor.growth}</div>
                   </div>
                 </div>
               ))}
@@ -3183,10 +3160,10 @@ const EnhancedWorkHub = () => {
                 { company: "CloudScale", amount: "$25M", stage: "Series B", date: "2 weeks ago", sector: "Cloud" },
                 { company: "GreenTech", amount: "$12M", stage: "Series A", date: "3 weeks ago", sector: "CleanTech" }
               ].map((round, index) => (
-                <div key={index} className="p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
-                  <div className="flex items-center justify-between mb-1">
-                    <h5 className="font-medium text-gray-900">{round.company}</h5>
-                    <span className="text-sm font-bold text-green-600">{round.amount}</span>
+                <div key={index} className="p-4 bg-white border border-gray-200 rounded-xl hover:shadow-sm transition-shadow">
+                  <div className="flex items-center justify-between mb-2">
+                    <h5 className="font-bold text-gray-900">{round.company}</h5>
+                    <span className="text-base font-bold text-blue-600">{round.amount}</span>
                   </div>
                   <div className="text-sm text-gray-600">
                     {round.stage} • {round.sector} • {round.date}
@@ -3204,16 +3181,16 @@ const EnhancedWorkHub = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">NPS Score</h4>
-            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
-              <div className="text-4xl font-bold text-green-900 mb-2">72</div>
-              <div className="text-sm text-green-700">Net Promoter Score</div>
+            <div className="text-center p-6 bg-white rounded-lg">
+              <div className="text-4xl font-bold text-blue-600 mb-2">72</div>
+              <div className="text-sm text-blue-600">Net Promoter Score</div>
               <div className="text-xs text-gray-600 mt-1">+2 from last month</div>
             </div>
           </div>
           
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">Customer Satisfaction</h4>
-            <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+            <div className="text-center p-6 bg-white rounded-lg">
               <div className="text-4xl font-bold text-blue-900 mb-2">4.8/5</div>
               <div className="text-sm text-blue-700">Average Rating</div>
               <div className="text-xs text-gray-600 mt-1">Based on 1,247 reviews</div>
@@ -3222,9 +3199,9 @@ const EnhancedWorkHub = () => {
           
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">Response Rate</h4>
-            <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
-              <div className="text-4xl font-bold text-purple-900 mb-2">68%</div>
-              <div className="text-sm text-purple-700">Survey Response</div>
+            <div className="text-center p-6 bg-white rounded-lg">
+              <div className="text-4xl font-bold text-blue-600 mb-2">68%</div>
+              <div className="text-sm text-blue-600">Survey Response</div>
               <div className="text-xs text-gray-600 mt-1">Last 30 days</div>
             </div>
           </div>
@@ -3271,7 +3248,7 @@ const EnhancedWorkHub = () => {
                 <div className="flex items-center space-x-2 mb-2">
                   <div className="flex">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                      <Star key={i} className="w-4 h-4 text-blue-600 fill-current" />
                     ))}
                   </div>
                   <span className="text-sm text-gray-600">{testimonial.date}</span>
@@ -3315,16 +3292,16 @@ const EnhancedWorkHub = () => {
                 }
               ].map((insight, index) => (
                 <div key={index} className={`p-4 border border-gray-200 rounded-lg ${
-                  insight.priority === 'high' ? 'bg-red-50 border-red-200' :
-                  insight.priority === 'medium' ? 'bg-yellow-50 border-yellow-200' :
-                  'bg-green-50 border-green-200'
+                  insight.priority === 'high' ? 'bg-blue-600 border-gray-200' :
+                  insight.priority === 'medium' ? 'bg-blue-600 border-gray-200' :
+                  'bg-blue-600 border-gray-200'
                 }`}>
                   <div className="flex items-start justify-between mb-2">
                     <h5 className="font-medium text-gray-900">{insight.insight}</h5>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      insight.priority === 'high' ? 'bg-red-100 text-red-800' :
-                      insight.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
+                      insight.priority === 'high' ? 'bg-blue-600 text-white' :
+                      insight.priority === 'medium' ? 'bg-blue-600 text-blue-600' :
+                      'bg-blue-600 text-blue-600'
                     }`}>
                       {insight.priority}
                     </span>
@@ -3368,7 +3345,7 @@ const EnhancedWorkHub = () => {
                     <div>Potential: <span className="font-medium">{opportunity.potential}</span></div>
                     <div>Effort: <span className="font-medium">{opportunity.effort}</span></div>
                     <div>Timeline: <span className="font-medium">{opportunity.timeline}</span></div>
-                    <div>Revenue: <span className="font-medium text-green-600">{opportunity.revenue}</span></div>
+                    <div>Revenue: <span className="font-medium text-blue-600">{opportunity.revenue}</span></div>
                   </div>
                   <button className="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
                     Explore Opportunity
@@ -3445,7 +3422,7 @@ const EnhancedWorkHub = () => {
               <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
                 <span>📥 {playbook.downloads}K downloads</span>
                 <div className="flex items-center space-x-1">
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-blue-600 fill-current" />
                   <span>{playbook.rating}</span>
                 </div>
               </div>
@@ -3473,7 +3450,7 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Compliance Checklist</h2>
-          <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center space-x-2">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-600 flex items-center space-x-2">
             <CheckCircle className="w-4 h-4" />
             <span>Mark Complete</span>
           </button>
@@ -3516,8 +3493,8 @@ const EnhancedWorkHub = () => {
                   <div key={itemIndex} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <div className={`w-4 h-4 rounded-full border-2 ${
-                        item.status === 'completed' ? 'bg-green-500 border-green-500' :
-                        item.status === 'in_progress' ? 'bg-yellow-500 border-yellow-500' :
+                        item.status === 'completed' ? 'bg-blue-600 border-gray-200' :
+                        item.status === 'in_progress' ? 'bg-blue-600 border-gray-200' :
                         'bg-white border-gray-300'
                       }`}>
                         {item.status === 'completed' && <CheckCircle className="w-4 h-4 text-white" />}
@@ -3528,9 +3505,9 @@ const EnhancedWorkHub = () => {
                       </div>
                     </div>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      item.priority === 'high' ? 'bg-red-100 text-red-800' :
-                      item.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
+                      item.priority === 'high' ? 'bg-blue-600 text-white' :
+                      item.priority === 'medium' ? 'bg-blue-600 text-blue-600' :
+                      'bg-blue-600 text-blue-600'
                     }`}>
                       {item.priority}
                     </span>
@@ -3600,7 +3577,7 @@ const EnhancedWorkHub = () => {
               <div className="flex items-start justify-between mb-3">
                 <h4 className="font-medium text-gray-900">{template.title}</h4>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  template.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                  template.status === 'Active' ? 'bg-blue-600 text-blue-600' : 'bg-blue-600 text-blue-600'
                 }`}>
                   {template.status}
                 </span>
@@ -3662,17 +3639,17 @@ const EnhancedWorkHub = () => {
             }
           ].map((deadline, index) => (
             <div key={index} className={`p-4 border border-gray-200 rounded-lg ${
-              deadline.priority === 'high' ? 'bg-red-50 border-red-200' :
-              deadline.priority === 'medium' ? 'bg-yellow-50 border-yellow-200' :
-              'bg-green-50 border-green-200'
+              deadline.priority === 'high' ? 'bg-blue-600 border-gray-200' :
+              deadline.priority === 'medium' ? 'bg-blue-600 border-gray-200' :
+              'bg-blue-600 border-gray-200'
             }`}>
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-medium text-gray-900">{deadline.title}</h4>
                 <div className="flex items-center space-x-2">
                   <span className={`px-2 py-1 text-xs rounded-full ${
-                    deadline.priority === 'high' ? 'bg-red-100 text-red-800' :
-                    deadline.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
+                    deadline.priority === 'high' ? 'bg-blue-600 text-white' :
+                    deadline.priority === 'medium' ? 'bg-blue-600 text-blue-600' :
+                    'bg-blue-600 text-blue-600'
                   }`}>
                     {deadline.priority}
                   </span>
@@ -3685,9 +3662,9 @@ const EnhancedWorkHub = () => {
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-500">Due: {deadline.dueDate}</span>
                 <span className={`text-sm font-medium ${
-                  deadline.daysLeft <= 7 ? 'text-red-600' :
-                  deadline.daysLeft <= 30 ? 'text-yellow-600' :
-                  'text-green-600'
+                  deadline.daysLeft <= 7 ? 'text-black' :
+                  deadline.daysLeft <= 30 ? 'text-blue-600' :
+                  'text-blue-600'
                 }`}>
                   {deadline.daysLeft} days left
                 </span>
@@ -3758,7 +3735,7 @@ const EnhancedWorkHub = () => {
                   <div className="flex items-center justify-between mb-2">
                     <h5 className="font-medium text-gray-900">{transaction.type}</h5>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      transaction.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                      transaction.status === 'Completed' ? 'bg-blue-600 text-blue-600' : 'bg-blue-600 text-blue-600'
                     }`}>
                       {transaction.status}
                     </span>
@@ -3784,7 +3761,7 @@ const EnhancedWorkHub = () => {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Founder Circles</h2>
-          <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-600 flex items-center space-x-2">
             <Plus className="w-4 h-4" />
             <span>Join Circle</span>
           </button>
@@ -3844,7 +3821,7 @@ const EnhancedWorkHub = () => {
             <div key={index} className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between mb-3">
                 <h3 className="font-semibold text-gray-900">{circle.name}</h3>
-                <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
+                <span className="px-2 py-1 bg-blue-600 text-blue-600 text-xs rounded">
                   {circle.privacy}
                 </span>
               </div>
@@ -3854,7 +3831,7 @@ const EnhancedWorkHub = () => {
                 <div>📅 Next meeting: {circle.nextMeeting}</div>
                 <div>🎯 Focus: {circle.focus}</div>
               </div>
-              <button className="w-full px-3 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700">
+              <button className="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-600">
                 Join Circle
               </button>
             </div>
@@ -3945,9 +3922,9 @@ const EnhancedWorkHub = () => {
                   <p className="text-xs text-gray-500">{mentor.experience}</p>
                 </div>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  mentor.availability === 'Available' ? 'bg-green-100 text-green-800' :
-                  mentor.availability === 'Limited' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-red-100 text-red-800'
+                  mentor.availability === 'Available' ? 'bg-blue-600 text-blue-600' :
+                  mentor.availability === 'Limited' ? 'bg-blue-600 text-blue-600' :
+                  'bg-blue-600 text-white'
                 }`}>
                   {mentor.availability}
                 </span>
@@ -3966,7 +3943,7 @@ const EnhancedWorkHub = () => {
               
               <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
                 <div className="flex items-center space-x-1">
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-blue-600 fill-current" />
                   <span>{mentor.rating}</span>
                   <span>({mentor.sessions} sessions)</span>
                 </div>
@@ -4030,7 +4007,7 @@ const EnhancedWorkHub = () => {
                   <div className="flex items-start justify-between mb-2">
                     <h5 className="font-medium text-gray-900">{event.title}</h5>
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      event.status === 'Open' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                      event.status === 'Open' ? 'bg-blue-600 text-blue-600' : 'bg-blue-600 text-blue-600'
                     }`}>
                       {event.status}
                     </span>
@@ -4093,10 +4070,10 @@ const EnhancedWorkHub = () => {
                 <div key={index} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
                   <div className="flex items-start space-x-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
-                      post.type === 'funding' ? 'bg-green-500' :
+                      post.type === 'funding' ? 'bg-blue-600' :
                       post.type === 'launch' ? 'bg-blue-500' :
-                      post.type === 'partnership' ? 'bg-purple-500' :
-                      'bg-orange-500'
+                      post.type === 'partnership' ? 'bg-blue-600' :
+                      'bg-blue-600'
                     }`}>
                       {post.type === 'funding' ? '💰' :
                        post.type === 'launch' ? '🚀' :
@@ -4183,7 +4160,7 @@ const EnhancedWorkHub = () => {
             { channel: 'Co-Investor Network', deals: 5, description: 'Deals from other VCs and angels' },
             { channel: 'Cold Outreach', deals: 3, description: 'Proactive sourcing and research' }
           ].map((channel, index) => (
-            <div key={index} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+            <div key={index} className="bg-white rounded-lg p-6 border border-blue-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">{channel.channel}</h3>
               <p className="text-sm text-gray-600 mb-4">{channel.description}</p>
               <div className="flex items-center justify-between">
@@ -4247,7 +4224,7 @@ const EnhancedWorkHub = () => {
                 {category.items.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex items-center space-x-3">
                     <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      itemIndex < category.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'
+                      itemIndex < category.completed ? 'bg-blue-600 border-gray-200' : 'border-gray-300'
                     }`}>
                       {itemIndex < category.completed && <CheckCircle size={12} className="text-white" />}
                     </div>
@@ -4284,8 +4261,8 @@ const EnhancedWorkHub = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    sheet.stage === 'Signed' ? 'bg-green-100 text-green-700' :
-                    sheet.stage === 'Review' ? 'bg-yellow-100 text-yellow-700' :
+                    sheet.stage === 'Signed' ? 'bg-blue-600 text-blue-600' :
+                    sheet.stage === 'Review' ? 'bg-blue-600 text-blue-600' :
                     'bg-blue-100 text-blue-700'
                   }`}>
                     {sheet.stage}
@@ -4326,7 +4303,7 @@ const EnhancedWorkHub = () => {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">{board.company}</h3>
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  board.status === 'Completed' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                  board.status === 'Completed' ? 'bg-blue-600 text-blue-600' : 'bg-blue-100 text-blue-700'
                 }`}>
                   {board.status}
                 </span>
@@ -4360,13 +4337,13 @@ const EnhancedWorkHub = () => {
             { initiative: 'Strategic Partnerships', companies: 5, impact: 'Medium', description: 'Connecting portfolio companies with strategic partners' },
             { initiative: 'Product Development', companies: 3, impact: 'High', description: 'Providing product strategy and development guidance' }
           ].map((initiative, index) => (
-            <div key={index} className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-6 border border-green-200">
+            <div key={index} className="bg-white rounded-lg p-6 border border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">{initiative.initiative}</h3>
               <p className="text-sm text-gray-600 mb-4">{initiative.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold text-green-600">{initiative.companies}</span>
+                <span className="text-2xl font-bold text-blue-600">{initiative.companies}</span>
                 <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                  initiative.impact === 'High' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'
+                  initiative.impact === 'High' ? 'bg-blue-600 text-white' : 'bg-blue-600 text-blue-600'
                 }`}>
                   {initiative.impact} Impact
                 </span>
@@ -4395,7 +4372,7 @@ const EnhancedWorkHub = () => {
               <h3 className="text-sm font-medium text-gray-500 mb-2">{metric.metric}</h3>
               <div className="flex items-center space-x-2">
                 <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
-                <span className="text-sm text-green-600 font-medium">{metric.change}</span>
+                <span className="text-sm text-blue-600 font-medium">{metric.change}</span>
               </div>
             </div>
           ))}
@@ -4422,7 +4399,7 @@ const EnhancedWorkHub = () => {
                 </div>
                 <div className="text-right">
                   <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                    communication.status === 'Sent' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                    communication.status === 'Sent' ? 'bg-blue-600 text-blue-600' : 'bg-blue-100 text-blue-700'
                   }`}>
                     {communication.status}
                   </span>
@@ -4443,7 +4420,7 @@ const EnhancedWorkHub = () => {
         
         {/* Fund Performance */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+          <div className="bg-white rounded-lg p-6 border border-blue-200">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Fund Performance</h3>
             <div className="space-y-3">
               {[
@@ -4457,7 +4434,7 @@ const EnhancedWorkHub = () => {
                     <p className="text-sm text-gray-500">Size: {fund.size}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-green-600">{fund.irr}</div>
+                    <div className="text-lg font-bold text-blue-600">{fund.irr}</div>
                     <div className="text-sm text-gray-500">TVPI: {fund.tvpi}</div>
                   </div>
                 </div>
@@ -4465,7 +4442,7 @@ const EnhancedWorkHub = () => {
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-6 border border-green-200">
+          <div className="bg-white rounded-lg p-6 border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Capital Deployment</h3>
             <div className="space-y-3">
               {[
@@ -4523,7 +4500,7 @@ const EnhancedWorkHub = () => {
               </div>
               <div className="flex items-center justify-between">
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  report.status === 'Sent' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                  report.status === 'Sent' ? 'bg-blue-600 text-blue-600' : 'bg-blue-600 text-blue-600'
                 }`}>
                   {report.status}
                 </span>
@@ -4551,18 +4528,18 @@ const EnhancedWorkHub = () => {
             { trend: 'Web3 Infrastructure', growth: '+28%', description: 'Blockchain infrastructure maturing', impact: 'Medium' },
             { trend: 'Healthcare Tech', growth: '+38%', description: 'Digital health solutions expanding', impact: 'High' }
           ].map((trend, index) => (
-            <div key={index} className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200">
+            <div key={index} className="bg-white rounded-lg p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-semibold text-gray-900">{trend.trend}</h3>
                 <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                  trend.impact === 'High' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'
+                  trend.impact === 'High' ? 'bg-blue-600 text-white' : 'bg-blue-600 text-blue-600'
                 }`}>
                   {trend.impact} Impact
                 </span>
               </div>
               <p className="text-sm text-gray-600 mb-3">{trend.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold text-purple-600">{trend.growth}</span>
+                <span className="text-2xl font-bold text-blue-600">{trend.growth}</span>
                 <span className="text-sm text-gray-500">YoY Growth</span>
               </div>
             </div>
@@ -4645,7 +4622,7 @@ const EnhancedWorkHub = () => {
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500">Status:</span>
                   <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                    founder.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
+                    founder.status === 'Active' ? 'bg-blue-600 text-blue-600' : 'bg-gray-100 text-gray-700'
                   }`}>
                     {founder.status}
                   </span>
@@ -4685,9 +4662,9 @@ const EnhancedWorkHub = () => {
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-500">Relationship:</span>
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  investor.relationship === 'Strong' ? 'bg-green-100 text-green-700' :
+                  investor.relationship === 'Strong' ? 'bg-blue-600 text-blue-600' :
                   investor.relationship === 'Good' ? 'bg-blue-100 text-blue-700' :
-                  'bg-yellow-100 text-yellow-700'
+                  'bg-blue-600 text-blue-600'
                 }`}>
                   {investor.relationship}
                 </span>
@@ -4716,7 +4693,7 @@ const EnhancedWorkHub = () => {
               <h3 className="text-sm font-medium text-gray-500 mb-2">{metric.metric}</h3>
               <div className="flex items-center space-x-2">
                 <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
-                <span className="text-sm text-green-600 font-medium">{metric.change}</span>
+                <span className="text-sm text-blue-600 font-medium">{metric.change}</span>
               </div>
             </div>
           ))}
@@ -4724,7 +4701,7 @@ const EnhancedWorkHub = () => {
 
         {/* Report Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+          <div className="bg-white rounded-lg p-6 border border-blue-200">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Portfolio Performance</h3>
             <div className="space-y-3">
               {[
@@ -4738,7 +4715,7 @@ const EnhancedWorkHub = () => {
                     <p className="text-sm text-gray-500">Valuation: {company.valuation}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-green-600">{company.multiple}</div>
+                    <div className="text-lg font-bold text-blue-600">{company.multiple}</div>
                     <div className="text-sm text-gray-500">Multiple</div>
                   </div>
                 </div>
@@ -4746,7 +4723,7 @@ const EnhancedWorkHub = () => {
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-6 border border-green-200">
+          <div className="bg-white rounded-lg p-6 border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Deal Flow Analysis</h3>
             <div className="space-y-3">
               {[
@@ -4826,7 +4803,7 @@ const EnhancedWorkHub = () => {
   const renderOverview = () => (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white">
+      <div className="bg-white rounded-2xl p-6 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <img 
@@ -4887,9 +4864,9 @@ const EnhancedWorkHub = () => {
               key={action.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`p-4 rounded-lg bg-${action.color}-50 hover:bg-${action.color}-100 transition-colors text-left`}
+              className="p-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors text-left"
             >
-              <action.icon className={`w-6 h-6 text-${action.color}-600 mb-2`} />
+              <action.icon className="w-6 h-6 text-blue-600 mb-2" />
               <p className="font-medium text-gray-900">{action.label}</p>
             </motion.button>
           ))}
@@ -4909,9 +4886,9 @@ const EnhancedWorkHub = () => {
               className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <div className={`w-2 h-2 rounded-full ${
-                activity.status === 'success' ? 'bg-green-500' :
+                activity.status === 'success' ? 'bg-blue-600' :
                 activity.status === 'info' ? 'bg-blue-500' :
-                'bg-yellow-500'
+                'bg-blue-600'
               }`} />
               <div className="flex-1">
                 <p className="font-medium text-gray-900">{activity.title}</p>
@@ -5005,8 +4982,6 @@ const EnhancedWorkHub = () => {
           return renderAnalyticsReports();
         case 'compliance':
           return renderCompliance();
-        case 'team':
-          return renderTeamManagement();
         
         // Unemployed sub-tabs
         case 'jobs':
@@ -5072,12 +5047,12 @@ const EnhancedWorkHub = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Navigation Tabs */}
         <div className="mb-8">
           <div className="bg-white rounded-xl border border-gray-200 p-2 shadow-sm">
-            <nav className="flex space-x-2 overflow-x-auto">
+            <nav className="flex flex-wrap gap-2">
               {navigationTabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -5094,16 +5069,16 @@ const EnhancedWorkHub = () => {
                           setActiveSubTab(null);
                         }
                       }}
-                      className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 whitespace-nowrap ${
+                      className={`flex items-center space-x-2 px-3 py-2.5 rounded-lg font-medium text-sm transition-all ${
                         isActive
-                          ? 'bg-blue-600 text-white shadow-lg transform scale-105'
+                          ? 'bg-blue-600 text-white shadow-sm'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                       }`}
                     >
                       <Icon size={16} />
-                      <span>{tab.label}</span>
-                      {tab.count && (
-                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                      <span className="whitespace-nowrap">{tab.label}</span>
+                      {tab.count !== null && tab.count !== undefined && (
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                           isActive
                             ? 'bg-white/20 text-white'
                             : 'bg-gray-200 text-gray-600'
@@ -5112,7 +5087,7 @@ const EnhancedWorkHub = () => {
                         </span>
                       )}
                       {isGroup && (
-                        <ChevronDown size={14} className="ml-1" />
+                        <ChevronDown size={14} className={`transition-transform ${isActive ? 'rotate-180' : ''}`} />
                       )}
                     </button>
                     

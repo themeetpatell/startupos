@@ -22,7 +22,7 @@ const StartupOnboarding = lazy(() => import('./components/RoleBasedOnboarding'))
 const UserProfile = lazy(() => import('./components/UserProfile'));
 const StartupRoadmap = lazy(() => import('./components/StartupRoadmap'));
 const GamificationDashboard = lazy(() => import('./components/GamificationDashboard'));
-const IMPACTSSystem = lazy(() => import('./components/IMPACTSSystem'));
+const Impacts = lazy(() => import('./components/Impacts'));
 const DecisionIntelligence = lazy(() => import('./components/DecisionIntelligence'));
 const RunwayIntelligence = lazy(() => import('./components/RunwayIntelligence'));
 const PMFValidation = lazy(() => import('./components/PMFValidation'));
@@ -33,13 +33,14 @@ const Signup = lazy(() => import('./components/auth/Signup'));
 const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
 
 import './App.css';
+import './styles/design-system.css';
 
 const LoadingScreen = () => (
-  <div className="fixed inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 flex items-center justify-center z-50">
+  <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
     <div className="text-center">
-      <div className="w-12 h-12 mb-4 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto"></div>
-      <h1 className="text-3xl font-bold text-white mb-2 mt-4">StartupOS</h1>
-      <p className="text-white text-lg">Initializing your startup operating system...</p>
+      <div className="w-12 h-12 mb-4 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+      <h1 className="text-3xl font-bold text-black mb-2 mt-4">StartupOS</h1>
+      <p className="text-gray-600 text-lg">Initializing your startup operating system...</p>
     </div>
   </div>
 );
@@ -105,11 +106,11 @@ const AppContent = () => {
       return (
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Component Not Found</h2>
+            <h2 className="text-2xl font-bold text-black mb-4">Component Not Found</h2>
             <p className="text-gray-600 mb-4">The requested component could not be loaded.</p>
             <button
               onClick={() => setCurrentView('dashboard')}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Go to Dashboard
             </button>
@@ -149,7 +150,7 @@ const AppContent = () => {
         case 'gamification':
           return renderComponent(GamificationDashboard);
         case 'impacts':
-          return renderComponent(IMPACTSSystem);
+          return renderComponent(Impacts);
         case 'decisions':
           return renderComponent(DecisionIntelligence);
         case 'runway':
@@ -170,15 +171,15 @@ const AppContent = () => {
       return (
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h2>
+            <h2 className="text-2xl font-bold text-black mb-4">Something went wrong</h2>
             <p className="text-gray-600 mb-4">Error: {error.message}</p>
-            <p className="text-sm text-gray-500 mb-4">View: {currentView}</p>
+            <p className="text-sm text-gray-600 mb-4">View: {currentView}</p>
             <button
               onClick={() => {
                 setError(null);
                 setCurrentView('dashboard');
               }}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Go to Dashboard
             </button>
@@ -208,13 +209,13 @@ const AppContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-white">
       {error && (
-        <div className="fixed top-4 right-4 z-50 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3">
+        <div className="fixed top-4 right-4 z-50 bg-white text-black border-2 border-black px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3">
           <span>{error}</span>
           <button
             onClick={() => setError(null)}
-            className="text-white hover:text-red-200"
+            className="text-black hover:text-gray-600"
           >
             ×
           </button>

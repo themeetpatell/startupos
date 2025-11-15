@@ -51,11 +51,11 @@ const EnhancedEcosystemHub = () => {
   });
 
   const tabs = [
-    { id: 'startups', label: 'Startups', icon: Building, count: 1247, color: 'blue' },
-    { id: 'founders', label: 'Founders', icon: User, count: 892, color: 'purple' },
-    { id: 'investors', label: 'Investors', icon: DollarSign, count: 156, color: 'green' },
-    { id: 'cxos', label: 'CXOs', icon: Crown, count: 234, color: 'orange' },
-    { id: 'employees', label: 'Employees', icon: Users, count: 89, color: 'indigo' }
+    { id: 'startups', label: 'Startups', icon: Building, count: 1247 },
+    { id: 'founders', label: 'Founders', icon: User, count: 892 },
+    { id: 'investors', label: 'Investors', icon: DollarSign, count: 156 },
+    { id: 'cxos', label: 'CXOs', icon: Crown, count: 234 },
+    { id: 'employees', label: 'Employees', icon: Users, count: 89 }
   ];
 
   // Enhanced data with unified structure
@@ -66,7 +66,7 @@ const EnhancedEcosystemHub = () => {
       name: 'TechFlow AI',
       tagline: 'AI-powered workflow automation for SMBs',
       description: 'We build intelligent automation tools that help businesses streamline their operations and increase productivity by 300%.',
-      logo: 'https://ui-avatars.com/api/?name=TechFlow+AI&background=6366f1&color=fff',
+      logo: 'https://ui-avatars.com/api/?name=TechFlow+AI&background=2563EB&color=fff',
       location: 'San Francisco, CA',
       founded: '2022',
       tags: ['AI', 'Automation', 'B2B', 'SaaS'],
@@ -99,7 +99,7 @@ const EnhancedEcosystemHub = () => {
       name: 'GreenTech Solutions',
       tagline: 'Sustainable energy for the future',
       description: 'Developing next-generation solar panels and energy storage solutions to accelerate the transition to renewable energy.',
-      logo: 'https://ui-avatars.com/api/?name=GreenTech&background=10b981&color=fff',
+      logo: 'https://ui-avatars.com/api/?name=GreenTech&background=2563EB&color=fff',
       location: 'Austin, TX',
       founded: '2023',
       tags: ['CleanTech', 'Energy', 'Sustainability', 'Hardware'],
@@ -130,7 +130,7 @@ const EnhancedEcosystemHub = () => {
       name: 'Sarah Chen',
       tagline: 'Founder @ TechFlow AI',
       description: 'Ex-Google AI researcher with 8+ years in machine learning. Led teams that built products used by 1B+ users.',
-      avatar: 'https://ui-avatars.com/api/?name=Sarah+Chen&background=6366f1&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=Sarah+Chen&background=2563EB&color=fff',
       location: 'San Francisco, CA',
       founded: '2022',
       tags: ['AI/ML', 'Product Strategy', 'Team Building'],
@@ -155,7 +155,7 @@ const EnhancedEcosystemHub = () => {
       name: 'Michael Rodriguez',
       tagline: 'Founder @ TechFlow AI',
       description: 'Serial entrepreneur with 3 successful exits. Expert in scaling engineering teams and building enterprise software.',
-      avatar: 'https://ui-avatars.com/api/?name=Michael+Rodriguez&background=8b5cf6&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=Michael+Rodriguez&background=2563EB&color=fff',
       location: 'San Francisco, CA',
       founded: '2022',
       tags: ['Engineering', 'Scaling', 'Enterprise Sales'],
@@ -183,7 +183,7 @@ const EnhancedEcosystemHub = () => {
       name: 'Jennifer Walsh',
       tagline: 'Partner @ Sequoia Capital',
       description: 'Leading investor in AI and enterprise software. Has invested in 50+ companies with 15+ unicorns.',
-      avatar: 'https://ui-avatars.com/api/?name=Jennifer+Walsh&background=f59e0b&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=Jennifer+Walsh&background=2563EB&color=fff',
       location: 'Menlo Park, CA',
       founded: '2010',
       tags: ['AI/ML', 'Enterprise Software', 'SaaS'],
@@ -206,7 +206,7 @@ const EnhancedEcosystemHub = () => {
       name: 'David Park',
       tagline: 'Managing Partner @ Andreessen Horowitz',
       description: 'Former founder turned investor. Focus on consumer and marketplace businesses. 20+ years in tech.',
-      avatar: 'https://ui-avatars.com/api/?name=David+Park&background=ef4444&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=David+Park&background=2563EB&color=fff',
       location: 'San Francisco, CA',
       founded: '2008',
       tags: ['Consumer', 'Marketplace', 'Mobile'],
@@ -232,7 +232,7 @@ const EnhancedEcosystemHub = () => {
       name: 'Dr. Lisa Thompson',
       tagline: 'Fractional CTO, ex-Google',
       description: '20+ years building and scaling engineering teams. Expert in AI/ML, distributed systems, and technical leadership.',
-      avatar: 'https://ui-avatars.com/api/?name=Lisa+Thompson&background=06b6d4&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=Lisa+Thompson&background=2563EB&color=fff',
       location: 'Palo Alto, CA',
       founded: '2005',
       tags: ['Engineering Leadership', 'AI/ML', 'Distributed Systems'],
@@ -259,7 +259,7 @@ const EnhancedEcosystemHub = () => {
       name: 'Robert Chen',
       tagline: 'Fractional CMO, ex-Salesforce',
       description: 'Marketing executive with 15+ years experience scaling B2B SaaS companies. Expert in growth marketing and brand building.',
-      avatar: 'https://ui-avatars.com/api/?name=Robert+Chen&background=10b981&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=Robert+Chen&background=2563EB&color=fff',
       location: 'San Francisco, CA',
       founded: '2008',
       tags: ['Growth Marketing', 'Brand Strategy', 'B2B Sales'],
@@ -289,7 +289,7 @@ const EnhancedEcosystemHub = () => {
       name: 'Alex Kumar',
       tagline: 'Growth Marketer',
       description: 'Expert in growth marketing and user acquisition. 5+ years scaling B2B SaaS companies from 0 to $10M ARR.',
-      avatar: 'https://ui-avatars.com/api/?name=Alex+Kumar&background=8b5cf6&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=Alex+Kumar&background=2563EB&color=fff',
       location: 'San Francisco, CA',
       founded: '2019',
       tags: ['Growth Marketing', 'User Acquisition', 'B2B SaaS'],
@@ -310,7 +310,7 @@ const EnhancedEcosystemHub = () => {
       name: 'Maria Garcia',
       tagline: 'UI/UX Designer',
       description: 'Creative designer specializing in user experience and interface design. Expert in Figma, Adobe Creative Suite.',
-      avatar: 'https://ui-avatars.com/api/?name=Maria+Garcia&background=ec4899&color=fff',
+      avatar: 'https://ui-avatars.com/api/?name=Maria+Garcia&background=2563EB&color=fff',
       location: 'Austin, TX',
       founded: '2020',
       tags: ['UI/UX Design', 'Figma', 'Adobe Creative Suite'],
@@ -410,9 +410,9 @@ const EnhancedEcosystemHub = () => {
 
   const getAvailabilityColor = (availability) => {
     switch (availability) {
-      case 'Open': return 'text-green-600 bg-green-50 border-green-200';
-      case 'Busy': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'Limited': return 'text-orange-600 bg-orange-50 border-orange-200';
+      case 'Open': return 'text-white bg-blue-600 border-blue-600';
+      case 'Busy': return 'text-black bg-gray-200 border-gray-200';
+      case 'Limited': return 'text-blue-600 bg-blue-50 border-blue-600';
       default: return 'text-gray-600 bg-gray-50 border-gray-200';
     }
   };
@@ -822,7 +822,7 @@ const EnhancedEcosystemHub = () => {
             <div className="flex items-center space-x-2">
               <h3 className="text-lg font-bold text-gray-900 truncate">{item.name}</h3>
               {item.trending && (
-                <div className="flex items-center space-x-1 text-orange-500">
+                <div className="flex items-center space-x-1 text-blue-600">
                   <TrendingUp className="w-4 h-4" />
                   <span className="text-xs font-medium">Trending</span>
                 </div>
@@ -832,10 +832,10 @@ const EnhancedEcosystemHub = () => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <button className="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50 transition-colors">
+          <button className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
             <Heart size={16} />
           </button>
-          <button className="p-2 text-gray-400 hover:text-blue-500 rounded-lg hover:bg-blue-50 transition-colors">
+          <button className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
             <Share size={16} />
           </button>
         </div>
@@ -937,7 +937,7 @@ const EnhancedEcosystemHub = () => {
                 <div className="flex items-center space-x-2">
                   <h1 className="text-3xl font-bold text-gray-900">{item.name}</h1>
                   {item.trending && (
-                    <div className="flex items-center space-x-1 text-orange-500">
+                    <div className="flex items-center space-x-1 text-blue-600">
                       <TrendingUp className="w-5 h-5" />
                       <span className="text-sm font-medium">Trending</span>
                     </div>
@@ -1003,7 +1003,7 @@ const EnhancedEcosystemHub = () => {
                   <ul className="space-y-2">
                     {item.achievements.map((achievement, index) => (
                       <li key={index} className="flex items-center space-x-2">
-                        <CheckCircle size={16} className="text-green-500" />
+                        <CheckCircle size={16} className="text-blue-600" />
                         <span className="text-gray-600">{achievement}</span>
                       </li>
                     ))}
@@ -1033,11 +1033,11 @@ const EnhancedEcosystemHub = () => {
                     <MessageCircle size={16} />
                     <span>Send Message</span>
                   </button>
-                  <button className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                  <button className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     <Calendar size={16} />
                     <span>Schedule Meeting</span>
                   </button>
-                  <button className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                  <button className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     <Heart size={16} />
                     <span>Add to Favorites</span>
                   </button>
@@ -1060,7 +1060,7 @@ const EnhancedEcosystemHub = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Tab-specific Search and Filters */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8">
