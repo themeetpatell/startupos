@@ -99,20 +99,9 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 500, // Reduced from 1000
+    chunkSizeWarningLimit: 500,
     target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
-        passes: 2
-      },
-      mangle: {
-        safari10: true
-      }
-    },
+    minify: 'esbuild',
     sourcemap: false, // Disable sourcemaps in production
     reportCompressedSize: false // Disable size reporting for faster builds
   },
