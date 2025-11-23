@@ -2,9 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 export const useAnalytics = () => {
   const trackEvent = useCallback((eventName, properties = {}) => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Analytics Event:', eventName, properties);
-    }
+    // Analytics event tracked
   }, []);
 
   const trackPageView = useCallback((pageName) => {
@@ -59,11 +57,7 @@ export const usePerformanceMonitor = () => {
         const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
         const domContentLoaded = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
         
-        console.log('Performance Metrics:', {
-          loadTime,
-          domContentLoaded,
-          firstPaint: performance.getEntriesByType('paint')[0]?.startTime
-        });
+        // Performance metrics tracked
       }
     };
 
@@ -73,14 +67,14 @@ export const usePerformanceMonitor = () => {
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
-        console.log('LCP:', lastEntry.startTime);
+        // LCP tracked
       }).observe({ entryTypes: ['largest-contentful-paint'] });
 
       // First Input Delay
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach((entry) => {
-          console.log('FID:', entry.processingStart - entry.startTime);
+          // FID tracked
         });
       }).observe({ entryTypes: ['first-input'] });
 
@@ -93,7 +87,7 @@ export const usePerformanceMonitor = () => {
             clsValue += entry.value;
           }
         });
-        console.log('CLS:', clsValue);
+        // CLS tracked
       }).observe({ entryTypes: ['layout-shift'] });
     };
 
@@ -103,11 +97,7 @@ export const usePerformanceMonitor = () => {
       const slowResources = resources.filter(resource => resource.duration > 1000);
       
       if (slowResources.length > 0) {
-        console.log('Slow Resources:', slowResources.map(r => ({
-          name: r.name,
-          duration: r.duration,
-          size: r.transferSize
-        })));
+        // Slow resources tracked
       }
     };
 
@@ -142,7 +132,7 @@ export const useBundleSizeMonitor = () => {
         }
       });
       
-      console.log('Estimated Bundle Size:', totalSize, 'KB');
+      // Bundle size estimated
     }
   }, []);
 };

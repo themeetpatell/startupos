@@ -150,14 +150,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
     }
   }, [user, actions]);
 
-  // Debug state changes
-  useEffect(() => {
-    console.log('State changed:', state);
-  }, [state]);
-
   const handleInputChange = (field, value) => {
-    console.log('handleInputChange called with:', field, value);
-    console.log('Current state before update:', state.data);
     
     // Handle role separately as it's stored in data.role, not data.profile.role
     if (field === 'role') {
@@ -239,10 +232,7 @@ const RoleBasedOnboarding = ({ onComplete }) => {
         {roles.map((role) => (
           <button
             key={role.id}
-            onClick={() => {
-              console.log('Role button clicked:', role.id);
-              handleInputChange('role', role.id);
-            }}
+            onClick={() => handleInputChange('role', role.id)}
             className={`p-6 rounded-xl border-2 text-center transition-all ${
               state.data.role === role.id
                 ? 'border-blue-600 bg-blue-50 shadow-lg'

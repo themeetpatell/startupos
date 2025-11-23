@@ -551,8 +551,6 @@ const Impacts = () => {
       aiInsights: []
     };
     
-    console.log('Creating objective:', newObjective);
-    
     setObjectives(prev => [...prev, newObjective]);
     setShowObjectiveModal(false);
     setObjectiveForm({ title: '', description: '', timeline: '12', priority: 'high', metrics: { target: '', current: '' } });
@@ -560,7 +558,6 @@ const Impacts = () => {
     // Generate AI initiatives after short delay
     setTimeout(() => {
       const generatedInitiatives = generateAIInitiatives(newObjective);
-      console.log('Generated initiatives:', generatedInitiatives);
       setObjectives(prev => prev.map(obj =>
         obj.id === newObjective.id
           ? { ...obj, initiatives: generatedInitiatives }
@@ -583,7 +580,6 @@ const Impacts = () => {
   };
 
   const handleUpdateObjective = () => {
-    console.log('Updating objective:', currentObjectiveId, objectiveForm);
     setObjectives(prev => prev.map(obj =>
       obj.id === currentObjectiveId
         ? { 
@@ -604,14 +600,11 @@ const Impacts = () => {
 
   const handleDeleteObjective = (objectiveId) => {
     if (window.confirm('Are you sure you want to delete this objective? This will remove all associated initiatives and projects.')) {
-      console.log('Deleting objective:', objectiveId);
       setObjectives(prev => prev.filter(obj => obj.id !== objectiveId));
     }
   };
 
   const handleConvertToProject = (initiative, objectiveId) => {
-    console.log('Converting initiative to project:', initiative.title);
-    
     const mockProject = {
       id: Date.now(),
       title: `Project: ${initiative.title}`,
@@ -654,8 +647,6 @@ const Impacts = () => {
       return;
     }
 
-    console.log('Adding key result:', keyResultForm);
-
     const newKeyResult = {
       id: Date.now(),
       title: keyResultForm.title,
@@ -690,7 +681,6 @@ const Impacts = () => {
   };
 
   const handleUpdateKeyResultProgress = (objectiveId, initiativeId, projectId, keyResultId, newProgress) => {
-    console.log('Updating KR progress:', keyResultId, newProgress);
     setObjectives(prev => prev.map(obj =>
       obj.id === objectiveId
         ? {
@@ -722,8 +712,6 @@ const Impacts = () => {
       alert('Please enter a KPI name');
       return;
     }
-
-    console.log('Adding KPI:', kpiForm);
 
     const newKPI = {
       id: Date.now(),
@@ -761,7 +749,6 @@ const Impacts = () => {
   };
 
   const handleUpdateKPI = (objectiveId, initiativeId, projectId, kpiId, newCurrent) => {
-    console.log('Updating KPI:', kpiId, newCurrent);
     setObjectives(prev => prev.map(obj =>
       obj.id === objectiveId
         ? {
@@ -796,7 +783,6 @@ const Impacts = () => {
   };
 
   const handleAssignTeamMember = (projectId, objectiveId, initiativeId, memberId) => {
-    console.log('Assigning team member:', memberId);
     setObjectives(prev => prev.map(obj =>
       obj.id === objectiveId
         ? {
@@ -828,8 +814,6 @@ const Impacts = () => {
       alert('Please enter milestone title and date');
       return;
     }
-
-    console.log('Adding milestone:', milestoneForm);
 
     const newMilestone = {
       id: Date.now(),
@@ -864,7 +848,6 @@ const Impacts = () => {
   };
 
   const handleToggleMilestone = (objectiveId, initiativeId, projectId, milestoneId) => {
-    console.log('Toggling milestone:', milestoneId);
     setObjectives(prev => prev.map(obj =>
       obj.id === objectiveId
         ? {
@@ -892,7 +875,6 @@ const Impacts = () => {
   };
 
   const handleAcceptRecommendation = (recommendation) => {
-    console.log('Accepting recommendation:', recommendation);
     setAiRecommendations(prev => prev.map(rec =>
       rec.id === recommendation.id ? { ...rec, accepted: true } : rec
     ));
@@ -904,13 +886,10 @@ const Impacts = () => {
           ? { ...obj, timeline: obj.timeline + 2, health: Math.min(100, obj.health + 10) }
           : obj
       ));
-    } else if (recommendation.type === 'resource') {
-      console.log('Resource reallocation accepted:', recommendation);
     }
   };
 
   const handleDismissRecommendation = (recommendationId) => {
-    console.log('Dismissing recommendation:', recommendationId);
     setAiRecommendations(prev => prev.filter(rec => rec.id !== recommendationId));
   };
 

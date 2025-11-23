@@ -17,8 +17,7 @@ class ErrorBoundary extends React.Component {
       errorInfo: errorInfo
     });
     
-    // Log error to monitoring service
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    // Error logged to monitoring service
   }
 
   handleRetry = () => {

@@ -85,8 +85,6 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    // Implement search functionality
-    console.log('Searching for:', query);
   };
 
   return (
@@ -204,7 +202,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
               {/* Search */}
               <div className="relative" ref={searchRef}>
                 <motion.button
-                  onClick={() => console.log('Search clicked')}
+                  onClick={() => setShowSearch(!showSearch)}
                   className="p-2 text-black hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -419,7 +417,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                               className={`w-full flex items-center space-x-3 px-3 py-3 text-left rounded-xl transition-all duration-300 ${
                                 isActive 
                                   ? getColorClasses(true) + ' shadow-md'
-                                  : `hover:bg-${item.color}-50`
+                                  : 'hover:bg-gray-50'
                               }`}
                               whileHover={{ scale: 1.02, x: 4 }}
                               whileTap={{ scale: 0.98 }}
@@ -427,12 +425,12 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                                 isActive 
                                   ? 'bg-white/20' 
-                                  : `bg-${item.color}-100`
+                                  : 'bg-gray-100'
                               }`}>
                                 <Icon size={20} className={`${
                                   isActive 
                                     ? 'text-white' 
-                                    : `text-${item.color}-600`
+                                    : 'text-gray-600'
                                 }`} />
                               </div>
                               <div>
@@ -469,7 +467,7 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                               className={`w-full flex items-center space-x-3 px-3 py-3 text-left rounded-xl transition-all duration-300 ${
                                 isActive 
                                   ? getColorClasses(true) + ' shadow-md'
-                                  : `hover:bg-${item.color}-50`
+                                  : 'hover:bg-gray-50'
                               }`}
                               whileHover={{ scale: 1.02, x: 4 }}
                               whileTap={{ scale: 0.98 }}
@@ -477,12 +475,12 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
                               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                                 isActive 
                                   ? 'bg-white/20' 
-                                  : `bg-${item.color}-100`
+                                  : 'bg-gray-100'
                               }`}>
                                 <Icon size={20} className={`${
                                   isActive 
                                     ? 'text-white' 
-                                    : `text-${item.color}-600`
+                                    : 'text-gray-600'
                                 }`} />
                               </div>
                               <div>
@@ -751,16 +749,6 @@ const Navigation = ({ currentView, setCurrentView, user, onLogout }) => {
         </motion.div>
       </div>
 
-      {/* Search Modal */}
-      {/* <SearchModal
-        isOpen={showSearchModal}
-        onClose={() => setShowSearchModal(false)}
-        onNavigate={(type, id) => {
-          console.log('Navigate to:', type, id);
-          // Handle navigation based on type and id
-          setShowSearchModal(false);
-        }}
-      /> */}
     </>
   );
 };

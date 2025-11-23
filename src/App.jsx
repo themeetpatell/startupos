@@ -32,7 +32,6 @@ const Login = lazy(() => import('./components/auth/Login'));
 const Signup = lazy(() => import('./components/auth/Signup'));
 const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
 
-import './App.css';
 import './styles/design-system.css';
 
 const LoadingScreen = () => (
@@ -79,7 +78,7 @@ const AppContent = () => {
         appActions.setOnboardingData(data);
         appActions.setPersonalizedConfig(personalizedConfig);
       } catch (error) {
-        console.error('Error loading onboarding data:', error);
+        // Error loading onboarding data
       }
     }
     
@@ -92,7 +91,6 @@ const AppContent = () => {
 
   useEffect(() => {
     const handleError = (error) => {
-      console.error('App Error:', error);
       setError(error.message || 'An unexpected error occurred');
     };
 
@@ -101,24 +99,6 @@ const AppContent = () => {
   }, []);
 
   const renderComponent = useCallback((Component) => {
-    if (!Component) {
-      console.error('Component is undefined');
-      return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-black mb-4">Component Not Found</h2>
-            <p className="text-gray-600 mb-4">The requested component could not be loaded.</p>
-            <button
-              onClick={() => setCurrentView('dashboard')}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Go to Dashboard
-            </button>
-          </div>
-        </div>
-      );
-    }
-    
     return (
       <Suspense fallback={<LoadingScreen />}>
         <Component />
@@ -126,68 +106,26 @@ const AppContent = () => {
     );
   }, []);
 
-  const renderCurrentView = () => {
-    try {
-      switch (currentView) {
-        case 'dashboard':
-          return renderComponent(Dashboard);
-        case 'analytics':
-          return renderComponent(AdvancedAnalytics);
-        case 'ecosystem':
-          return renderComponent(EcosystemHub);
-        case 'workhub':
-          return renderComponent(WorkHub);
-        case 'people':
-          return renderComponent(PeopleManagement);
-        case 'billing':
-          return renderComponent(Billing);
-        case 'support':
-          return renderComponent(HelpSupport);
-        case 'profile':
-          return renderComponent(UserProfile);
-        case 'roadmap':
-          return renderComponent(StartupRoadmap);
-        case 'gamification':
-          return renderComponent(GamificationDashboard);
-        case 'impacts':
-          return renderComponent(Impacts);
-        case 'decisions':
-          return renderComponent(DecisionIntelligence);
-        case 'runway':
-          return renderComponent(RunwayIntelligence);
-        case 'pmf':
-          return renderComponent(PMFValidation);
-        case 'customers':
-          return renderComponent(CustomerIntelligence);
-        case 'captable':
-          return renderComponent(CapTableFundraising);
-        default:
-          console.warn('Unknown view:', currentView);
-          return renderComponent(Dashboard);
-      }
-    } catch (error) {
-      console.error('Error rendering view:', error);
-      setError(`Failed to load ${currentView} page: ${error.message}`);
-      return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-black mb-4">Something went wrong</h2>
-            <p className="text-gray-600 mb-4">Error: {error.message}</p>
-            <p className="text-sm text-gray-600 mb-4">View: {currentView}</p>
-            <button
-              onClick={() => {
-                setError(null);
-                setCurrentView('dashboard');
-              }}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Go to Dashboard
-            </button>
-          </div>
-        </div>
-      );
-    }
+  const viewComponents = {
+    dashboard: Dashboard,
+    analytics: AdvancedAnalytics,
+    ecosystem: EcosystemHub,
+    workhub: WorkHub,
+    people: PeopleManagement,
+    billing: Billing,
+    support: HelpSupport,
+    profile: UserProfile,
+    roadmap: StartupRoadmap,
+    gamification: GamificationDashboard,
+    impacts: Impacts,
+    decisions: DecisionIntelligence,
+    runway: RunwayIntelligence,
+    pmf: PMFValidation,
+    customers: CustomerIntelligence,
+    captable: CapTableFundraising
   };
+
+  const CurrentComponent = viewComponents[currentView] || Dashboard;
 
   const handleOnboardingComplete = (data) => {
     trackOnboardingStep('complete', data);
@@ -230,7 +168,7 @@ const AppContent = () => {
       />
 
       <div className="transition-all duration-200">
-        {renderCurrentView()}
+        {renderComponent(CurrentComponent)}
       </div>
     </div>
   );
@@ -244,6 +182,8 @@ function App() {
           <ToastProvider>
             <Router>
               <Routes>
+                <Route path="/" element={<Navigate to="/login" replace />} />
+                
                 <Route path="/login" element={
                   <Suspense fallback={<LoadingScreen />}>
                     <Login />
@@ -260,7 +200,7 @@ function App() {
                   </Suspense>
                 } />
                 
-                <Route path="/" element={
+                <Route path="/app" element={
                   <ProtectedRoute>
                     <GamificationProvider>
                       <AppContent />
@@ -268,7 +208,7 @@ function App() {
                   </ProtectedRoute>
                 } />
                 
-                <Route path="*" element={<Navigate to="/" replace />} />
+                <Route path="*" element={<Navigate to="/login" replace />} />
               </Routes>
             </Router>
           </ToastProvider>

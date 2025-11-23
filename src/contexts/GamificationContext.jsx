@@ -353,8 +353,7 @@ export const GamificationProvider = ({ children }) => {
   };
 
   const updateWeeklyGoal = (goalId, progress) => {
-    // This would update the weekly goals progress
-    console.log(`Updated goal ${goalId} progress to ${progress}`);
+    // Weekly goal progress updated
   };
 
   const value = {

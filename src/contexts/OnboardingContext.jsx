@@ -70,10 +70,7 @@ const onboardingReducer = (state, action) => {
       };
       
     case ActionTypes.UPDATE_DATA:
-      console.log('UPDATE_DATA action received:', action.payload);
-      // Handle role update separately since it's stored directly in data.role
       if (action.payload.section === 'role') {
-        console.log('Updating role to:', action.payload.data);
         return {
           ...state,
           data: {
