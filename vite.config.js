@@ -46,9 +46,6 @@ export default defineConfig({
             if (id.includes('react-helmet-async')) {
               return 'seo-vendor';
             }
-            if (id.includes('web-vitals')) {
-              return 'analytics-vendor';
-            }
             return 'vendor';
           }
           
