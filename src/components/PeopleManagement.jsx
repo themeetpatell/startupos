@@ -59,7 +59,6 @@ import {
   Hash,
   AtSign
 } from 'lucide-react';
-import '../App.css';
 
 const PeopleManagement = () => {
   const [activeTab, setActiveTab] = useState('team');

@@ -24,7 +24,6 @@ import {
   Smartphone,
   Monitor
 } from 'lucide-react';
-import '../App.css';
 
 const AdvancedAnalytics = () => {
   const [timeRange, setTimeRange] = useState('30d');

@@ -32,7 +32,6 @@ import {
   Grid as GridIcon, List as ListIcon, Play as PlayIcon, Pause as PauseIcon,
   MoreVertical as MoreVerticalIcon, Code as CodeIcon, Store as StoreIcon, Handshake
 } from 'lucide-react';
-import '../App.css';
 
 const UserProfile = () => {
   const { state, actions } = useAppState();
