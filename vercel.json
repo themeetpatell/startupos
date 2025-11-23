@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "startupos-platform",
+  "installCommand": "npm install --include=optional",
   "builds": [
     {
       "src": "package.json",
