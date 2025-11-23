@@ -762,139 +762,200 @@ const RoleBasedOnboarding = ({ onComplete }) => {
   );
 
   // Step 3: Activate
-  const renderActivateStep = () => (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="flex items-center justify-center py-8"
-    >
-      <div className="relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 w-full max-w-3xl overflow-hidden">
-        {/* Header Section */}
-        <div className="bg-gradient-to-br from-blue-600 via-blue-600 to-blue-700 px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <motion.div 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2, type: "spring", bounce: 0.5 }}
-                className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg"
-              >
-                <Rocket className="h-7 w-7 text-white" />
-              </motion.div>
-              <div>
-                <h2 className="text-xl font-bold text-white">StartupOS</h2>
-                <p className="text-sm text-blue-100 font-medium">Operating System</p>
-              </div>
-            </div>
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30"
-            >
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <p className="text-sm text-white font-semibold">Live</p>
-            </motion.div>
-          </div>
-        </div>
+  const renderActivateStep = () => {
+    const formatLabel = value => value ? value.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+    const name = state.data.profile?.name || 'John Doe';
+    const roleLabel = formatLabel(state.data.role) || 'Founder';
+    const stageLabel = formatLabel(state.data.profile?.stage) || 'Pre-Seed';
+    const location = state.data.profile?.country || 'United States';
+    const completion = Math.min(100, Math.round(((state.currentStep + 1) / steps.length) * 100));
 
-        {/* Profile Card Content */}
-        <div className="p-8">
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border border-gray-100">
-            <div className="flex items-start space-x-6 mb-6">
-              {/* Profile Avatar */}
-              <motion.div 
-                initial={{ scale: 0, rotate: -10 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.3, type: "spring", bounce: 0.4 }}
-                className="relative flex-shrink-0"
-              >
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl">
-                  <span className="text-3xl font-bold text-white">
-                    {state.data.profile?.name?.charAt(0) || 'J'}
+    const roleDetails = {
+      founder: {
+        primary: state.data.profile?.startupName || 'Untitled Venture',
+        secondary: state.data.profile?.industry || 'Industry not set'
+      },
+      investor: {
+        primary: formatLabel(state.data.profile?.investorType) || 'Investor',
+        secondary: state.data.profile?.investmentIndustries?.slice(0, 2).join(', ') || 'Focus not set'
+      },
+      builder: {
+        primary: formatLabel(state.data.profile?.domain) || 'Product Builder',
+        secondary: state.data.profile?.skills?.slice(0, 2).join(', ') || 'Skills not set'
+      }
+    };
+
+    const activeRoleDetails = roleDetails[state.data.role] || roleDetails.founder;
+    const avatarGradient = state.data.role === 'investor'
+      ? 'from-emerald-500 to-blue-500'
+      : state.data.role === 'builder'
+        ? 'from-purple-500 to-indigo-500'
+        : 'from-blue-600 to-indigo-600';
+
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative flex items-center justify-center py-10 px-4"
+      >
+        <div className="absolute inset-x-6 top-10 h-64 bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-[32px] blur-3xl pointer-events-none" />
+
+        <div className="relative w-full max-w-5xl overflow-hidden rounded-[28px] border border-slate-100 shadow-[0_18px_70px_rgba(24,39,75,0.12)] bg-white/90 backdrop-blur">
+          <div className="absolute -left-16 top-10 h-32 w-32 bg-blue-100/60 rounded-full blur-3xl" />
+          <div className="absolute -right-20 bottom-12 h-36 w-36 bg-indigo-100/70 rounded-full blur-3xl" />
+
+          <div className="relative grid md:grid-cols-5">
+            {/* Accent / Status Column */}
+            <div className="md:col-span-2 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white p-8 space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center shadow-lg">
+                    <Zap className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.32em] text-blue-100">Step 3</p>
+                    <h3 className="text-2xl font-bold">Launch checklist</h3>
+                  </div>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sm font-semibold">
+                  Activation Ready
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-sm text-blue-100">Profile completeness</p>
+                <div className="flex items-center space-x-3">
+                  <div className="flex-1 h-2 rounded-full bg-white/20 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-white"
+                      style={{ width: `${completion}%` }}
+                    />
+                  </div>
+                  <span className="text-base font-semibold">{completion}%</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {[roleLabel, stageLabel, location].map(tag => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1.5 rounded-full border border-white/25 bg-white/10 text-sm font-semibold backdrop-blur-sm"
+                  >
+                    {tag}
                   </span>
-                </div>
-              </motion.div>
+                ))}
+              </div>
 
-              {/* Profile Info */}
-              <motion.div 
-                initial={{ x: -10, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="flex-1"
-              >
-                <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                  {state.data.profile?.name || 'John Doe'}
-                </h3>
-                <p className="text-base text-gray-600 font-medium capitalize mb-3">{state.data.role || 'Founder'}</p>
-                
-                {/* Role-specific info */}
-                {state.data.role === 'founder' && state.data.profile?.startupName && (
-                  <div className="bg-white rounded-lg p-3 border border-gray-200">
-                    <p className="text-lg font-bold text-gray-900 mb-0.5">{state.data.profile.startupName}</p>
-                    <p className="text-sm text-gray-600">{state.data.profile?.industry}</p>
+              <div className="bg-white/10 border border-white/20 rounded-2xl p-4 space-y-3">
+                <p className="text-xs uppercase tracking-wide text-blue-100">Going live with</p>
+                {[
+                  { label: 'Identity', value: name },
+                  { label: 'Role', value: roleLabel },
+                  { label: 'Focus', value: activeRoleDetails.primary }
+                ].map(item => (
+                  <div key={item.label} className="flex items-start space-x-3">
+                    <div className="mt-1 w-2 h-2 rounded-full bg-emerald-300 shadow-[0_0_0_6px_rgba(255,255,255,0.08)]" />
+                    <div>
+                      <p className="text-[11px] uppercase tracking-wide text-blue-100">{item.label}</p>
+                      <p className="text-base font-semibold text-white">{item.value}</p>
+                    </div>
                   </div>
-                )}
+                ))}
+              </div>
 
-                {state.data.role === 'investor' && state.data.profile?.investorType && (
-                  <div className="bg-white rounded-lg p-3 border border-gray-200">
-                    <p className="text-lg font-bold text-gray-900 capitalize mb-0.5">{state.data.profile.investorType}</p>
-                    <p className="text-sm text-gray-600">{state.data.profile?.investmentIndustries?.slice(0, 1).join(', ')}</p>
-                  </div>
-                )}
-
-                {state.data.role === 'builder' && state.data.profile?.domain && (
-                  <div className="bg-white rounded-lg p-3 border border-gray-200">
-                    <p className="text-lg font-bold text-gray-900 capitalize mb-0.5">{state.data.profile.domain}</p>
-                    <p className="text-sm text-gray-600">{state.data.profile?.skills?.slice(0, 2).join(', ')}</p>
-                  </div>
-                )}
-              </motion.div>
+              <div className="flex items-center space-x-3 text-sm text-blue-100">
+                <CheckCircle className="h-5 w-5 text-emerald-200" />
+                <p>We use this profile to unlock tailored capital, talent, and partner matches.</p>
+              </div>
             </div>
 
-            {/* Location & Stage Grid */}
-            <motion.div 
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="grid grid-cols-2 gap-4"
-            >
-              {/* Location */}
-              <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <div className="flex items-center space-x-3 mb-2">
-                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                    <Globe className="h-5 w-5 text-blue-600" />
+            {/* Main Card */}
+            <div className="md:col-span-3 p-8 space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-2xl bg-blue-50 flex items-center justify-center border border-blue-100">
+                    <Rocket className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">Location</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">StartupOS card</p>
+                    <p className="text-lg font-semibold text-gray-900">Activation preview</p>
                   </div>
                 </div>
-                <p className="text-lg font-bold text-gray-900 ml-13">
-                  {state.data.profile?.country || 'United States'}
-                </p>
+                <div className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 text-sm font-semibold">
+                  Live signal on
+                </div>
               </div>
 
-              {/* Stage */}
-              <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <div className="flex items-center space-x-3 mb-2">
-                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="h-5 w-5 text-blue-600" />
+              <div className="rounded-2xl border border-slate-100 bg-gradient-to-br from-slate-50 to-white p-6 shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
+                <div className="flex items-start space-x-4">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-2xl font-bold shadow-lg`}>
+                    {name.charAt(0)}
                   </div>
-                  <div>
-                    <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">Stage</p>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2">
+                      <h3 className="text-2xl font-bold text-gray-900">{name}</h3>
+                      <span className="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
+                        Verified
+                      </span>
+                    </div>
+                    <p className="text-base text-gray-600 font-medium capitalize">{roleLabel}</p>
+                    <div className="mt-3 space-y-1">
+                      <p className="text-lg font-semibold text-gray-900">{activeRoleDetails.primary}</p>
+                      <p className="text-sm text-gray-600">{activeRoleDetails.secondary}</p>
+                    </div>
                   </div>
                 </div>
-                <p className="text-lg font-bold text-gray-900 capitalize ml-13">
-                  {state.data.profile?.stage?.replace('-', ' ') || 'Pre-Seed'}
-                </p>
+
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="rounded-xl border border-slate-200 bg-white p-4">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                        <Globe className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">Location</p>
+                        <p className="text-base font-semibold text-gray-900">{location}</p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-500">We prioritize nearby partners to accelerate your first wins.</p>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 bg-white p-4">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                        <TrendingUp className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">Stage</p>
+                        <p className="text-base font-semibold text-gray-900">{stageLabel}</p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-500">Signals and intros are calibrated to where you are right now.</p>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="rounded-xl border border-slate-200 bg-white p-4">
+                    <p className="text-xs uppercase tracking-wide text-gray-500 mb-2 font-semibold">Focus lane</p>
+                    <p className="text-base font-semibold text-gray-900">{activeRoleDetails.primary}</p>
+                    <p className="text-sm text-gray-600">{activeRoleDetails.secondary}</p>
+                  </div>
+                  <div className="rounded-xl border border-slate-200 bg-blue-50/70 p-4">
+                    <p className="text-xs uppercase tracking-wide text-blue-700 mb-2 font-semibold">Next milestone</p>
+                    <p className="text-base font-semibold text-gray-900">
+                      Personalized launch plan goes live after activation.
+                    </p>
+                    <p className="text-sm text-blue-700">We’ll surface the first three warm intros to get moving.</p>
+                  </div>
+                </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </div>
-    </motion.div>
-  );
+      </motion.div>
+    );
+  };
 
 
   const renderStepContent = () => {

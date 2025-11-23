@@ -7,12 +7,93 @@ import {
   RefreshCw, Clock, ChevronDown, ChevronUp
 } from 'lucide-react';
 
+// Core IMPACTS definitions to keep the model consistent across teams
+const impactsModel = [
+  { letter: 'I', title: 'Intent', description: 'Why this matters now and the outcome you need', prompt: 'If we nail this, what changes for the company this quarter?', proof: '1-line success statement + decision guardrails' },
+  { letter: 'M', title: 'Milestones', description: 'Bounded targets with owners and deadlines', prompt: 'What 3 measurable proof points show we are on track?', proof: '3-5 measurable checkpoints with dates' },
+  { letter: 'P', title: 'Progress', description: 'Evidence and pace toward the outcome', prompt: 'What is the current velocity and confidence?', proof: 'Weekly deltas + confidence call' },
+  { letter: 'A', title: 'Alignment', description: 'How this ladders into company priorities', prompt: 'Which strategic bets or OKRs does this unlock?', proof: 'Linked bets + cross-team dependencies' },
+  { letter: 'C', title: 'Compounding', description: 'Existing assets to reuse and amplify', prompt: 'What assets make this easier or cheaper?', proof: 'Named assets with expected leverage' },
+  { letter: 'T', title: 'Traction', description: 'Momentum signals that show pull', prompt: 'Which behaviors or metrics prove people want this?', proof: 'Leading indicators with trends' },
+  { letter: 'S', title: 'Signals', description: 'Feedback loops to learn and adjust', prompt: 'What inputs will we watch weekly to adapt?', proof: 'Qual + quant signals with owners' }
+];
+
+// Department-ready playbooks so any team can drop into IMPACTS quickly
+const departmentGuides = {
+  product: {
+    label: 'Product',
+    summary: 'Ship experiences that activate, retain, and delight.',
+    northStar: 'Time-to-value and weekly retention stay green while we ship faster.',
+    metrics: ['Activation % by cohort', 'DAU/WAU with depth', 'Task success time', 'NPS/CSAT', 'Bug escape rate'],
+    signals: ['Usability sessions weekly', 'Support ticket themes', 'Feature adoption curves', 'Funnel drop-off videos'],
+    assets: ['Design system tokens', 'Beta community', 'Analytics events library'],
+    playbooks: [
+      'Intent: cut onboarding time by 30% for new workspaces.',
+      'Milestones: instrument 3 core flows; hit 60% completion rate; 10 qualitative sessions.',
+      'Signals: daily error rate <1%; activation uplift week-over-week.'
+    ]
+  },
+  revenue: {
+    label: 'Revenue',
+    summary: 'Build reliable pipeline, higher win rates, and healthy expansion.',
+    northStar: '3x pipeline coverage and sub-60 day cycles with rising win rates.',
+    metrics: ['Pipeline coverage', 'Win rate by segment', 'Sales cycle length', 'Expansion vs. churn', 'Payback period'],
+    signals: ['Disco call objections', 'Champion engagement score', 'Security/legal blockers', 'Pilot-to-paid conversion'],
+    assets: ['Reference customers', 'Case study library', 'Pricing calculator'],
+    playbooks: [
+      'Intent: de-risk enterprise pilots into annual contracts.',
+      'Milestones: 5 pilots launched; 3 convert to 12-month; standard SOC/legal pack adopted.',
+      'Signals: weekly deal velocity; stakeholder map completeness; red-line time.'
+    ]
+  },
+  marketing: {
+    label: 'Marketing',
+    summary: 'Create demand that converts with clean handoffs to revenue.',
+    northStar: 'Qualified demand that matches ICP with predictable CAC payback.',
+    metrics: ['MQL to SQL quality', 'CAC payback', 'Channel ROI', 'Inbound vs. outbound mix', 'Content-assisted revenue'],
+    signals: ['Message pull in customer calls', 'Content engagement depth', 'Channel fatigue', 'Referral/partner sourced leads'],
+    assets: ['Positioning doc', 'Proof library', 'SEO moat keywords'],
+    playbooks: [
+      'Intent: tighten ICP and stop unqualified handoffs.',
+      'Milestones: ICP refresh; new offer live; 3 partner co-marketing drops.',
+      'Signals: demo-to-close rate; sourced pipeline lift; bounce/scroll depth.'
+    ]
+  },
+  people: {
+    label: 'People',
+    summary: 'Build a healthy team that ships quickly and scales culture.',
+    northStar: 'Hiring velocity up while engagement and quality stay high.',
+    metrics: ['Time-to-fill', 'Offer acceptance', 'Ramp time', 'Engagement/ENPS', 'Retention of top performers'],
+    signals: ['Interview bottlenecks', 'Manager 1:1 notes themes', 'Attrition risk flags', 'Learning budget usage'],
+    assets: ['Hiring rubric', 'Onboarding playbooks', 'Mentorship bench'],
+    playbooks: [
+      'Intent: reduce ramp time for new hires by 25%.',
+      'Milestones: role scorecards live; onboarding buddy program; 30/60/90 templates adopted.',
+      'Signals: time-to-first-PR/ship; new hire pulse; manager confidence.'
+    ]
+  },
+  operations: {
+    label: 'Operations',
+    summary: 'Keep the machine reliable while cutting waste.',
+    northStar: 'Cycle times fall and unit economics improve without heroics.',
+    metrics: ['Cycle time per workflow', 'Cost per ticket/issue', 'SLA adherence', 'Escalation rate', 'Gross margin trend'],
+    signals: ['Queue aging', 'Process exceptions', 'Tooling incidents', 'Manual steps discovered'],
+    assets: ['Runbooks', 'Automation scripts', 'Shared dashboards'],
+    playbooks: [
+      'Intent: remove manual ops from top 3 workflows.',
+      'Milestones: map critical path; automate 2 steps; SLA compliance at 95%.',
+      'Signals: queue depth daily; rework percentage; incident recurrence.'
+    ]
+  }
+};
+
 const IMPACTSSystem = () => {
   const [impacts, setImpacts] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(null);
   const [viewMode, setViewMode] = useState('all');
   const [expandedImpacts, setExpandedImpacts] = useState(new Set());
+  const [selectedDepartment, setSelectedDepartment] = useState('product');
 
   // Form state
   const [formData, setFormData] = useState({
@@ -244,6 +325,15 @@ const IMPACTSSystem = () => {
     }
   };
 
+  const handleDepartmentSelect = (dept) => {
+    setSelectedDepartment(dept);
+    if (['product', 'revenue', 'people'].includes(dept)) {
+      setViewMode(dept);
+    } else {
+      setViewMode('all');
+    }
+  };
+
   const toggleImpact = (id) => {
     const newExpanded = new Set(expandedImpacts);
     if (newExpanded.has(id)) {
@@ -266,6 +356,7 @@ const IMPACTSSystem = () => {
   const overallMomentum = impacts.length > 0
     ? Math.round(impacts.reduce((sum, i) => sum + i.traction.momentum, 0) / impacts.length)
     : 0;
+  const activeDepartmentGuide = departmentGuides[selectedDepartment];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
@@ -284,6 +375,118 @@ const IMPACTSSystem = () => {
               <Plus className="h-5 w-5" />
               <span>New Impact</span>
             </button>
+          </div>
+        </div>
+
+        {/* IMPACTS primer and department lens */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-2 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold">IMPACTS Model</p>
+                <h2 className="text-xl font-bold text-gray-900">Seven moves to keep strategy actionable</h2>
+              </div>
+              <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <Compass className="h-4 w-4 text-blue-600" />
+                <span>Built for cross-functional teams</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {impactsModel.map(item => (
+                <div key={item.letter} className="border border-gray-200 rounded-xl p-4 bg-gradient-to-br from-gray-50 to-white shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <div className="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-lg font-bold shadow-md">
+                      {item.letter}
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold">{item.title}</p>
+                      <p className="text-sm text-gray-900 font-semibold">{item.description}</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-700 mb-2">{item.prompt}</p>
+                  <div className="flex items-center text-xs text-gray-600 space-x-2">
+                    <Sparkles className="h-3.5 w-3.5 text-blue-600" />
+                    <span>{item.proof}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Department Lens</p>
+                <h3 className="text-lg font-bold text-gray-900">Drop-in guidance</h3>
+              </div>
+              <Brain className="h-5 w-5 text-blue-600" />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {Object.keys(departmentGuides).map(key => (
+                <button
+                  key={key}
+                  onClick={() => handleDepartmentSelect(key)}
+                  className={`px-3 py-1.5 rounded-full border text-sm font-semibold transition-all ${
+                    selectedDepartment === key
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                      : 'border-gray-200 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {departmentGuides[key].label}
+                </button>
+              ))}
+            </div>
+
+            <div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
+              <p className="text-xs uppercase tracking-wide text-blue-700 font-semibold mb-1">{activeDepartmentGuide.label} north star</p>
+              <p className="text-sm text-gray-900 font-semibold">{activeDepartmentGuide.northStar}</p>
+              <p className="text-sm text-gray-700 mt-1">{activeDepartmentGuide.summary}</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+                <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Metrics to watch</p>
+                <ul className="space-y-1">
+                  {activeDepartmentGuide.metrics.slice(0, 4).map((metric, idx) => (
+                    <li key={idx} className="text-sm text-gray-800 flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600" />
+                      <span>{metric}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="border border-gray-200 rounded-lg p-3 bg-white">
+                <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Signals + assets</p>
+                <ul className="space-y-1">
+                  {activeDepartmentGuide.signals.slice(0, 3).map((signal, idx) => (
+                    <li key={signal} className="text-sm text-gray-800 flex items-center space-x-2">
+                      <Eye className="h-4 w-4 text-blue-600" />
+                      <span>{signal}</span>
+                    </li>
+                  ))}
+                  <li className="text-sm text-gray-800 flex items-center space-x-2">
+                    <Zap className="h-4 w-4 text-blue-600" />
+                    <span>{activeDepartmentGuide.assets[0]}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-gray-200 p-3 bg-gradient-to-br from-gray-50 to-white">
+              <div className="flex items-center space-x-2 mb-2">
+                <BarChart3 className="h-4 w-4 text-blue-600" />
+                <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold">IMPACTS playbook</p>
+              </div>
+              <ul className="space-y-1.5">
+                {activeDepartmentGuide.playbooks.map((line, idx) => (
+                  <li key={idx} className="text-sm text-gray-800 flex items-start space-x-2">
+                    <span className="text-blue-600 font-semibold">{idx + 1}.</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -356,20 +559,40 @@ const IMPACTSSystem = () => {
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-3 flex-wrap gap-2">
-                      <div className={`px-3 py-1 rounded-lg border flex items-center space-x-1.5 text-xs font-semibold ${getStatusColor(impact.status)}`}>
-                        <Activity className="h-3.5 w-3.5" />
-                        <span className="capitalize">{impact.status}</span>
-                      </div>
+                <div className="flex items-center space-x-2 mb-3 flex-wrap gap-2">
+                  <div className={`px-3 py-1 rounded-lg border flex items-center space-x-1.5 text-xs font-semibold ${getStatusColor(impact.status)}`}>
+                    <Activity className="h-3.5 w-3.5" />
+                    <span className="capitalize">{impact.status}</span>
+                  </div>
                       <div className="px-2.5 py-1 rounded-lg bg-gray-50 text-gray-700 text-xs font-semibold capitalize border border-gray-200">
                         {impact.category}
                       </div>
-                      <div className="px-2.5 py-1 rounded-lg bg-gray-50 text-gray-700 text-xs font-semibold capitalize border border-gray-200">
-                        {impact.priority} priority
-                      </div>
+                    <div className="px-2.5 py-1 rounded-lg bg-gray-50 text-gray-700 text-xs font-semibold capitalize border border-gray-200">
+                      {impact.priority} priority
                     </div>
-                    
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{impact.title}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {[
+                      { label: 'Intent', filled: Boolean(impact.intent) },
+                      { label: 'Milestones', filled: impact.milestones.length > 0 },
+                      { label: 'Alignment', filled: impact.alignment?.links?.length > 0 },
+                      { label: 'Compounding', filled: impact.compounding?.leverage?.length > 0 },
+                      { label: 'Signals', filled: impact.signals?.length > 0 }
+                    ].map(item => (
+                      <span
+                        key={item.label}
+                        className={`px-2 py-1 text-[11px] rounded-full border ${
+                          item.filled
+                            ? 'bg-blue-50 text-blue-700 border-blue-100'
+                            : 'bg-gray-50 text-gray-500 border-gray-200'
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{impact.title}</h3>
                     
                     {/* INTENT - The Why */}
                     <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500 mb-4">
